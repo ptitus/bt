@@ -21,7 +21,7 @@
 	    "<enter>"
         ],
         "disk_size": "{{user `disk_size`}}",
-        "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+        "guest_additions_path": "/usr/share/virtualbox/VBoxGuestAdditions.iso",
         "guest_os_type": "{{user `virtualbox_guest_os_type`}}",
         "hard_drive_interface": "sata",
         "headless": "{{user `headless`}}",
@@ -48,7 +48,6 @@
             ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
             ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
         ],
-        "virtualbox_version_file": ".vbox_version",
         "vm_name": "{{user `vm_name`}}"
     }],
     "post-processors": [{
@@ -89,7 +88,7 @@
         "ssh_username": "vagrant",
         "update": "true",
         "vagrantfile_template": "",
-        "version": "0.1",
+        "version": "0.2",
         "virtualbox_guest_os_type": "Ubuntu_64",
         "vm_name": "ubuntu-18.04"
     }
