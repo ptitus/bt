@@ -1,0 +1,12 @@
+# Cache objects
+packer/*/packer_cache/
+
+# ISO image
+packer/*/iso/
+
+# For built boxes
+*.box
+packer/*/box/
+
+# Mac-Files
+.DS_Store
