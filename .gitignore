@@ -8,5 +8,8 @@ packer/*/iso/
 *.box
 packer/*/box/
 
+# vagrant files
+vagrant/*/.vagrant
+
 # Mac-Files
 .DS_Store
