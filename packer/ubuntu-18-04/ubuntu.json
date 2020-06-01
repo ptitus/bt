@@ -21,7 +21,7 @@
 	    "<enter>"
         ],
         "disk_size": "{{user `disk_size`}}",
-        "guest_additions_path": "/usr/share/virtualbox/VBoxGuestAdditions.iso",
+        "guest_additions_path": "VBoxGuestAdditions.iso",
         "guest_os_type": "{{user `virtualbox_guest_os_type`}}",
         "hard_drive_interface": "sata",
         "headless": "{{user `headless`}}",
@@ -88,7 +88,7 @@
         "ssh_username": "vagrant",
         "update": "true",
         "vagrantfile_template": "",
-        "version": "0.2",
+        "version": "0.1",
         "virtualbox_guest_os_type": "Ubuntu_64",
         "vm_name": "ubuntu-18.04"
     }

@@ -10,5 +10,7 @@ echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 # install Virtualbox Additions
 mkdir /media/iso
 mount -o loop -t iso9660 ~/VBoxGuestAdditions.iso /media/iso
-/media/iso/VBoxLinuxAdditions.run
+yes|sh /media/iso/VBoxLinuxAdditions.run
+umount /media/iso
+rm ~/VBoxGuestAdditions.iso
 exit 0
