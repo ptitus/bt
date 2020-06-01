@@ -6,3 +6,4 @@ apt-get install ubuntu-mate-desktop^ -y
 adduser user --gecos "My User,,," --disabled-password
 echo "user:linux" | chpasswd
 echo "user ALL=(ALL) ALL" >> /etc/sudoers
+usermod -a -G vboxsf user
