@@ -1,0 +1,18 @@
+groups:
+- name: analyzers
+  targets:
+    - uri: 127.0.0.1:2201
+      name: base
+    - uri: 127.0.0.1:2200
+      name: sleuthkit_49
+    - uri: 127.0.0.1:2222
+      name: sleuthkit_fkiecad
+    - uri: 127.0.0.1:2200
+      name: sleuthkit_refs
+  config:
+    transport: ssh
+    ssh:
+      user: user
+      private-key: ~/.ssh/id_rsa.pub
+      password: linux
+      host-key-check: false

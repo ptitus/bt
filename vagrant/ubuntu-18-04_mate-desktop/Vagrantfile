@@ -17,21 +17,25 @@ Vagrant.configure("2") do |config|
  
     config.vm.define "base", primary: true do |base|
 	base.vm.provision "shell", inline: "echo BaseBox"
+	base.vm.network "forwarded_port", guest: 22, host: 2201
     end
 
     config.vm.define "sleuthkit_49" do |sleuthkit_49|
 	sleuthkit_49.vm.provision "shell", inline: "echo Sleuthkit 4.9"
-        sleuthkit_49.vm.provision "shell",  path: "sleuthkit_49.sh", reboot: true    
+        sleuthkit_49.vm.provision "shell",  path: "sleuthkit_49.sh", reboot: true   
+ 	sleuthkit_49.vm.network "forwarded_port", guest: 22, host: 2202
     end
 
     config.vm.define "sleuthkit_fkiecad" do |sleuthkit_fkiecad|
 	sleuthkit_fkiecad.vm.provision "shell", inline: "echo Sleuthkit FKIE-CAD"
         sleuthkit_fkiecad.vm.provision "shell",  path: "sleuthkit_fkie-cad.sh", reboot: true    
+	sleuthkit_fkiecad.vm.network "forwarded_port", guest: 22, host: 2203
     end
 
     config.vm.define "sleuthkit_refs" do |sleuthkit_refs|
 	sleuthkit_refs.vm.provision "shell", inline: "echo Sleuthkit refs"
         sleuthkit_refs.vm.provision "shell",  path: "sleuthkit_refs.sh", reboot: true    
+	sleuthkit_refs.vm.network "forwarded_port", guest: 22, host: 2204
     end
 
 end
