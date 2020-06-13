@@ -13,6 +13,5 @@ groups:
     transport: ssh
     ssh:
       user: user
-      private-key: ~/.ssh/id_rsa.pub
       password: linux
       host-key-check: false
