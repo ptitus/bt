@@ -9,52 +9,33 @@ Vagrant.configure("2") do |config|
     config.vm.box = "ubuntu1804.01"
     config.vm.synced_folder "../../data", "/data", create: true, automount: true 
     config.vm.provider "virtualbox" do |vb|
-	vb.linked_clone = true
         vb.gui = true
-	vb.memory = 2048
-	vb.cpus = 2
         vb.customize ['modifyvm', :id, '--clipboard','bidirectional']
         vb.customize ['modifyvm', :id, '--draganddrop','bidirectional']   
     end
     config.vm.provision "shell",  path: "base.sh", reboot: true
  
     config.vm.define "base", primary: true do |base|
-	base.vm.provider "virtualbox" do |vb|
-	    vb.name = "vagrant_analyzer_base"		
-	end
-	base.vm.hostname = "base"
 	base.vm.provision "shell", inline: "echo BaseBox"
-	base.vm.network "forwarded_port", guest: 22, host: 2251
+	base.vm.network "forwarded_port", guest: 22, host: 2201
     end
 
     config.vm.define "sleuthkit_49" do |sleuthkit_49|
-	sleuthkit_49.vm.provider "virtualbox" do |vb|
-	    vb.name = "vagrant_analyzer_sleuthkit-49"		
-	end
-    	sleuthkit_49.vm.hostname = "sleuthkit-49"
 	sleuthkit_49.vm.provision "shell", inline: "echo Sleuthkit 4.9"
-        sleuthkit_49.vm.provision "shell",  path: "sleuthkit-49.sh", reboot: true   
- 	sleuthkit_49.vm.network "forwarded_port", guest: 22, host: 2252
+        sleuthkit_49.vm.provision "shell",  path: "sleuthkit_49.sh", reboot: true   
+ 	sleuthkit_49.vm.network "forwarded_port", guest: 22, host: 2202
     end
 
     config.vm.define "sleuthkit_fkiecad" do |sleuthkit_fkiecad|
-	sleuthkit_fkiecad.vm.provider "virtualbox" do |vb|
-	    vb.name = "vagrant_analyzer_sleuthkit-fkiecad"		
-	end
-	sleuthkit_fkiecad.vm.hostname = "sleuthkit-fkiecad"
 	sleuthkit_fkiecad.vm.provision "shell", inline: "echo Sleuthkit FKIE-CAD"
-        sleuthkit_fkiecad.vm.provision "shell",  path: "sleuthkit-fkiecad.sh", reboot: true    
-	sleuthkit_fkiecad.vm.network "forwarded_port", guest: 22, host: 2253
+        sleuthkit_fkiecad.vm.provision "shell",  path: "sleuthkit_fkiecad.sh", reboot: true    
+	sleuthkit_fkiecad.vm.network "forwarded_port", guest: 22, host: 2203
     end
 
     config.vm.define "sleuthkit_refs" do |sleuthkit_refs|
-	sleuthkit_refs.vm.provider "virtualbox" do |vb|
-	    vb.name = "vagrant_analyzer_sleuthkit-refs"		
-	end
-	sleuthkit_refs.vm.hostname = "sleuthkit-refs"
 	sleuthkit_refs.vm.provision "shell", inline: "echo Sleuthkit refs"
-        sleuthkit_refs.vm.provision "shell",  path: "sleuthkit-refs.sh", reboot: true    
-	sleuthkit_refs.vm.network "forwarded_port", guest: 22, host: 2254
+        sleuthkit_refs.vm.provision "shell",  path: "sleuthkit_refs.sh", reboot: true    
+	sleuthkit_refs.vm.network "forwarded_port", guest: 22, host: 2204
     end
 
 end
