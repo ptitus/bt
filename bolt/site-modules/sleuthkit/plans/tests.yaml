@@ -1,0 +1,21 @@
+parameters:
+  targets: 
+    type: TargetSpec
+    #filename:
+    #type: String  
+
+steps:
+  - name: function_test
+    command: whoami
+    targets: $targets
+    description: "Grundlegender Funktionstest für bolt Tasks"
+
+  - name: base_test
+    script: sleuthkit/base_tests.sh
+    targets: $targets
+    description: "Prüfen ob die entsprechenden versionen von Sleuthkit installiert sind"
+  - name: copy_evidence
+    source: sleuthkit/evidencefile.txt
+    destination: /tmp/evidencefile.txt
+    targets: $targets
+    description: "zu untersuchende Dateien auf die Analysemaschinen kopieren"    
