@@ -1,12 +1,29 @@
 #!/bin/sh
-# Example unit test for the git version.
+# unit test for The Sleuth Kit.
 
-#testMmlsVersion() {
-#  result=$(${mmlsCmd} ${versionParam})
-#  rtrn=$?
-#  assertEquals  'Fehler bei Aufruf mmls' 0 ${rtrn}
-#  assertContains 'mmls Version' "$result" ${actualVersion}
-#}
+testSleuthkitModuleTSK_COMPAREDIR(){
+	[ ${machine} = 'base' ] && startSkipping
+	result=$(tsk_comparedir -V)
+	rtrn=$?
+	assertEquals  'Fehler bei Aufruf tsk_comparedir' 0 ${rtrn}
+	assertContains 'tsk_comparedir Version' "$result" ${tskVersion}
+}
+
+testSleuthkitModuleTSK_GETTIMES(){
+	[ ${machine} = 'base' ] && startSkipping
+	result=$(tsk_gettimes -V)
+	rtrn=$?
+	assertEquals  'Fehler bei Aufruf tsk_gettimes' 0 ${rtrn}
+	assertContains 'tsk_gettimes Version' "$result" ${tskVersion}
+}
+
+testSleuthkitModuleTSK_LOADDB(){
+	[ ${machine} = 'base' ] && startSkipping
+	result=$(tsk_loaddb -V)
+	rtrn=$?
+	assertEquals  'Fehler bei Aufruf tsk_loaddb' 0 ${rtrn}
+	assertContains 'tsk_loaddb Version' "$result" ${tskVersion}
+}
 
 testSleuthkitModuleMMLS(){
 	[ ${machine} = 'base' ] && startSkipping
