@@ -9,6 +9,8 @@ groups:
       name: sleuthkit-fkiecad
     - uri: 127.0.0.1:2254
       name: sleuthkit-refs
+    - uri: 127.0.0.1:2255
+      name: generator-lnx
   config:
     transport: ssh
     ssh:

@@ -57,4 +57,14 @@ Vagrant.configure("2") do |config|
 	sleuthkit_refs.vm.network "forwarded_port", guest: 22, host: 2254
     end
 
+    config.vm.define "generator_lnx", primary: true do |generator_lnx|
+	generator_lnx.vm.provider "virtualbox" do |vb|
+	    vb.name = "vagrant_generator_linux"		
+	end
+	generator_lnx.vm.hostname = "generator-lnx"
+	generator_lnx.vm.provision "shell", inline: "echo BaseBox"
+	generator_lnx.vm.network "forwarded_port", guest: 22, host: 2255
+    end
+
 end
+

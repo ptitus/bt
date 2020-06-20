@@ -1,0 +1,19 @@
+id       name              provider   state    directory                                                 
+---------------------------------------------------------------------------------------------------------
+afcbe0c  default           virtualbox running  /home/peter/vagrant_tsk_refs                              
+62b9e12  default           virtualbox running  /home/peter/vagrant_sleuthkit49                           
+d7c918e  sleuthkit49       virtualbox poweroff /home/peter/projects/bt/vagrant/ubuntu-18-04_mate-desktop 
+76ded66  base              virtualbox poweroff /home/peter/projects/bt/vagrant/ubuntu-18-04_mate-desktop 
+a75e5e1  sleuthkit-49      virtualbox poweroff /home/peter/projects/bt/vagrant/ubuntu-18-04_mate-desktop 
+368c381  sleuthkit_fkiecad virtualbox poweroff /home/peter/projects/bt/vagrant/ubuntu-18-04_mate-desktop 
+0a036a0  sleuthkit_refs    virtualbox poweroff /home/peter/projects/bt/vagrant/ubuntu-18-04_mate-desktop 
+71e3b46  sleuthkit_49      virtualbox running  /home/peter/projects/bt/vagrant/ubuntu-18-04_mate-desktop 
+2db0785  generator_lnx     virtualbox running  /home/peter/projects/bt/vagrant/ubuntu-18-04_mate-desktop 
+ 
+The above shows information about all known Vagrant environments
+on this machine. This data is cached and may not be completely
+up-to-date (use "vagrant global-status --prune" to prune invalid
+entries). To interact with any of the machines, you can go to that
+directory and run Vagrant, or you can use the ID directly with
+Vagrant commands from any directory. For example:
+"vagrant destroy 1a2b3c4d"

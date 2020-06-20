@@ -1,0 +1,16 @@
+{ 
+   "filepath" : "/media/hdd/subdir/file2.txt"
+   "name" : "file2.txt"
+   "inode" : "259586"
+   "uid" : "0"
+   "gid" : "0"
+   "mode" : "-rw-r--r--"
+   "size" : "10000000"
+   "link_num : "1"
+   "modified" : "1592687285"
+   "accessed" : "1592687285"
+   "changed" : "1592687285"
+   "created : "1592687285"
+   "size" : "10000000"
+   "blocks: "19536"
+}

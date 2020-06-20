@@ -1,0 +1,16 @@
+{ 
+   "filepath" : "/media/hdd/subdir"
+   "name" : "subdir"
+   "inode" : "259585"
+   "uid" : "0"
+   "gid" : "0"
+   "mode" : "drwxr-xr-x"
+   "size" : "4096"
+   "link_num : "2"
+   "modified" : "1592687285"
+   "accessed" : "1592687347"
+   "changed" : "1592687285"
+   "created : "1592687285"
+   "size" : "4096"
+   "blocks: "8"
+}
