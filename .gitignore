@@ -13,3 +13,6 @@ vagrant/*/.vagrant
 
 # Mac-Files
 .DS_Store
+
+# Evidence files
+evd*.vmdk
