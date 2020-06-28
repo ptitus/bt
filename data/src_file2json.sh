@@ -1,5 +1,5 @@
 #!/bin/bash
-# Dateieigenschaften in .json exportieren
+# Partitionseigenschaften in .json exportieren
 function get_crtime() {
     for target in "${@}"; do
         inode=$(stat -c '%i' "${target}")
