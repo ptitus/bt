@@ -21,7 +21,7 @@ function get_part_type () {
 imagefile=$1
 
 #$2 ist der Name der Ausgabedatei, default ist mmls.json
-filename="${2=-'mmls.json'}"
+filename="${2-'mmls.json'}"
 
 #$3 ist ggf. der Slot der Partition, default ist 000
 slot="${3-'000'}"
