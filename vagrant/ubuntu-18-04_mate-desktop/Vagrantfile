@@ -62,7 +62,8 @@ Vagrant.configure("2") do |config|
 	    vb.name = "vagrant_generator_linux"		
 	end
 	generator_lnx.vm.hostname = "generator-lnx"
-	generator_lnx.vm.provision "shell", inline: "echo BaseBox"
+	generator_lnx.vm.provision "shell", inline: "echo Generator"
+	generator_lnx.vm.provision "shell", path: "generator.sh"
 	generator_lnx.vm.network "forwarded_port", guest: 22, host: 2255
     end
 
