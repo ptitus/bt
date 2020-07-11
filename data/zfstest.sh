@@ -28,4 +28,4 @@ zpool export testpool
 
 pls zfsimg
 pls zfsimg/disk1
-fls zfsimg
+fls -P zfsimg

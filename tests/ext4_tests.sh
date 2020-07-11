@@ -3,7 +3,13 @@
 
 # non pooling File System
 
-#File System Category
+#while getopts n option
+#do
+#	case "${option}"
+#	in
+#	n) noGenerate=$true;;
+#	esac
+#done
 
 baseDir=".."
 
@@ -18,9 +24,16 @@ oneTimeSetUp() {
 	originalPath=$PATH
 	PATH=$PWD:$PATH
 	# Variables
-	basedir="../../../.."
+	myDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"	
 	genMachineName="generator_lnx"
 	tskMachineName="sleuthkit_49"
+	srcScript="ext4_generate.sh"
+	tskScript="ext4_analyze.sh"
+
+	# generate VM Names
+	vmGenMachineName=$(echo "$genMachineName" | sed 's/_/-/g')
+	vmTskMachineName=$(echo "$tskMachineName" | sed 's/_/-/g')
+	
 	# find vagrant machines
 	vagrantStatus=$(vagrant global-status)
 	genMachineId=$(echo "$vagrantStatus" | grep "$genMachineName" | cut -d " " -f 1)  
@@ -29,23 +42,23 @@ oneTimeSetUp() {
 		echo "Vagrant machine $genMachineName not found"
 		exit 1
 	fi
-	#[[ -z "$genMachineId" ]] || $(echo "Vagrant machine ${genMachineName} not found"; exit 1)
 	tskMachineId=$(echo "$vagrantStatus" | grep $tskMachineName | cut -d " " -f 1) 
 	if [[ -z "$tskMachineId" ]]
 	then
-		echo "Vagrant machine ${tskMachineName} not found"
+		echo "Vagrant machine $tskMachineName not found"
 	       	exit 1
 	fi
-	# shutdown generator machine to mount vmdk
+	
+	# eventually shutdown generator machine to mount vmdk
   	genMachineState=$( echo "$vagrantStatus" | grep $genMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
-	echo "$genMachineState"
 	[[ "$genMachineState" == running ]] && vagrant halt "$genMachineId"
+	
 	# generate .vmdk
 	vmdkFilePath="${baseDir}/data/ext4.vmdk"
 	vmdkFileId=$(vboxmanage list hdds | grep -B4 "$vmdkFilePath" | grep -oP '(?<=^UUID\: ).*' | sed 's/^ *//g')
-	echo "$vmdkFileId"
 	if [[ -n "$vmdkFileId" ]] 
 	then
+		vboxmanage storageattach $vmGenMachineName --storagectl 'SATA Controller' --port 2 --type hdd --medium none
 		vboxmanage closemedium disk ${vmdkFileId} --delete
 		echo "removed $vmdkFilePath from VirtualBox"
 	fi
@@ -60,7 +73,29 @@ oneTimeSetUp() {
 		echo "Unable to create $vmdkFilePath"
 		exit 1
 	fi
+	
+	# connect to Storagecontroller
+	vboxmanage storageattach $vmGenMachineName --storagectl 'SATA Controller' --port 2 --type hdd --medium $vmdkFilePath --comment 'Evidence Drive' --nonrotational on
+	
+	# bring up generator machine
+	vagrant up $genMachineId
+
+	# generate evidence
+	cd ${baseDir}/bolt/
+	bolt script run ${myDir}/${srcScript} --targets "$vmGenMachineName"
+
+	# analyze evidence
+	bolt script run ${myDir}/${tskScript} --targets "$vmTskMachineName"
+
+	# back to original directory
+	cd $myDir
+
+	
+
 }
+
+
+
 
 oneTimeTearDown() {
   PATH=$originalPath

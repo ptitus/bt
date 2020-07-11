@@ -17,3 +17,5 @@ groups:
       user: user
       password: linux
       host-key-check: false
+      run-as: root
+      sudo-password: linux
