@@ -8,7 +8,9 @@ resultFile='/media/sf_data/test.json'
 
 # create json files
 #  partition information
-$(jshon)
+#jq -n --arg key0 'test' --arg value0 'testvalue'[3~
+jq -n --arg eins 'Test' --arg zwei "Test2" '{erstes: $eins, zweites:$zwei}'
+
 
 # write file
 #echo "$myJson" > "$resultFile"

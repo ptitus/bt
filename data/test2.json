@@ -1,0 +1,15 @@
+{
+ "partition": {
+  "part_type": "",
+  "unit_size": 512,
+  "first_unit": 2048
+ },
+ "fs": {
+  "fs_type": "ext4",
+  "uuid": "933054fa",
+  "os": "Linux",
+  "features": [
+   "huge files"
+  ]
+ }
+}

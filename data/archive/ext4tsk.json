@@ -1,0 +1,106 @@
+{ 
+	"partition":{
+		"part_type":"gpt",
+		"unit_size":"512",
+		"first_unit":"2048",
+		"description":"primary"
+	},
+	"fs":{
+		"fs_type":"Ext4",
+		"fs_name":"",
+		"fs_id":"e809cb7979aa12abda463d69317414b5",
+		"fs_source_os":"Linux"
+	},
+        "files": {
+
+	        "file_lost+found":{ 
+	                "file_path":"/lost+found",
+        	       	"name":"lost+found",
+                	"inode":"11",
+	                "file_type":"d",
+	                "mode":"drwx------",
+       		        "size":"16384",
+			"modified":"1594634509",
+	                "accessed":"=1594634509",
+       		        "changed":"=1594634509",
+               		"created":"=1594634509",
+	                "size":"16384",
+        	        "sha256":""
+                },
+
+	        "file_file.0":{ 
+	                "file_path":"/file.0",
+        	       	"name":"file.0",
+                	"inode":"12",
+	                "file_type":"r",
+	                "mode":"rrw-r--r--",
+       		        "size":"0",
+			"modified":"1594634510",
+	                "accessed":"=1594634510",
+       		        "changed":"=1594634510",
+               		"created":"=1594634510",
+	                "size":"0",
+        	        "sha256":""
+                },
+
+	        "file_file.binary":{ 
+	                "file_path":"/file.binary",
+        	       	"name":"file.binary",
+                	"inode":"13",
+	                "file_type":"r",
+	                "mode":"rrw-r--r--",
+       		        "size":"10000000",
+			"modified":"1594634510",
+	                "accessed":"=1594634510",
+       		        "changed":"=1594634510",
+               		"created":"=1594634510",
+	                "size":"10000000",
+        	        "sha256":""
+                },
+
+	        "file_file.txt":{ 
+	                "file_path":"/file.txt",
+        	       	"name":"file.txt",
+                	"inode":"14",
+	                "file_type":"r",
+	                "mode":"rrw-r--r--",
+       		        "size":"10000000",
+			"modified":"1594634510",
+	                "accessed":"=1594634510",
+       		        "changed":"=1594634510",
+               		"created":"=1594634510",
+	                "size":"10000000",
+        	        "sha256":""
+                },
+
+	        "file_subdir":{ 
+	                "file_path":"/subdir",
+        	       	"name":"subdir",
+                	"inode":"129793",
+	                "file_type":"d",
+	                "mode":"drwxr-xr-x",
+       		        "size":"4096",
+			"modified":"1594634510",
+	                "accessed":"=1594634510",
+       		        "changed":"=1594634510",
+               		"created":"=1594634510",
+	                "size":"4096",
+        	        "sha256":""
+                },
+
+	        "file_file2.txt":{ 
+	                "file_path":"/subdir/file2.txt",
+        	       	"name":"file2.txt",
+                	"inode":"129794",
+	                "file_type":"r",
+	                "mode":"rrw-r--r--",
+       		        "size":"10000000",
+			"modified":"1594634510",
+	                "accessed":"=1594634510",
+       		        "changed":"=1594634510",
+               		"created":"=1594634510",
+	                "size":"10000000",
+        	        "sha256":""
+                },
+	}
+}

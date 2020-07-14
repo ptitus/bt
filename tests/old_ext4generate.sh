@@ -19,43 +19,55 @@ function get_crtime() {
 }
 
 function get_fileinfo() {
+	wc -l "${@}"
 	for mypath in "${@}"; do
-		filePath=${mypath/#$mountPath}
 		name=$(stat --format=%n "${mypath}" | egrep -o [^/]+$)
 		inode=$(stat --format=%i "${mypath}")
 		fileType=$(stat --format=%A "${mypath}" | cut -c 1 )
 		mode=$(stat --format=%A "${mypath}")
-		#tsk meldet - als r = regular File
-		if [[ "$fileType" == "-" ]]
-		then
-			fileType="r"
-			mode=$(echo "$mode" | sed 's/^./r/' )
-		fi
 		modified=$(stat --format=%Y "${mypath}")
 		accessed=$(stat --format=%X "${mypath}")
 		changed=$(stat --format=%Z "${mypath}")
 		created=$(get_crtime "${mypath}")
 		size=$(stat --format=%s "${mypath}")
-		if [[ "$fileType" == "d" ]]
+		if [[ "$fileType"=="d"   ]]
 		then
 			sha256=""
 		else	
 			sha256=$(sha256sum "${mypath}" | cut -d " " -f 1)
 		fi
-		myJson=$(echo "$myJson" | jq \
-			--arg n "$name" \
-			--arg fP "$filePath" \
-			--arg i "$inode" \
-			--arg fT "$fileType" \
-			--arg m "$mode" \
-			--arg s "$size" \
-			--arg mo "$modified" \
-			--arg ac "$accessed" \
-			--arg ch "$changed" \
-			--arg cr "$created" \
-			--arg sh "$sha256" \
-			'.files += [{($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}]')
+		myJson=$(echo "$myJson" |jshon \
+			-n {} \
+	 		        -s "$filePath" -i 'file_path' \
+				-s "$inode" -i 'inode' \
+			-s "$fileType" -i 'file_type' \
+			-s "$mode" -i 'mode' \
+			-s "$size" -i 'size' \
+			-s "$modified" -i 'modified' \
+			-s "$accessed" -i 'accessed' \
+			-s "$changed" -i 'changed' \
+			-s "$created" -i 'created' \
+			-s "$sha256" -i 'sha256' \
+	                -i "$name" \
+        	-i  'files' )
 
+#		cat <<myEOF >> $myFile
+#
+#		"file_${name}":{	
+#			"file_path":"$mypath",
+#			"name":"$name",
+#			"inode":"$inode",
+#			"file_type":"$fileType",
+#			"mode":"$mode",
+#			"size":"$size",
+#			"modified":"$modified",
+#			"accessed":"$accessed",
+#			"changed":"$changed",
+#			"created":"$created",
+#			"size":"$size",
+#			"sha256":"$sha256"
+#		},
+#myEOF
 	done
 }
 
@@ -65,7 +77,7 @@ parted -s -a optimal $myDevice mkpart primary ext4 0% 100%
 
 # create filesystem
 sleep 2s
-mkfs -t ext4 "$myPartition" > /dev/null 2>&1
+mkfs -t ext4 "$myPartition"
 
 # mount filesystem
 [[ -d "$mountPath" ]] || mkdir $mountPath 
@@ -77,35 +89,54 @@ fdiskResult=$(fdisk -l ${myDevice})
 partType=$(echo $fdiskResult | grep -oP '(?<=Disklabel type: )[[:alpha:]]{3}')
 unitSize=$(echo $fdiskResult | grep -oP '(?<= = )[[:digit:]]{1,10}')
 firstUnit=$(echo "$fdiskResult" | grep -oP '^\/.*' | grep -oP '(?<= )[[:digit:]]+(?=[[:blank:]]+[[:digit:]]+[[:blank:]]+[[:digit:]]+[[:blank:]]+[[:digit:]]+)')
-myJson=$(echo '{}' | jq \
-	--arg pT "$partType" \
-	--arg uS "$unitSize" \
-	--arg fU "$firstUnit" \
-	' . * {"partition": {"part_type": $pT, "unit_size": $uS, "first_unit": $fU}}')
+myJson=$(jshon -Q -n {} \
+	-n {} \
+       		-s "$partType" -i 'part_type' \
+		-n "$unitSize" -i 'unit_size' \
+		-n "$firstUnit" -i 'first_unit' \
+		-i 'partition')
+#cat <<myEOF > $myFile
+#{
+#	"partition": {
+#		"part_type":"$partType",
+#		"unit_size":"$unitSize",
+#		"first_unit":"$firstUnit"
+#	},
+#myEOF
 
 # file system 
 fileResult=$(file -sL $myPartition)
-fsType=$(echo $fileResult | grep -oP '[[:word:]]*(?= filesystem data)'| tr '[:upper:]' '[:lower:]')
-fsName=""
-fsId=$(echo $fileResult | grep -oP '(?<=UUID\=)([[:word:]]|-)*')
-fsSourceOs=$(echo $fileResult | grep -oP "(?<=${1}: )[[:word:]]*")
+fsType=$(echo $fileResult | grep -oP '[[:word:]]*(?= filesystem data)')
+uuid=$(echo $fileResult | grep -oP '(?<=UUID\=)[[:word:]]*')
+echo "$uuid"
+os=$(echo $fileResult | grep -oP "(?<=${1}: )[[:word:]]*")
+#features=$(echo $fileResult | grep -oP "\(([[:word:]]| )*\)" | tr '(' '"' | tr ')' '"' | awk '{print}' ORS=', ' | grep -oP '.+(?=\,)')
 features=$(echo $fileResult | grep -oP "\(([[:word:]]| )*\)" | tr '(' '"' | tr ')' '"')
-myJson=$(echo "$myJson" | jq \
-        --arg t "$fsType" \
-        --arg n "$fsName" \
-        --arg i "$fsId" \
-        --arg o "$fsSourceOs" \
-        ' . * {"fs": {"type": $t, "name": $n, "id": $i, "os": $o, features:[]}}' )
+myJson=$(echo "$myJson" |jshon \
+	-n {} \
+		-s "$fsType" -i 'fs_type' \
+		-s "$uuid" -i 'uuid' \
+		-s "$os" -i 'os' \
+		-n [] \
+		$(echo "$features" | while read feature; do echo "-s $(echo ${feature}) -i append " ; done) 
+		-i 'features' \
+	-i  'fs' )
+#cat <<myEOF >> $myFile
+#	"fs": {
+#        	"fs_type":"$fsType",
+#		"uuid":"$uuid",
+#	        "os":"$os",
+#	        "features":[$features]
+#	},
+#myEOF
 
-#fill array with features
-while IFS= read -r line
-do
-	feature=$(echo "$line" | tr -d '"')
-	myJson=$(echo "$myJson" | jq --arg f "$feature" '.fs.features += [$f]')
-done < <(echo "$features")
+# create objects in fs, record infos
+myJson=$(echo "$myJson" |jshon 	\
+	-n [] -i 'files')
+#	cat <<myEOF >> $myFile
+#	"files": {
+#myEOF
 
-# create objects in fs, record infos in json
-myJson=$(echo "$myJson" | jq ' . + {'files':[]}')
 
 touch ${mountPath}/file.0
 get_fileinfo ${mountPath}/file.0 
@@ -118,7 +149,6 @@ get_fileinfo ${mountPath}/file.txt
 
 base64 /dev/urandom | head -c 10000000 > ${mountPath}/delfile.txt 
 get_fileinfo  ${mountPath}/delfile.txt
-ls /proc/$$/fd/
 rm ${mountPath}/delfile.txt
 
 mkdir ${mountPath}/subdir 
@@ -127,8 +157,13 @@ get_fileinfo  ${mountPath}/subdir
 base64 /dev/urandom | head -c 10000000 > ${mountPath}/subdir/file2.txt
 get_fileinfo  ${mountPath}/subdir/file2.txt
  
-# write json file
-echo "$myJson" > "$resultFile"
+# write file
+echo "$myJson" > $resultFile
+
+#cat <<myEOF >> $myFile
+#	}
+#}
+#myEOF
 
 # dismount filesystem
 umount $mountPath
