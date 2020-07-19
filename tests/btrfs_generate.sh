@@ -1,10 +1,18 @@
 #!/bin/bash
 
 # define Variables
-myDevice='/dev/sdb'
-myPartition='/dev/sdb1'
+imgFolder='btrfsimg'
+homeFolder='/home/user'
+deviceFolder="${homeFolder}/${imgFolder}"
+sharedFolder='/media/sf_data'
+fsLabel='btrfs-2dev-raid1'
+rawFile1='drive1'
+rawFile2='drive2'
+loopDevice1='/dev/loop1'
+loopDevice2='/dev/loop2'
 mountPath='/media/hdd'
-resultFile='/media/sf_data/ext4src.json'
+resultJson="{}"
+resultFile="${sharedFolder}/btrfssrc.json"
 
 # define functions
 
@@ -42,7 +50,7 @@ function get_fileinfo() {
 		else	
 			sha256=$(sha256sum "${mypath}" | cut -d " " -f 1)
 		fi
-		myJson=$(echo "$myJson" | jq \
+		resultJson=$(echo "$resultJson" | jq \
 			--arg n "$name" \
 			--arg fP "$filePath" \
 			--arg i "$inode" \
@@ -59,53 +67,47 @@ function get_fileinfo() {
 	done
 }
 
-# create partition 
-parted -s $myDevice mklabel gpt
-parted -s -a optimal $myDevice mkpart primary ext4 0% 100%
+
+# creat device files
+[[ -d "$deviceFolder" ]] && rm -r "$deviceFolder"
+[[ -d "$deviceFolder" ]] || mkdir "$deviceFolder"
+
+dd if=/dev/zero of="$deviceFolder"/"$rawFile1" count=19531250 2> /dev/null
+dd if=/dev/zero of="$deviceFolder"/"$rawFile2" count=19531250 2> /dev/null
+
+# create loop Devices
+losetup -D
+losetup "$loopDevice1" "$deviceFolder"/"$rawFile1"
+losetup "$loopDevice2" "$deviceFolder"/"$rawFile2"
+
 
 # create filesystem
 sleep 2s
-mkfs -t ext4 "$myPartition" > /dev/null 2>&1
+mkfs.btrfs -L "$fsLabel" "$loopDevice1" "$loopDevice2" > /dev/null 2>&1
 
 # mount filesystem
-[[ -d "$mountPath" ]] || mkdir $mountPath 
-mount $myPartition $mountPath 
+[[ -d "$mountPath" ]] || mkdir "$mountPath"
+mount "$loopDevice1" "$mountPath"
 
 # create json files
-#  partition information
-fdiskResult=$(fdisk -l ${myDevice})
-partType=$(echo $fdiskResult | grep -oP '(?<=Disklabel type: )[[:alpha:]]{3}')
-unitSize=$(echo $fdiskResult | grep -oP '(?<= = )[[:digit:]]{1,10}')
-firstUnit=$(echo "$fdiskResult" | grep -oP '^\/.*' | grep -oP '(?<= )[[:digit:]]+(?=[[:blank:]]+[[:digit:]]+[[:blank:]]+[[:digit:]]+[[:blank:]]+[[:digit:]]+)')
-myJson=$(echo '{}' | jq \
-	--arg pT "$partType" \
-	--arg uS "$unitSize" \
-	--arg fU "$firstUnit" \
-	' . * {"partition": {"part_type": $pT, "unit_size": $uS, "first_unit": $fU}}')
-
-# file system 
-fileResult=$(file -sL $myPartition)
-fsType=$(echo $fileResult | grep -oP '[[:word:]]*(?= filesystem data)'| tr '[:upper:]' '[:lower:]')
-fsName=""
-fsId=$(echo $fileResult | grep -oP '(?<=UUID\=)([[:word:]]|-)*')
-fsSourceOs=$(echo $fileResult | grep -oP "(?<=${1}: )[[:word:]]*")
-features=$(echo $fileResult | grep -oP "\(([[:word:]]| )*\)" | tr '(' '"' | tr ')' '"')
-myJson=$(echo "$myJson" | jq \
+ 
+# file system
+fileResult=$(file -sL $loopDevice1)
+btrfsResult=$(btrfs filesystem show "$mountPath")
+fsType=$(echo "$fileResult"| grep -oP '[[:word:]]*(?= Filesystem)' | tr '[:upper:]' '[:lower:]')
+fsLabel=$(echo "$btrfsResult" | grep -oP '(?<=Label: ).+(?=  uuid:)' | tr -d "'")
+fsId=$(echo "$btrfsResult" | grep -oP '(?<=uuid: )([[:word:]]|-)*$' | tr '[:lower:]' '[:upper:]')
+fsDevCount=$(echo "$fileResult" | grep -oP '(?<=used, )[[:digit:]]+(?= device)')
+resultJson=$(echo "$resultJson" | jq \
         --arg t "$fsType" \
-        --arg n "$fsName" \
+        --arg l "$fsLabel" \
+        --arg s "$fsSectorSize" \
         --arg i "$fsId" \
-        --arg o "$fsSourceOs" \
-        ' . * {"fs": {"type": $t, "name": $n, "id": $i, "os": $o, features:[]}}' )
-
-#fill array with features
-while IFS= read -r line
-do
-	feature=$(echo "$line" | tr -d '"')
-	myJson=$(echo "$myJson" | jq --arg f "$feature" '.fs.features += [$f]')
-done < <(echo "$features")
+        --arg c "$fsDevCount" \
+        ' . * {"fs": {"type": $t, "label": $l, "sector_size": $s, "id": $i, "device_count": $c}}')
 
 # create objects in fs, record infos in json
-myJson=$(echo "$myJson" | jq ' . + {'files':[]}')
+resultJson=$(echo "$resultJson" | jq ' . + {'files':[]}')
 
 touch ${mountPath}/file.0
 get_fileinfo ${mountPath}/file.0 
@@ -127,9 +129,14 @@ base64 /dev/urandom | head -c 10000000 > ${mountPath}/subdir/file2.txt
 get_fileinfo  ${mountPath}/subdir/file2.txt
  
 # write json file
-echo "$myJson" > "$resultFile"
+echo "$resultJson" > "$resultFile"
 
 # dismount filesystem
 umount $mountPath
+losetup -D
+
+# move evidencefiles to shared dir
+[[ -d "$sharedFolder/$imgFolder" ]] && rm -r "$sharedFolder/$imgFolder"
+mv "$deviceFolder" "$sharedFolder"
 
 exit 0

@@ -1,0 +1,95 @@
+{
+  "fs": {
+    "type": "zfs",
+    "label": "zfs-2dev-mirror",
+    "sector_size": "",
+    "id": "15208582535861743239",
+    "device_count": "2"
+  },
+  "files": [
+    {
+      "file.0": {
+        "filepath": "/file.0",
+        "inode": "2",
+        "file_type": "r",
+        "mode": "rrw-r--r--",
+        "size": "0",
+        "modified": "1595197876",
+        "accessed": "1595197876",
+        "changed": "1595197876",
+        "created": "0",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "file.binary": {
+        "filepath": "/file.binary",
+        "inode": "3",
+        "file_type": "r",
+        "mode": "rrw-r--r--",
+        "size": "10000000",
+        "modified": "1595197876",
+        "accessed": "1595197876",
+        "changed": "1595197876",
+        "created": "0",
+        "sha256": "b242ca87e3287cc9b190eae6c3cc85eb97f9fc434e0332bdbca2f515a9363e02"
+      }
+    },
+    {
+      "file.txt": {
+        "filepath": "/file.txt",
+        "inode": "128",
+        "file_type": "r",
+        "mode": "rrw-r--r--",
+        "size": "10000000",
+        "modified": "1595197876",
+        "accessed": "1595197876",
+        "changed": "1595197876",
+        "created": "0",
+        "sha256": "4e075ea944eec812ff21dfef977b1981c87c24784e9fbff931e817e8e7d888ca"
+      }
+    },
+    {
+      "delfile.txt": {
+        "filepath": "/delfile.txt",
+        "inode": "129",
+        "file_type": "r",
+        "mode": "rrw-r--r--",
+        "size": "10000000",
+        "modified": "1595197877",
+        "accessed": "1595197876",
+        "changed": "1595197877",
+        "created": "0",
+        "sha256": "b897bb756f26cb4068e72188ca9dfd77828f58d66aa760c93f806bcf87c9074f"
+      }
+    },
+    {
+      "subdir": {
+        "filepath": "/subdir",
+        "inode": "4",
+        "file_type": "d",
+        "mode": "drwxr-xr-x",
+        "size": "2",
+        "modified": "1595197877",
+        "accessed": "1595197877",
+        "changed": "1595197877",
+        "created": "0",
+        "sha256": ""
+      }
+    },
+    {
+      "file2.txt": {
+        "filepath": "/subdir/file2.txt",
+        "inode": "5",
+        "file_type": "r",
+        "mode": "rrw-r--r--",
+        "size": "10000000",
+        "modified": "1595197877",
+        "accessed": "1595197877",
+        "changed": "1595197877",
+        "created": "0",
+        "sha256": "4ccd6d936165b36d64cd8f9ebd3a60c7774dd9972c7124dc7744f18c6c4c6195"
+      }
+    }
+  ]
+}
