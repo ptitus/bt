@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # define Variables
-imageFile='/media/sf_data/ext4.vmdk'
-jsonFile='/media/sf_data/ext4src.json'
-resultFile='/media/sf_data/ext4tsk.json'
-partitionSlot='000'
+imageFile='/media/sf_data/ntfs.vmdk'
+jsonFile='/media/sf_data/ntfssrc.json'
+resultFile='/media/sf_data/ntfstsk.json'
+partitionSlot='001'
 
 # define functions
 
@@ -14,60 +14,62 @@ function get_fileinfo() {
 		mkdir "restoredir"
 	fi
         while IFS= read -r line; do
-		mode=$(echo "$line" | cut -d "|" -f 4 | grep -oP '(?<=/).*')
-		fileType=$(echo "$line" | cut -d "|" -f 4 | grep -oP '.{1}(?=/)')
-		case "$fileType" in
-			(d|r|-)
-				filePath=$(echo "$line" | cut -d "|" -f 2 | grep -oP '/.*')
-				if [[ "$fileType" == "-" ]]
-				then
-					name=$(basename -a "$filePath" | grep -oP '.*(?= \(.*\))') # ohne (deleted)
-				else
-					name=$(basename -a "$filePath" | tr -d " ") # ohne Leerzeichen
-				fi
-				inode=$(echo "$line" | cut -d "|" -f 3)
-	                	modified=$(echo "$line" | cut -d "|" -f 9)
-				accessed=$(echo "$line" | cut -d "|" -f 9)
-        		        changed=$(echo "$line" | cut -d "|" -f 9)
-				created=$(echo "$line" | cut -d "|" -f 9)
-	        	        size=$(echo "$line" | cut -d "|" -f 7)
-				case "$fileType" in
-					(d)
-						mkdir "restoredir${filePath}"
-						sha256=""
+		if [[ ! "$line" == *'$'* ]] 
+		then
+			mode=$(echo "$line" | cut -d "|" -f 4 | grep -oP '(?<=/).*')
+			fileType=$(echo "$line" | cut -d "|" -f 4 | grep -oP '.{1}(?=/)')
+			case "$fileType" in
+				(d|r|-)
+					filePath=$(echo "$line" | cut -d "|" -f 2 | grep -oP '/.*')
+					if [[ "$fileType" == "-" ]]
+					then
+						name=$(basename -a "$filePath" | grep -oP '.*(?= \(.*\))') # ohne (deleted)
+					else
+						name=$(basename -a "$filePath" | tr -d " ") # ohne Leerzeichen
+					fi
+					inode=$(echo "$line" | cut -d "|" -f 3)
+					modified=$(echo "$line" | cut -d "|" -f 9)
+					accessed=$(echo "$line" | cut -d "|" -f 9)
+					changed=$(echo "$line" | cut -d "|" -f 9)
+					created=$(echo "$line" | cut -d "|" -f 9)
+					size=$(echo "$line" | cut -d "|" -f 7)
+					case "$fileType" in
+						(d)
+							mkdir "restoredir${filePath}"
+							sha256=""
+							;;
+		
+						(r|-)
+						icat -o "$firstUnit" "$imageFile" "$inode" > "restoredir${filePath}" 
+						sha256=$(sha256sum "restoredir${filePath}"| cut -d " " -f 1)
 						;;
-	
-					(r|-)
-					icat -o "$firstUnit" "$imageFile" "$inode" > "restoredir${filePath}" 
-					sha256=$(sha256sum "restoredir${filePath}"| cut -d " " -f 1)
+					esac					
+					#if [[ "$fileType" == "d" ]]
+					#then
+					#	mkdir "restoredir${filePath}"
+					#	sha256=""
+					#else
+					#	icat -o "$firstUnit" "$imageFile" "$inode" > "restoredir${filePath}" 
+					#	sha256=$(sha256sum "restoredir${filePath}"| cut -d " " -f 1)
+					#fi
+					myJson=$(echo "$myJson" | jq \
+					--arg n "$name" \
+					--arg fP "$filePath" \
+					--arg i "$inode" \
+					--arg fT "$fileType" \
+					--arg m "$mode" \
+					--arg s "$size" \
+					--arg mo "$modified" \
+					--arg ac "$accessed" \
+					--arg ch "$changed" \
+					--arg cr "$created" \
+					--arg sh "$sha256" \
+					'.files += {($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}')
 					;;
-				esac					
-				#if [[ "$fileType" == "d" ]]
-				#then
-				#	mkdir "restoredir${filePath}"
-				#	sha256=""
-				#else
-				#	icat -o "$firstUnit" "$imageFile" "$inode" > "restoredir${filePath}" 
-				#	sha256=$(sha256sum "restoredir${filePath}"| cut -d " " -f 1)
-				#fi
-	                        myJson=$(echo "$myJson" | jq \
-				--arg n "$name" \
-                	        --arg fP "$filePath" \
-	                        --arg i "$inode" \
-        	                --arg fT "$fileType" \
-                	        --arg m "$mode" \
-                        	--arg s "$size" \
-	                        --arg mo "$modified" \
-        	                --arg ac "$accessed" \
-                	        --arg ch "$changed" \
-                        	--arg cr "$created" \
-	                        --arg sh "$sha256" \
-        	                '.files += [{($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}]')
-				;;
-			
-		esac
-
-	done < <(echo "$1")
+				
+			esac
+		fi
+		done < <(echo "$1")
 	rm -r restoredir/*	
 }
 
@@ -104,15 +106,8 @@ myJson=$(echo "$myJson" | jq \
         --arg o "$fsSourceOs" \
         ' . * {"fs": {"type": $t, "name": $n, "id": $i, "os": $o, features:[]}}' )
 
-#fill array with features
-#while IFS= read -r line
-#do
-#        feature=$(echo "$line" | tr -d '"')
-#        myJson=$(echo "$myJson" | jq --arg f "$feature" '.fs.features += [$f]')
-#done < <(echo "$features")
-
 # files analysis
-myJson=$(echo "$myJson" | jq ' . + {'files':[]}')
+myJson=$(echo "$myJson" | jq ' . + {'files':{}}')
 
 flsResult=$(fls -m -p -r -o "$firstUnit" "$imageFile")
 get_fileinfo "$flsResult"

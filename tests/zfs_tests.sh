@@ -76,12 +76,26 @@ oneTimeSetUp() {
 	       	exit 1
 	fi
 	
+        # eventually bring generator machine up
+        genMachineState=$( echo "$vagrantStatus" | grep $genMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
+        [[ "$genMachineState" == running ]] || vagrant up "$genMachineId"
+
 	# generate evidence
 	cd ${baseDir}/bolt/
 	bolt script run ${myDir}/${srcScript} --targets "$vmGenMachineName"
 
+	# shutdown generator
+	vagrant halt $genMachineId
+
+	# eventually bring tsk machine up
+        tskMachineState=$( echo "$vagrantStatus" | grep $tskMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
+        [[ "$tskMachineState" == running ]] || vagrant up "$tskMachineId"
+
 	# analyze evidence
 	bolt script run ${myDir}/${tskScript} --targets "$vmTskMachineName"
+
+	# shutdown tsk machine
+	vagrant halt $tskMachineId
 
 	# load .json files in variables
 	srcJson=$(jq . < ${baseDir}/data/zfssrc.json)

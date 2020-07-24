@@ -1,246 +1,246 @@
 
 testFILE-ZEROLENGTH(){
         fileName='file.0'
-        fileSrcObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$srcJson")
-        fileTskObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$tskJson")
+        fileSrcObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$srcJson")
+        fileTskObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$tskJson")
         assertNotNull "File $fileName not found" "$fileTskObj"
         
 	[[ -z "$fileTskObj" ]] && startSkipping
 
-        src=$(jq '.filepath' <<< "$fileSrcObj")
-        tsk=$(jq '.filepath' <<< "$fileTskObj")
+        src=$(jq '.filepath' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.filepath' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Path of file does not match' "$src" "$tsk"
 
-        src=$(jq '.inode' <<< "$fileSrcObj")
-        tsk=$(jq '.inode' <<< "$fileTskObj")
+        src=$(jq '.inode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.inode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Inode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.file_type' <<< "$fileSrcObj")
-        tsk=$(jq '.file_type' <<< "$fileTskObj")
+        src=$(jq '.file_type' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.file_type' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Type of file does not match' "$src" "$tsk"
 
-        src=$(jq '.mode' <<< "$fileSrcObj")
-        tsk=$(jq '.mode' <<< "$fileTskObj")
+        src=$(jq '.mode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.mode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Mode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.size' <<< "$fileSrcObj")
-        tsk=$(jq '.size' <<< "$fileTskObj")
+        src=$(jq '.size' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.size' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Size of file does not match' "$src" "$tsk"
 
-        src=$(jq '.modified' <<< "$fileSrcObj")
-        tsk=$(jq '.modified' <<< "$fileTskObj")
+        src=$(jq '.modified' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.modified' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.accessed' <<< "$fileSrcObj")
-        tsk=$(jq '.accessed' <<< "$fileTskObj")
+        src=$(jq '.accessed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.accessed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.changed' <<< "$fileSrcObj")
-        tsk=$(jq '.changed' <<< "$fileTskObj")
+        src=$(jq '.changed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.changed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.created' <<< "$fileSrcObj")
-        tsk=$(jq '.created' <<< "$fileTskObj")
+        src=$(jq '.created' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.created' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.sha256' <<< "$fileSrcObj")
-        tsk=$(jq '.sha256' <<< "$fileTskObj")
+        src=$(jq '.sha256' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.sha256' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
 }
 
 # binary file
 testFILE-BINARY() {
         fileName='file.binary'
-        fileSrcObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$srcJson")
-        fileTskObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$tskJson")
+        fileSrcObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$srcJson")
+        fileTskObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$tskJson")
         assertNotNull "File $fileNames not found" "$fileTskObj"
 
         [[ -z "$fileTskObj" ]] && startSkipping
 
-        src=$(jq '.filepath' <<< "$fileSrcObj")
-        tsk=$(jq '.filepath' <<< "$fileTskObj")
+        src=$(jq '.filepath' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.filepath' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Path of file does not match' "$src" "$tsk"
 
-        src=$(jq '.inode' <<< "$fileSrcObj")
-        tsk=$(jq '.inode' <<< "$fileTskObj")
+        src=$(jq '.inode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.inode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Inode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.file_type' <<< "$fileSrcObj")
-        tsk=$(jq '.file_type' <<< "$fileTskObj")
+        src=$(jq '.file_type' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.file_type' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Type of file does not match' "$src" "$tsk"
 
-        src=$(jq '.mode' <<< "$fileSrcObj")
-        tsk=$(jq '.mode' <<< "$fileTskObj")
+        src=$(jq '.mode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.mode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Mode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.size' <<< "$fileSrcObj")
-        tsk=$(jq '.size' <<< "$fileTskObj")
+        src=$(jq '.size' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.size' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Size of file does not match' "$src" "$tsk"
 
-        src=$(jq '.modified' <<< "$fileSrcObj")
-        tsk=$(jq '.modified' <<< "$fileTskObj")
+        src=$(jq '.modified' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.modified' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.accessed' <<< "$fileSrcObj")
-        tsk=$(jq '.accessed' <<< "$fileTskObj")
+        src=$(jq '.accessed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.accessed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.changed' <<< "$fileSrcObj")
-        tsk=$(jq '.changed' <<< "$fileTskObj")
+        src=$(jq '.changed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.changed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.created' <<< "$fileSrcObj")
-        tsk=$(jq '.created' <<< "$fileTskObj")
+        src=$(jq '.created' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.created' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.sha256' <<< "$fileSrcObj")
-        tsk=$(jq '.sha256' <<< "$fileTskObj")
+        src=$(jq '.sha256' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.sha256' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
 }
 
 # text file
 testFILE-TEXT(){
         fileName='file.txt'
-        fileSrcObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$srcJson")
-        fileTskObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$tskJson")
+        fileSrcObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$srcJson")
+        fileTskObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$tskJson")
         assertNotNull "File $fileNames not found" "$fileTskObj"
 
         [[ -z "$fileTskObj" ]] && startSkipping
 
-        src=$(jq '.filepath' <<< "$fileSrcObj")
-        tsk=$(jq '.filepath' <<< "$fileTskObj")
+        src=$(jq '.filepath' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.filepath' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Path of file does not match' "$src" "$tsk"
 
-        src=$(jq '.inode' <<< "$fileSrcObj")
-        tsk=$(jq '.inode' <<< "$fileTskObj")
+        src=$(jq '.inode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.inode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Inode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.file_type' <<< "$fileSrcObj")
-        tsk=$(jq '.file_type' <<< "$fileTskObj")
+        src=$(jq '.file_type' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.file_type' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Type of file does not match' "$src" "$tsk"
 
-        src=$(jq '.mode' <<< "$fileSrcObj")
-        tsk=$(jq '.mode' <<< "$fileTskObj")
+        src=$(jq '.mode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.mode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Mode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.size' <<< "$fileSrcObj")
-        tsk=$(jq '.size' <<< "$fileTskObj")
+        src=$(jq '.size' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.size' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Size of file does not match' "$src" "$tsk"
 
-        src=$(jq '.modified' <<< "$fileSrcObj")
-        tsk=$(jq '.modified' <<< "$fileTskObj")
+        src=$(jq '.modified' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.modified' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.accessed' <<< "$fileSrcObj")
-        tsk=$(jq '.accessed' <<< "$fileTskObj")
+        src=$(jq '.accessed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.accessed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.changed' <<< "$fileSrcObj")
-        tsk=$(jq '.changed' <<< "$fileTskObj")
+        src=$(jq '.changed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.changed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.created' <<< "$fileSrcObj")
-        tsk=$(jq '.created' <<< "$fileTskObj")
+        src=$(jq '.created' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.created' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.sha256' <<< "$fileSrcObj")
-        tsk=$(jq '.sha256' <<< "$fileTskObj")
+        src=$(jq '.sha256' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.sha256' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
 }
 
 # subdirectory
 testFILE-SUBDIR(){
         fileName='subdir'
-        fileSrcObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$srcJson")
-        fileTskObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$tskJson")
+        fileSrcObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$srcJson")
+        fileTskObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$tskJson")
         assertNotNull "File $fileNames not found" "$fileTskObj"
 
         [[ -z "$fileTskObj" ]] && startSkipping
 
-        src=$(jq '.filepath' <<< "$fileSrcObj")
-        tsk=$(jq '.filepath' <<< "$fileTskObj")
+        src=$(jq '.filepath' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.filepath' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Path of file does not match' "$src" "$tsk"
 
-        src=$(jq '.inode' <<< "$fileSrcObj")
-        tsk=$(jq '.inode' <<< "$fileTskObj")
+        src=$(jq '.inode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.inode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Inode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.file_type' <<< "$fileSrcObj")
-        tsk=$(jq '.file_type' <<< "$fileTskObj")
+        src=$(jq '.file_type' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.file_type' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Type of file does not match' "$src" "$tsk"
 
-        src=$(jq '.mode' <<< "$fileSrcObj")
-        tsk=$(jq '.mode' <<< "$fileTskObj")
+        src=$(jq '.mode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.mode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Mode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.size' <<< "$fileSrcObj")
-        tsk=$(jq '.size' <<< "$fileTskObj")
+        src=$(jq '.size' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.size' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Size of file does not match' "$src" "$tsk"
 
-        src=$(jq '.modified' <<< "$fileSrcObj")
-        tsk=$(jq '.modified' <<< "$fileTskObj")
+        src=$(jq '.modified' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.modified' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.accessed' <<< "$fileSrcObj")
-        tsk=$(jq '.accessed' <<< "$fileTskObj")
+        src=$(jq '.accessed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.accessed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.changed' <<< "$fileSrcObj")
-        tsk=$(jq '.changed' <<< "$fileTskObj")
+        src=$(jq '.changed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.changed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.created' <<< "$fileSrcObj")
-        tsk=$(jq '.created' <<< "$fileTskObj")
+        src=$(jq '.created' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.created' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
 }
 
 # file in subdirectory
 testFILE-SUBFILE(){
         fileName='file2.txt'
-        fileSrcObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$srcJson")
-        fileTskObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$tskJson")
+        fileSrcObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$srcJson")
+        fileTskObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$tskJson")
         assertNotNull "File $fileNames not found" "$fileTskObj"
 
         [[ -z "$fileTskObj" ]] && startSkipping
 
-        src=$(jq '.filepath' <<< "$fileSrcObj")
-        tsk=$(jq '.filepath' <<< "$fileTskObj")
+        src=$(jq '.filepath' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.filepath' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Path of file does not match' "$src" "$tsk"
 
-        src=$(jq '.inode' <<< "$fileSrcObj")
-        tsk=$(jq '.inode' <<< "$fileTskObj")
+        src=$(jq '.inode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.inode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Inode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.file_type' <<< "$fileSrcObj")
-        tsk=$(jq '.file_type' <<< "$fileTskObj")
+        src=$(jq '.file_type' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.file_type' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Type of file does not match' "$src" "$tsk"
 
-        src=$(jq '.mode' <<< "$fileSrcObj")
-        tsk=$(jq '.mode' <<< "$fileTskObj")
+        src=$(jq '.mode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.mode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Mode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.size' <<< "$fileSrcObj")
-        tsk=$(jq '.size' <<< "$fileTskObj")
+        src=$(jq '.size' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.size' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Size of file does not match' "$src" "$tsk"
 
-        src=$(jq '.modified' <<< "$fileSrcObj")
-        tsk=$(jq '.modified' <<< "$fileTskObj")
+        src=$(jq '.modified' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.modified' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.accessed' <<< "$fileSrcObj")
-        tsk=$(jq '.accessed' <<< "$fileTskObj")
+        src=$(jq '.accessed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.accessed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.changed' <<< "$fileSrcObj")
-        tsk=$(jq '.changed' <<< "$fileTskObj")
+        src=$(jq '.changed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.changed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.created' <<< "$fileSrcObj")
-        tsk=$(jq '.created' <<< "$fileTskObj")
+        src=$(jq '.created' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.created' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
         
-	src=$(jq '.sha256' <<< "$fileSrcObj")
-        tsk=$(jq '.sha256' <<< "$fileTskObj")
+	src=$(jq '.sha256' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.sha256' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
 }
 
@@ -248,51 +248,52 @@ testFILE-SUBFILE(){
 # deleted file
 testFILE-DELETED(){
 	fileName="delfile.txt"
-        fileSrcObj=$(jq --arg sel "$fileName" '.files[] | .[$sel] | select(length > 0)' <<< "$srcJson")
-	delInode=$(jq --arg f "$fileName" '.files[] | select( .[$f] ) | .[$f].inode ' <<< "$srcJson" | tr -d '"')
-	orphanKey=$(jq --arg reg_exp ".*${delInode}.*" '.files[] | with_entries(select(.key | match($reg_exp))) | select(length > 0) | keys [] ' <<< "$tskJson" | tr -d '"')
+        fileSrcObj=$(jq --arg sel "$fileName" '.files."$sel"' <<< "$srcJson")
+	delInode=$(jq --arg f "$fileName" '.files | select( .[$f] ) | .[$f].inode ' <<< "$srcJson" | tr -d '"')
+	#delInode=$(jq --arg f "$fileName" '.files[] | select( .[$f] ) | .[$f].inode ' <<< "$srcJson" | tr -d '"')
+	orphanKey=$(jq --arg reg_exp ".*${delInode}.*" '.files | with_entries(select(.key | match($reg_exp))) | select(length > 0) | keys [] ' <<< "$tskJson" | tr -d '"')
 	fileTskObj=$(jq --arg sel "$orphanKey" '.files[] | .[$sel] | select(length > 0)' <<< "$tskJson")
         assertNotNull "File $fileName not found" "$fileTskObj"
 
         [[ -z "$fileTskObj" ]] && startSkipping
 
-        src=$(jq '.filepath' <<< "$fileSrcObj")
-        tsk=$(jq '.filepath' <<< "$fileTskObj")
+        src=$(jq '.filepath' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.filepath' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Path of file does not match' "$src" "$tsk"
 
-        src=$(jq '.inode' <<< "$fileSrcObj")
-        tsk=$(jq '.inode' <<< "$fileTskObj")
+        src=$(jq '.inode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.inode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Inode of file does not match' "$src" "$tsk"
 
-	src=$(jq '.file_type' <<< "$fileSrcObj")
-        tsk=$(jq '.file_type' <<< "$fileTskObj")
+	src=$(jq '.file_type' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.file_type' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Type of file does not match' "$src" "$tsk"
 
-        src=$(jq '.mode' <<< "$fileSrcObj")
-        tsk=$(jq '.mode' <<< "$fileTskObj")
+        src=$(jq '.mode' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.mode' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Mode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.size' <<< "$fileSrcObj")
-        tsk=$(jq '.size' <<< "$fileTskObj")
+        src=$(jq '.size' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.size' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Size of file does not match' "$src" "$tsk"
 
-        src=$(jq '.modified' <<< "$fileSrcObj")
-        tsk=$(jq '.modified' <<< "$fileTskObj")
+        src=$(jq '.modified' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.modified' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.accessed' <<< "$fileSrcObj")
-        tsk=$(jq '.accessed' <<< "$fileTskObj")
+        src=$(jq '.accessed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.accessed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.changed' <<< "$fileSrcObj")
-        tsk=$(jq '.changed' <<< "$fileTskObj")
+        src=$(jq '.changed' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.changed' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
 
-        src=$(jq '.created' <<< "$fileSrcObj")
-        tsk=$(jq '.created' <<< "$fileTskObj")
+        src=$(jq '.created' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+        tsk=$(jq '.created' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
         
-	src=$(jq '.sha256' <<< "$fileSrcObj")
-	tsk=$(jq '.sha256' <<< "$fileTskObj")
+	src=$(jq '.sha256' <<< "$fileSrcObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.sha256' <<< "$fileTskObj" | tr '[:upper:]' '[:lower:]' | tr -d '"')
         assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
 }

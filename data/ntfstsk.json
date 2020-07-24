@@ -1,0 +1,77 @@
+{
+  "partition": {
+    "part_type": "gpt",
+    "unit_size": "512",
+    "first_unit": "32768",
+    "description": "Basic"
+  },
+  "fs": {
+    "type": "ntfs",
+    "name": "ntfs",
+    "id": "",
+    "os": "",
+    "features": []
+  },
+  "files": {
+    "file.0": {
+      "filepath": "/file.0",
+      "inode": "36-128-1",
+      "file_type": "r",
+      "mode": "rrwxrwxrwx",
+      "size": "0",
+      "modified": "1595625149",
+      "accessed": "1595625149",
+      "changed": "1595625149",
+      "created": "1595625149",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "file.binary": {
+      "filepath": "/file.binary",
+      "inode": "37-128-4",
+      "file_type": "r",
+      "mode": "rrwxrwxrwx",
+      "size": "10240",
+      "modified": "1595625149",
+      "accessed": "1595625149",
+      "changed": "1595625149",
+      "created": "1595625149",
+      "sha256": "9bdbf6e038011041f6352a9266cc99317a8172761077b2777e08c4e09250cc6d"
+    },
+    "file.txt": {
+      "filepath": "/file.txt",
+      "inode": "38-128-3",
+      "file_type": "r",
+      "mode": "rrwxrwxrwx",
+      "size": "10240",
+      "modified": "1595625150",
+      "accessed": "1595625150",
+      "changed": "1595625150",
+      "created": "1595625150",
+      "sha256": "83f0dfb02a9221150f85941617d6d8acff2c7dcc28dbf0d21774959e0b386878"
+    },
+    "subdir": {
+      "filepath": "/subdir",
+      "inode": "39-144-1",
+      "file_type": "d",
+      "mode": "drwxrwxrwx",
+      "size": "152",
+      "modified": "1595625151",
+      "accessed": "1595625151",
+      "changed": "1595625151",
+      "created": "1595625151",
+      "sha256": ""
+    },
+    "file2.txt": {
+      "filepath": "/subdir/file2.txt",
+      "inode": "40-128-3",
+      "file_type": "r",
+      "mode": "rrwxrwxrwx",
+      "size": "10240",
+      "modified": "1595625152",
+      "accessed": "1595625152",
+      "changed": "1595625152",
+      "created": "1595625152",
+      "sha256": "38a6886e536073b9816257b693f2d76e0566e1c40ce82e5e987876b182899216"
+    }
+  }
+}

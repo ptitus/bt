@@ -1,0 +1,81 @@
+{
+    "partition":  {
+                      "part_type":  "GPT",
+                      "unit_size":  512,
+                      "first_unit":  32768
+                  },
+    "fs":  {
+               "type":  "NTFS",
+               "name":  "ntfs",
+               "id":  "{45fcdcd5-30fc-4c06-92f0-93c972b7cd99}",
+               "sourceos":  ""
+           },
+    "files":  {
+                  "file.0":  {
+                                 "filepath":  "/file.0",
+                                 "inode":  "0x00000000000000000001000000000024",
+                                 "file_type":  "r",
+                                 "mode":  "-a----",
+                                 "size":  0,
+                                 "modified":  1595625149,
+                                 "accessed":  1595625149,
+                                 "changed":  "",
+                                 "created":  1595625149
+                             },
+                  "file.binary":  {
+                                      "filepath":  "/file.binary",
+                                      "inode":  "0x00000000000000000001000000000025",
+                                      "file_type":  "r",
+                                      "mode":  "-a----",
+                                      "size":  10240,
+                                      "modified":  1595625149,
+                                      "accessed":  1595625149,
+                                      "changed":  "",
+                                      "created":  1595625149
+                                  },
+                  "file.txt":  {
+                                   "filepath":  "/file.txt",
+                                   "inode":  "0x00000000000000000001000000000026",
+                                   "file_type":  "r",
+                                   "mode":  "-a----",
+                                   "size":  10240,
+                                   "modified":  1595625150,
+                                   "accessed":  1595625150,
+                                   "changed":  "",
+                                   "created":  1595625149
+                               },
+                  "delfile":  {
+                                  "filepath":  "/delfile",
+                                  "inode":  "0x00000000000000000001000000000027",
+                                  "file_type":  "r",
+                                  "mode":  "-a----",
+                                  "size":  10240,
+                                  "modified":  1595625150,
+                                  "accessed":  1595625150,
+                                  "changed":  "",
+                                  "created":  1595625150
+                              },
+                  "subdir":  {
+                                 "filepath":  "/subdir",
+                                 "inode":  "0x00000000000000000002000000000027",
+                                 "file_type":  "d",
+                                 "mode":  "d-----",
+                                 "size":  1,
+                                 "modified":  1595625150,
+                                 "accessed":  1595625150,
+                                 "changed":  "",
+                                 "created":  1595625150
+                             },
+                  "file2.txt":  {
+                                    "filepath":  "/subdir/file2.txt",
+                                    "inode":  "0x00000000000000000001000000000028",
+                                    "file_type":  "r",
+                                    "mode":  "-a----",
+                                    "size":  10240,
+                                    "modified":  1595625152,
+                                    "accessed":  1595625152,
+                                    "changed":  "",
+                                    "created":  1595625151
+                                }
+              }
+}

@@ -21,16 +21,16 @@ testJSONOBJCOUNT(){
 
 # partition information
 testPARTITION(){
-	src=$(jq '.partition.part_type' <<< "$srcJson")
-	tsk=$(jq '.partition.part_type' <<< "$tskJson")
+	src=$(jq '.partition.part_type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.partition.part_type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	assertEquals 'Type of partition does not match' "$src" "$tsk"
 
-	src=$(jq '.partition.unit_size' <<< "$srcJson")
-	tsk=$(jq '.partition.unit_size' <<< "$tskJson")
+	src=$(jq '.partition.unit_size' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.partition.unit_size' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	assertEquals 'Unit size of partition does not match' "$src" "$tsk"
 
-	src=$(jq '.partition.first_unit' <<< "$srcJson")
-	tsk=$(jq '.partition.first_unit' <<< "$tskJson")
+	src=$(jq '.partition.first_unit' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.partition.first_unit' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	assertEquals 'First unit of partition does not match' "$src" "$tsk"
 
 	# only available in mmls?
@@ -42,20 +42,20 @@ testPARTITION(){
 
 # filesystem information
 testFILESYSTEM(){
-	src=$(jq '.fs.type' <<< "$srcJson")
-	tsk=$(jq '.fs.type' <<< "$tskJson")
+	src=$(jq '.fs.type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.fs.type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	assertEquals 'Type of filesystem does not match' "$src" "$tsk"
 
-	src=$(jq '.fs.name' <<< "$srcJson")
-	tsk=$(jq '.fs.name' <<< "$tskJson")
+	src=$(jq '.fs.name' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.fs.name' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	assertEquals 'Name of fs does not match' "$src" "$tsk"
 
-	src=$(jq '.fs.id' <<< "$srcJson")
-	tsk=$(jq '.fs.id' <<< "$tskJson")
+	src=$(jq '.fs.id' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.fs.id' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	assertEquals 'ID of fs does not match' "$src" "$tsk"
 	
-	src=$(jq '.fs.os' <<< "$srcJson")
-	tsk=$(jq '.fs.os' <<< "$tskJson")
+	src=$(jq '.fs.os' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.fs.os' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	assertEquals 'Source OS of fs does not match' "$src" "$tsk"
 }
 
@@ -67,10 +67,10 @@ oneTimeSetUp() {
 	PATH=$PWD:$PATH
 	# Variables
 	myDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"	
-	genMachineName="generator_lnx"
+	genMachineName="generator_win"
 	tskMachineName="sleuthkit_49"
-	srcScript="ext4_generate.sh"
-	tskScript="ext4_analyze.sh"
+	srcScript="ntfs_generate.ps1"
+	tskScript="ntfs_analyze.sh"
 #<<COMMENT
 	# generate VM Names
 	vmGenMachineName=$(echo "$genMachineName" | sed 's/_/-/g')
@@ -78,12 +78,7 @@ oneTimeSetUp() {
 	
 	# find vagrant machines
 	vagrantStatus=$(vagrant global-status)
-	genMachineId=$(echo "$vagrantStatus" | grep "$genMachineName" | cut -d " " -f 1)  
-	if [[ -z "$genMachineId" ]]
-	then
-		echo "Vagrant machine $genMachineName not found"
-		exit 1
-	fi
+	#Generator is not manageb by vagrant
 	tskMachineId=$(echo "$vagrantStatus" | grep $tskMachineName | cut -d " " -f 1) 
 	if [[ -z "$tskMachineId" ]]
 	then
@@ -92,24 +87,28 @@ oneTimeSetUp() {
 	fi
 	
 	# eventually shutdown generator machine to mount vmdk
-  	genMachineState=$( echo "$vagrantStatus" | grep $genMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
-	[[ "$genMachineState" == running ]] && vagrant halt "$genMachineId"
+  	genMachineState=$(vboxmanage list runningvms | grep "$vmGenMachineName" | wc -l)
+	[[ "$genMachineState" == 1 ]] && $(shutdown_vm.sh "$vmGenMachineName"; sleep 60s)
 	
 	# generate .vmdk
-	vmdkFilePath="${baseDir}/data/ext4.vmdk"
+	vmdkFilePath="${baseDir}/data/ntfs.vmdk"
 	vmdkFileId=$(vboxmanage list hdds | grep -B4 "$vmdkFilePath" | grep -oP '(?<=^UUID\: ).*' | sed 's/^ *//g')
+
 	if [[ -n "$vmdkFileId" ]] 
 	then
-		vboxmanage storageattach $vmGenMachineName --storagectl 'SATA Controller' --port 2 --type hdd --medium none
+		vboxmanage storageattach $vmGenMachineName --storagectl 'SATA' --port 2 --type hdd --medium none
 		vboxmanage closemedium disk ${vmdkFileId} --delete
 		echo "removed $vmdkFilePath from VirtualBox"
 	fi
+
 	if [[ -e "$vmdkFilePath" ]]
 	then
 		rm $vmdkFilePath  
 		echo "File $vmdkFilePath deleted"
 	fi
+
 	vboxmanage createmedium disk --filename ${vmdkFilePath} --size 10000 --format VMDK
+
 	if [[ $? -ne 0 ]] 
 	then
 		echo "Unable to create $vmdkFilePath"
@@ -117,22 +116,39 @@ oneTimeSetUp() {
 	fi
 	
 	# connect to Storagecontroller
-	vboxmanage storageattach $vmGenMachineName --storagectl 'SATA Controller' --port 2 --type hdd --medium $vmdkFilePath --comment 'Evidence Drive' --nonrotational on
+	vboxmanage storageattach $vmGenMachineName --storagectl 'SATA' --port 2 --type hdd --medium $vmdkFilePath --comment 'Evidence Drive' --nonrotational on
 	
 	# bring up generator machine
-	vagrant up $genMachineId
+	startup_vm.sh $vmGenMachineName
+	echo "Wait 30s for generator machine to boot..."
+	sleep 30s
 
 	# generate evidence
 	cd ${baseDir}/bolt/
 	bolt script run ${myDir}/${srcScript} --targets "$vmGenMachineName"
 
+	# shutdown generator machine
+	shutdown_vm.sh $vmGenMachineName
+	echo "Wait 45 Second for generator machine to shut down..."
+	sleep 45s
+
+	# eventually bring tsk machine up
+	tskMachineState=$( echo "$vagrantStatus" | grep $tskMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
+       [[ "$tskMachineState" == running ]] || vagrant up "$tskMachineId"
+
 	# analyze evidence
 	bolt script run ${myDir}/${tskScript} --targets "$vmTskMachineName"
+
+	# shutdown tsk machine
+	vagrant halt "$tskMachineId"
+
+
 #COMMENT
 	# load .json files in variables
-	srcJson=$(jq . < ${baseDir}/data/ext4src.json)
-	tskJson=$(jq . < ${baseDir}/data/ext4tsk.json)
-	
+	#fromdos ${baseDir}/data/ntfssrc.json # file comes from a Windows system	
+	srcJson=$(jq . < ${baseDir}/data/ntfssrc.json)
+	tskJson=$(jq . < ${baseDir}/data/ntfstsk.json)
+
 	# back to original directory
 	cd $myDir
 }

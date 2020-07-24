@@ -3,14 +3,6 @@
 
 # non pooling File System
 
-#while getopts n option
-#do
-#	case "${option}"
-#	in
-#	n) noGenerate=$true;;
-#	esac
-#done
-
 baseDir=".."
 
 # basic tests
@@ -134,8 +126,19 @@ oneTimeSetUp() {
 	cd ${baseDir}/bolt/
 	bolt script run ${myDir}/${srcScript} --targets "$vmGenMachineName"
 
+	# shutdown generator
+	vagrant halt $genMachineId
+
+        # eventually bring tsk machine up
+        tskMachineState=$( echo "$vagrantStatus" | grep $tskMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
+        [[ "$tskMachineState" == running ]] || vagrant up "$tskMachineId"
+
 	# analyze evidence
 	bolt script run ${myDir}/${tskScript} --targets "$vmTskMachineName"
+
+	# shutdown tsk machine
+	vagrant halt $tskMachineId
+
 #COMMENT
 	# load .json files in variables
 	srcJson=$(jq . < ${baseDir}/data/ext4src.json)
