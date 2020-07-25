@@ -6,7 +6,7 @@ $diskNo='1'
 $partitionStyle='gpt'
 $driveLetter='E'
 $resultFile='K:\ntfssrc.json'
-$fsLabel='ntfs'
+$fsLabel='refs_single'
 
 function make-filejson(){
 	param(

@@ -19,10 +19,10 @@
       "file_type": "r",
       "mode": "rrwxrwxrwx",
       "size": "0",
-      "modified": "1595625149",
-      "accessed": "1595625149",
-      "changed": "1595625149",
-      "created": "1595625149",
+      "modified": "1595666880",
+      "accessed": "1595666880",
+      "changed": "1595666880",
+      "created": "1595666880",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "file.binary": {
@@ -31,11 +31,11 @@
       "file_type": "r",
       "mode": "rrwxrwxrwx",
       "size": "10240",
-      "modified": "1595625149",
-      "accessed": "1595625149",
-      "changed": "1595625149",
-      "created": "1595625149",
-      "sha256": "9bdbf6e038011041f6352a9266cc99317a8172761077b2777e08c4e09250cc6d"
+      "modified": "1595666881",
+      "accessed": "1595666881",
+      "changed": "1595666881",
+      "created": "1595666881",
+      "sha256": "eccc5a3f6c72016cb5f1f6e8343c2ad8112878d9f8c1a218322cc7ea252cfc8f"
     },
     "file.txt": {
       "filepath": "/file.txt",
@@ -43,11 +43,11 @@
       "file_type": "r",
       "mode": "rrwxrwxrwx",
       "size": "10240",
-      "modified": "1595625150",
-      "accessed": "1595625150",
-      "changed": "1595625150",
-      "created": "1595625150",
-      "sha256": "83f0dfb02a9221150f85941617d6d8acff2c7dcc28dbf0d21774959e0b386878"
+      "modified": "1595666882",
+      "accessed": "1595666882",
+      "changed": "1595666882",
+      "created": "1595666882",
+      "sha256": "166a083d276dff7217a90ab90493fd011201df7df24c5cb16d1973dd95e3e1cf"
     },
     "subdir": {
       "filepath": "/subdir",
@@ -55,10 +55,10 @@
       "file_type": "d",
       "mode": "drwxrwxrwx",
       "size": "152",
-      "modified": "1595625151",
-      "accessed": "1595625151",
-      "changed": "1595625151",
-      "created": "1595625151",
+      "modified": "1595666882",
+      "accessed": "1595666882",
+      "changed": "1595666882",
+      "created": "1595666882",
       "sha256": ""
     },
     "file2.txt": {
@@ -67,11 +67,11 @@
       "file_type": "r",
       "mode": "rrwxrwxrwx",
       "size": "10240",
-      "modified": "1595625152",
-      "accessed": "1595625152",
-      "changed": "1595625152",
-      "created": "1595625152",
-      "sha256": "38a6886e536073b9816257b693f2d76e0566e1c40ce82e5e987876b182899216"
+      "modified": "1595666884",
+      "accessed": "1595666884",
+      "changed": "1595666884",
+      "created": "1595666884",
+      "sha256": "514a0e56dc99d33655c9a97bede33330fd742beca3bce1c2a673ead2dc9713cf"
     }
   }
 }

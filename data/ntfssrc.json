@@ -7,8 +7,8 @@
     "fs":  {
                "type":  "NTFS",
                "name":  "ntfs",
-               "id":  "{45fcdcd5-30fc-4c06-92f0-93c972b7cd99}",
-               "sourceos":  ""
+               "id":  "{d1b7d427-e868-4ffa-b151-226fa112deea}",
+               "os":  ""
            },
     "files":  {
                   "file.0":  {
@@ -17,10 +17,11 @@
                                  "file_type":  "r",
                                  "mode":  "-a----",
                                  "size":  0,
-                                 "modified":  1595625149,
-                                 "accessed":  1595625149,
+                                 "modified":  1595666880,
+                                 "accessed":  1595666880,
                                  "changed":  "",
-                                 "created":  1595625149
+                                 "created":  1595666880,
+                                 "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
                              },
                   "file.binary":  {
                                       "filepath":  "/file.binary",
@@ -28,10 +29,11 @@
                                       "file_type":  "r",
                                       "mode":  "-a----",
                                       "size":  10240,
-                                      "modified":  1595625149,
-                                      "accessed":  1595625149,
+                                      "modified":  1595666881,
+                                      "accessed":  1595666881,
                                       "changed":  "",
-                                      "created":  1595625149
+                                      "created":  1595666880,
+                                      "sha256":  "ECCC5A3F6C72016CB5F1F6E8343C2AD8112878D9F8C1A218322CC7EA252CFC8F"
                                   },
                   "file.txt":  {
                                    "filepath":  "/file.txt",
@@ -39,10 +41,11 @@
                                    "file_type":  "r",
                                    "mode":  "-a----",
                                    "size":  10240,
-                                   "modified":  1595625150,
-                                   "accessed":  1595625150,
+                                   "modified":  1595666882,
+                                   "accessed":  1595666882,
                                    "changed":  "",
-                                   "created":  1595625149
+                                   "created":  1595666881,
+                                   "sha256":  "166A083D276DFF7217A90AB90493FD011201DF7DF24C5CB16D1973DD95E3E1CF"
                                },
                   "delfile":  {
                                   "filepath":  "/delfile",
@@ -50,10 +53,11 @@
                                   "file_type":  "r",
                                   "mode":  "-a----",
                                   "size":  10240,
-                                  "modified":  1595625150,
-                                  "accessed":  1595625150,
+                                  "modified":  1595666882,
+                                  "accessed":  1595666882,
                                   "changed":  "",
-                                  "created":  1595625150
+                                  "created":  1595666882,
+                                  "sha256":  "4AF87901EE95F5E3BBC423E0AA97A69FD8486BB49AFD9B1B5C538375EA44ACE4"
                               },
                   "subdir":  {
                                  "filepath":  "/subdir",
@@ -61,10 +65,11 @@
                                  "file_type":  "d",
                                  "mode":  "d-----",
                                  "size":  1,
-                                 "modified":  1595625150,
-                                 "accessed":  1595625150,
+                                 "modified":  1595666882,
+                                 "accessed":  1595666882,
                                  "changed":  "",
-                                 "created":  1595625150
+                                 "created":  1595666882,
+                                 "sha256":  null
                              },
                   "file2.txt":  {
                                     "filepath":  "/subdir/file2.txt",
@@ -72,10 +77,11 @@
                                     "file_type":  "r",
                                     "mode":  "-a----",
                                     "size":  10240,
-                                    "modified":  1595625152,
-                                    "accessed":  1595625152,
+                                    "modified":  1595666884,
+                                    "accessed":  1595666884,
                                     "changed":  "",
-                                    "created":  1595625151
+                                    "created":  1595666882,
+                                    "sha256":  "514A0E56DC99D33655C9A97BEDE33330FD742BECA3BCE1C2A673EAD2DC9713CF"
                                 }
               }
 }

@@ -50,7 +50,7 @@ function get_fileinfo() {
                 	        --arg ch "$changed" \
                         	--arg cr "$created" \
 	                        --arg sh "$sha256" \
-        	                '.files += [{($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}]')
+        	                '.files += {($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}')
 				;;
 			
 		esac
@@ -77,7 +77,7 @@ resultJson=$(echo "{}" | jq \
         ' . * {"fs": {"type": $t, "label": $l, "id": $i, "device_count": $d}}' )
 
 # files analysis
-resultJson=$(echo "$resultJson" | jq ' . + {'files':[]}')
+resultJson=$(echo "$resultJson" | jq ' . + {'files':{}}')
 flsResult=$(fls -P "./${imgFolder}")
 if ! [[  -d "restoredir" ]] 
 then

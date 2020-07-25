@@ -54,7 +54,7 @@ function get_fileinfo() {
 			--arg ch "$changed" \
 			--arg cr "$created" \
 			--arg sh "$sha256" \
-			'.files += [{($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}]')
+			'.files += {($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}')
 
 	done
 }
@@ -105,7 +105,7 @@ do
 done < <(echo "$features")
 
 # create objects in fs, record infos in json
-myJson=$(echo "$myJson" | jq ' . + {'files':[]}')
+myJson=$(echo "$myJson" | jq ' . + {'files':{}}')
 
 touch ${mountPath}/file.0
 get_fileinfo ${mountPath}/file.0 

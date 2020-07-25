@@ -62,7 +62,7 @@ function get_fileinfo() {
                 	        --arg ch "$changed" \
                         	--arg cr "$created" \
 	                        --arg sh "$sha256" \
-        	                '.files += [{($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}]')
+        	                '.files += {($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}')
 				;;
 			
 		esac
@@ -104,15 +104,9 @@ myJson=$(echo "$myJson" | jq \
         --arg o "$fsSourceOs" \
         ' . * {"fs": {"type": $t, "name": $n, "id": $i, "os": $o, features:[]}}' )
 
-#fill array with features
-#while IFS= read -r line
-#do
-#        feature=$(echo "$line" | tr -d '"')
-#        myJson=$(echo "$myJson" | jq --arg f "$feature" '.fs.features += [$f]')
-#done < <(echo "$features")
 
 # files analysis
-myJson=$(echo "$myJson" | jq ' . + {'files':[]}')
+myJson=$(echo "$myJson" | jq ' . + {'files':{}}')
 
 flsResult=$(fls -m -p -r -o "$firstUnit" "$imageFile")
 get_fileinfo "$flsResult"

@@ -8,108 +8,94 @@
   "fs": {
     "type": "ext4",
     "name": "",
-    "id": "f045a95a0cc35ba49e48e26cc7cea1bd",
+    "id": "b589903e03afadba5e49d42fddfe1e22",
     "os": "Linux",
     "features": []
   },
-  "files": [
-    {
-      "lost+found": {
-        "filepath": "/lost+found",
-        "inode": "11",
-        "file_type": "d",
-        "mode": "drwx------",
-        "size": "16384",
-        "modified": "1595439705",
-        "accessed": "1595439705",
-        "changed": "1595439705",
-        "created": "1595439705",
-        "sha256": ""
-      }
+  "files": {
+    "lost+found": {
+      "filepath": "/lost+found",
+      "inode": "11",
+      "file_type": "d",
+      "mode": "drwx------",
+      "size": "16384",
+      "modified": "1595668097",
+      "accessed": "1595668097",
+      "changed": "1595668097",
+      "created": "1595668097",
+      "sha256": ""
     },
-    {
-      "file.0": {
-        "filepath": "/file.0",
-        "inode": "12",
-        "file_type": "r",
-        "mode": "rrw-r--r--",
-        "size": "0",
-        "modified": "1595439705",
-        "accessed": "1595439705",
-        "changed": "1595439705",
-        "created": "1595439705",
-        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-      }
+    "file.0": {
+      "filepath": "/file.0",
+      "inode": "12",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "0",
+      "modified": "1595668097",
+      "accessed": "1595668097",
+      "changed": "1595668097",
+      "created": "1595668097",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
-    {
-      "file.binary": {
-        "filepath": "/file.binary",
-        "inode": "13",
-        "file_type": "r",
-        "mode": "rrw-r--r--",
-        "size": "10000000",
-        "modified": "1595439705",
-        "accessed": "1595439705",
-        "changed": "1595439705",
-        "created": "1595439705",
-        "sha256": "1b21faba7b89991dd45c620bef0826c33632c521f689e799ca00ee0684ddca31"
-      }
+    "file.binary": {
+      "filepath": "/file.binary",
+      "inode": "13",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1595668097",
+      "accessed": "1595668097",
+      "changed": "1595668097",
+      "created": "1595668097",
+      "sha256": "e3ee48cfd8f1c3ded027a59e6da25b91c734e3db9683bb9994dfa3135ae22436"
     },
-    {
-      "file.txt": {
-        "filepath": "/file.txt",
-        "inode": "14",
-        "file_type": "r",
-        "mode": "rrw-r--r--",
-        "size": "10000000",
-        "modified": "1595439706",
-        "accessed": "1595439706",
-        "changed": "1595439706",
-        "created": "1595439706",
-        "sha256": "22259d196afcf759e12c05f88d468801c9cd43b50cbf473b2e78860147f55fa0"
-      }
+    "file.txt": {
+      "filepath": "/file.txt",
+      "inode": "14",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1595668098",
+      "accessed": "1595668098",
+      "changed": "1595668098",
+      "created": "1595668098",
+      "sha256": "0c603da3a92c15aca1bf1daf9b50c65d21a00db89c4c277db2e1d37b08cb12b1"
     },
-    {
-      "subdir": {
-        "filepath": "/subdir",
-        "inode": "259585",
-        "file_type": "d",
-        "mode": "drwxr-xr-x",
-        "size": "4096",
-        "modified": "1595439706",
-        "accessed": "1595439706",
-        "changed": "1595439706",
-        "created": "1595439706",
-        "sha256": ""
-      }
+    "subdir": {
+      "filepath": "/subdir",
+      "inode": "259585",
+      "file_type": "d",
+      "mode": "drwxr-xr-x",
+      "size": "4096",
+      "modified": "1595668098",
+      "accessed": "1595668098",
+      "changed": "1595668098",
+      "created": "1595668098",
+      "sha256": ""
     },
-    {
-      "file2.txt": {
-        "filepath": "/subdir/file2.txt",
-        "inode": "259586",
-        "file_type": "r",
-        "mode": "rrw-r--r--",
-        "size": "10000000",
-        "modified": "1595439706",
-        "accessed": "1595439706",
-        "changed": "1595439706",
-        "created": "1595439706",
-        "sha256": "165bf5caa0a66ae6ee18b559af7058baaf0d4659ea50bf5dfdcb109fcf973255"
-      }
+    "file2.txt": {
+      "filepath": "/subdir/file2.txt",
+      "inode": "259586",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1595668098",
+      "accessed": "1595668098",
+      "changed": "1595668098",
+      "created": "1595668098",
+      "sha256": "8c1f2245d1668a25cd1027f63263d701dbb13267fe15b4d6d69b8e6d49fa7a09"
     },
-    {
-      "OrphanFile-15": {
-        "filepath": "/$OrphanFiles/OrphanFile-15 (deleted)",
-        "inode": "15",
-        "file_type": "-",
-        "mode": "rrw-r--r--",
-        "size": "0",
-        "modified": "1595439706",
-        "accessed": "1595439706",
-        "changed": "1595439706",
-        "created": "1595439706",
-        "sha256": ""
-      }
+    "OrphanFile-15": {
+      "filepath": "/$OrphanFiles/OrphanFile-15 (deleted)",
+      "inode": "15",
+      "file_type": "-",
+      "mode": "rrw-r--r--",
+      "size": "0",
+      "modified": "1595668098",
+      "accessed": "1595668098",
+      "changed": "1595668098",
+      "created": "1595668098",
+      "sha256": ""
     }
-  ]
+  }
 }
