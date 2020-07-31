@@ -23,6 +23,7 @@ vagrant/*/.vagrant
 # raw Images
 *.dd
 disk?
+*.dmg
 
 # packed files
 *.tar.gz

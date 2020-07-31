@@ -8,6 +8,7 @@ $driveLetter='E'
 $resultFile='K:\ntfssrc.json'
 $fsLabel='ntfs'
 
+
 function make-filejson(){
 	param(
 		[string]$fileName,
@@ -18,20 +19,39 @@ function make-filejson(){
 	
 	process {
 		$myFile = "${filepath}\${fileName}"
+		$fsutilResult = fsutil file layout "${myFile}"
+
 		$myJson.files.${fileName}=[ordered]@{}
+
 		$myJson.files.${fileName}.filepath = ((Get-Item $myFile).FullName).substring(2).replace("\","/")
-		$id = fsutil file queryFileID $myFile
-		$myJson.files.$($fileName).inode = ($id).Split(" ")[3]
+
+		$myJson.files.$($fileName).inode = ""
+
 		$attr = (Get-Item $myFile).Mode.Substring(0,1)
 		$myFileType = "r"
 		if ($attr -like "d") {$myFileType = "d"}
+
 		$myJson.files.${fileName}.file_type = $myFileType 
+
 		$myJson.files.${fileName}.mode = (Get-Item $myFile).Mode
+
 		$myJson.files.${fileName}.size = (Get-Item $myfile).Length
+
 		$myJson.files.${fileName}.modified = [Math]::Floor([decimal](Get-Date((Get-Item $myFile).LastWriteTimeUtc) -uformat "%s"))
+
 		$myJson.files.${fileName}.accessed = [Math]::Floor([decimal](Get-Date((Get-Item $myFile).LastAccessTimeUtc) -uformat "%s"))
-		$myJson.files.${fileName}.changed = ""
+		
+		$fchanged = $fsutilResult | select-string -pattern "Change Time\s+:\s+(.*)" | %{$_.matches.groups[1].Value}
+		$Y = ("$fchanged").split(" ")[0].split(".")[2]
+		$M = ("$fchanged").split(" ")[0].split(".")[1]
+		$D = ("$fchanged").split(" ")[0].split(".")[0]
+		$hh = ("$fchanged").split(" ")[1].split(":")[0]
+		$mm = ("$fchanged").split(" ")[1].split(":")[1]
+		$ss = ("$fchanged").split(" ")[1].split(":")[2]
+		$myJson.files.${fileName}.changed = [Math]::Floor([decimal](Get-Date -Year $Y -Month $M -Day $D -Hour $hh -Minute $mm -Second $ss -uformat "%s"))
+		
 		$myJson.files.${fileName}.created = [Math]::Floor([decimal](Get-Date((Get-Item $myFile).CreationTimeUtc) -uformat "%s"))
+		
 		$myJson.files.${filename}.sha256 = Get-FileHash $myFile -Algorithm SHA256 | select -ExpandProperty Hash
 		}
 	end {}
@@ -55,11 +75,13 @@ $myJson.partition.part_type = Get-Disk -Number $diskNo | select -ExpandProperty 
 $myJson.partition.unit_size = Get-Disk -Number $diskNo | select -ExpandProperty LogicalSectorSize
 $myJson.partition.first_unit = [int](Get-Partition -DiskNumber $diskNo | where DriveLetter -like $driveLetter | select -ExpandProperty Offset)/512
 
-# file system 
+# file system
+$fsutilResult = fsutil fsinfo ntfsinfo "${driveletter}:"
 $myJson.fs.type = Get-Volume | where DriveLetter -like $driveLetter | select -ExpandProperty FileSystemType
 $myJson.fs.name = Get-Volume | where DriveLetter -like $driveLetter | select -ExpandProperty FileSystemLabel
-$myJson.fs.id = Get-Partition -DiskNumber $diskNo | where DriveLetter -like $driveLetter | select -ExpandProperty Guid
-$myJson.fs.os = ""
+$myJson.fs.id = $fsutilResult | select-String -pattern "NTFS VOLUME Serial Number : \s+0x(.*)" | %{$_.matches.groups[1].Value}
+#$myJson.fs.id = Get-Partition -DiskNumber $diskNo | where DriveLetter -like $driveLetter | select -ExpandProperty Guid
+$myJson.fs.version = $fsutilResult | select-String -pattern "NTFS Version\s+:\s+(.*)" | %{$_.matches.groups[1].Value}
 
 # create objects in fs, record infos in json
 

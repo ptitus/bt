@@ -1,0 +1,87 @@
+{
+    "partition":  {
+                      "part_type":  "GPT",
+                      "unit_size":  512,
+                      "first_unit":  32768
+                  },
+    "fs":  {
+               "type":  "ReFS",
+               "name":  "refs_single",
+               "id":  "{ddf4fb41-11ca-4697-b1e0-fa0d06803b7c}",
+               "os":  ""
+           },
+    "files":  {
+                  "file.0":  {
+                                 "filepath":  "/file.0",
+                                 "inode":  "0x00000000000006000000000000000001",
+                                 "file_type":  "r",
+                                 "mode":  "-a----",
+                                 "size":  0,
+                                 "modified":  1595670522,
+                                 "accessed":  1595670522,
+                                 "changed":  "",
+                                 "created":  1595670522,
+                                 "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+                             },
+                  "file.binary":  {
+                                      "filepath":  "/file.binary",
+                                      "inode":  "0x00000000000006000000000000000002",
+                                      "file_type":  "r",
+                                      "mode":  "-a----",
+                                      "size":  10240,
+                                      "modified":  1595670522,
+                                      "accessed":  1595670522,
+                                      "changed":  "",
+                                      "created":  1595670522,
+                                      "sha256":  "AF2D62D49086FF6633F5D5413DBF6D875DC87AE470807F39624F7BCEC99B5B86"
+                                  },
+                  "file.txt":  {
+                                   "filepath":  "/file.txt",
+                                   "inode":  "0x00000000000006000000000000000003",
+                                   "file_type":  "r",
+                                   "mode":  "-a----",
+                                   "size":  10240,
+                                   "modified":  1595670524,
+                                   "accessed":  1595670522,
+                                   "changed":  "",
+                                   "created":  1595670522,
+                                   "sha256":  "05DB6C293D6DA95E359C5244D86A0BEB2A3FAA9166C10A4755B23D583E426E71"
+                               },
+                  "delfile":  {
+                                  "filepath":  "/delfile",
+                                  "inode":  "0x00000000000006000000000000000004",
+                                  "file_type":  "r",
+                                  "mode":  "-a----",
+                                  "size":  10240,
+                                  "modified":  1595670524,
+                                  "accessed":  1595670524,
+                                  "changed":  "",
+                                  "created":  1595670524,
+                                  "sha256":  "B1B86BA64650FBD77B8B7C84D5A1C92B8947D7F654FB2660179391A2032FC495"
+                              },
+                  "subdir":  {
+                                 "filepath":  "/subdir",
+                                 "inode":  "0x00000000000007010000000000000000",
+                                 "file_type":  "d",
+                                 "mode":  "d-----",
+                                 "size":  1,
+                                 "modified":  1595670524,
+                                 "accessed":  1595670524,
+                                 "changed":  "",
+                                 "created":  1595670524,
+                                 "sha256":  null
+                             },
+                  "file2.txt":  {
+                                    "filepath":  "/subdir/file2.txt",
+                                    "inode":  "0x00000000000007010000000000000001",
+                                    "file_type":  "r",
+                                    "mode":  "-a----",
+                                    "size":  10240,
+                                    "modified":  1595670526,
+                                    "accessed":  1595670524,
+                                    "changed":  "",
+                                    "created":  1595670524,
+                                    "sha256":  "0CC5FCD86509B819126278AB1125839F9102992C90D600611031E26B441554FD"
+                                }
+              }
+}

@@ -7,81 +7,81 @@
     "fs":  {
                "type":  "NTFS",
                "name":  "ntfs",
-               "id":  "{d1b7d427-e868-4ffa-b151-226fa112deea}",
-               "os":  ""
+               "id":  "e61486e81486bad7",
+               "version":  "3.1"
            },
     "files":  {
                   "file.0":  {
                                  "filepath":  "/file.0",
-                                 "inode":  "0x00000000000000000001000000000024",
+                                 "inode":  "",
                                  "file_type":  "r",
                                  "mode":  "-a----",
                                  "size":  0,
-                                 "modified":  1595666880,
-                                 "accessed":  1595666880,
-                                 "changed":  "",
-                                 "created":  1595666880,
+                                 "modified":  1595962908,
+                                 "accessed":  1595962908,
+                                 "changed":  1595962908,
+                                 "created":  1595962908,
                                  "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
                              },
                   "file.binary":  {
                                       "filepath":  "/file.binary",
-                                      "inode":  "0x00000000000000000001000000000025",
+                                      "inode":  "",
                                       "file_type":  "r",
                                       "mode":  "-a----",
                                       "size":  10240,
-                                      "modified":  1595666881,
-                                      "accessed":  1595666881,
-                                      "changed":  "",
-                                      "created":  1595666880,
-                                      "sha256":  "ECCC5A3F6C72016CB5F1F6E8343C2AD8112878D9F8C1A218322CC7EA252CFC8F"
+                                      "modified":  1595962908,
+                                      "accessed":  1595962908,
+                                      "changed":  1595962908,
+                                      "created":  1595962908,
+                                      "sha256":  "044BEF5EA99C3AF1E207416EDA4E2D230013CF1AC2C2AA7517BD8D414648ABE4"
                                   },
                   "file.txt":  {
                                    "filepath":  "/file.txt",
-                                   "inode":  "0x00000000000000000001000000000026",
+                                   "inode":  "",
                                    "file_type":  "r",
                                    "mode":  "-a----",
                                    "size":  10240,
-                                   "modified":  1595666882,
-                                   "accessed":  1595666882,
-                                   "changed":  "",
-                                   "created":  1595666881,
-                                   "sha256":  "166A083D276DFF7217A90AB90493FD011201DF7DF24C5CB16D1973DD95E3E1CF"
+                                   "modified":  1595962910,
+                                   "accessed":  1595962910,
+                                   "changed":  1595962910,
+                                   "created":  1595962908,
+                                   "sha256":  "B49B32ECD4CC8D65B79A85EF60389211CA65E340923F9A4D26D13FFE835D7D91"
                                },
                   "delfile":  {
                                   "filepath":  "/delfile",
-                                  "inode":  "0x00000000000000000001000000000027",
+                                  "inode":  "",
                                   "file_type":  "r",
                                   "mode":  "-a----",
                                   "size":  10240,
-                                  "modified":  1595666882,
-                                  "accessed":  1595666882,
-                                  "changed":  "",
-                                  "created":  1595666882,
-                                  "sha256":  "4AF87901EE95F5E3BBC423E0AA97A69FD8486BB49AFD9B1B5C538375EA44ACE4"
+                                  "modified":  1595962910,
+                                  "accessed":  1595962910,
+                                  "changed":  1595962910,
+                                  "created":  1595962910,
+                                  "sha256":  "2AA5F5DA0A1E8C19DA9FEF2171E517E54DEA0436577580C102AEBCD3BA84059F"
                               },
                   "subdir":  {
                                  "filepath":  "/subdir",
-                                 "inode":  "0x00000000000000000002000000000027",
+                                 "inode":  "",
                                  "file_type":  "d",
                                  "mode":  "d-----",
                                  "size":  1,
-                                 "modified":  1595666882,
-                                 "accessed":  1595666882,
-                                 "changed":  "",
-                                 "created":  1595666882,
+                                 "modified":  1595962911,
+                                 "accessed":  1595962911,
+                                 "changed":  1595962911,
+                                 "created":  1595962911,
                                  "sha256":  null
                              },
                   "file2.txt":  {
                                     "filepath":  "/subdir/file2.txt",
-                                    "inode":  "0x00000000000000000001000000000028",
+                                    "inode":  "",
                                     "file_type":  "r",
                                     "mode":  "-a----",
                                     "size":  10240,
-                                    "modified":  1595666884,
-                                    "accessed":  1595666884,
-                                    "changed":  "",
-                                    "created":  1595666882,
-                                    "sha256":  "514A0E56DC99D33655C9A97BEDE33330FD742BECA3BCE1C2A673EAD2DC9713CF"
+                                    "modified":  1595962912,
+                                    "accessed":  1595962912,
+                                    "changed":  1595962912,
+                                    "created":  1595962911,
+                                    "sha256":  "8E866307C87EC3959E09F50F96ED5A898A350DF708094506B406950B48DE2FF7"
                                 }
               }
 }

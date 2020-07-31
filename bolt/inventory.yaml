@@ -11,6 +11,8 @@ groups:
       name: sleuthkit-refs
     - uri: 127.0.0.1:2255
       name: generator-lnx
+    - uri: 192.168.168.82
+      name: generator-mac
   config:
     transport: ssh
     ssh:

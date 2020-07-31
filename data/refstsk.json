@@ -1,0 +1,125 @@
+{
+  "partition": {
+    "part_type": "gpt",
+    "unit_size": "512",
+    "first_unit": "32768",
+    "description": "Basic"
+  },
+  "fs": {
+    "type": "refs",
+    "name": "",
+    "id": "",
+    "os": "",
+    "features": []
+  },
+  "files": {
+    "FileSystemMetadata": {
+      "filepath": "/File System Metadata",
+      "inode": "",
+      "file_type": "d",
+      "mode": "d---------",
+      "size": "0",
+      "modified": "1595674807",
+      "accessed": "1595674807",
+      "changed": "1595674807",
+      "created": "1595674807",
+      "sha256": ""
+    },
+    "VolumeDirectIOFile": {
+      "filepath": "/File System Metadata/Volume Direct IO File",
+      "inode": "",
+      "file_type": "r",
+      "mode": "r---------",
+      "size": "0",
+      "modified": "1595674807",
+      "accessed": "1595674807",
+      "changed": "1595674807",
+      "created": "1595674807",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "SecurityDescriptorStream": {
+      "filepath": "/File System Metadata/Security Descriptor Stream",
+      "inode": "",
+      "file_type": "r",
+      "mode": "r---------",
+      "size": "0",
+      "modified": "1595674807",
+      "accessed": "1595674807",
+      "changed": "1595674807",
+      "created": "1595674807",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ReparseIndex": {
+      "filepath": "/File System Metadata/Reparse Index",
+      "inode": "",
+      "file_type": "r",
+      "mode": "r---------",
+      "size": "0",
+      "modified": "1595674807",
+      "accessed": "1595674807",
+      "changed": "1595674807",
+      "created": "1595674807",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "subdir": {
+      "filepath": "/subdir",
+      "inode": "1793--0\n1793--1",
+      "file_type": "d",
+      "mode": "d---------",
+      "size": "0",
+      "modified": "1595674817",
+      "accessed": "1595674817",
+      "changed": "1595674817",
+      "created": "1595674817",
+      "sha256": ""
+    },
+    "file2.txt": {
+      "filepath": "/subdir/file2.txt",
+      "inode": "1793--1",
+      "file_type": "r",
+      "mode": "r---------",
+      "size": "10240",
+      "modified": "1595674818",
+      "accessed": "1595674818",
+      "changed": "1595674818",
+      "created": "1595674818",
+      "sha256": "e6b4386cc0c1e4ee53710dc9dc46d84d084cc4a858f335584432aad20716abe3"
+    },
+    "file.0": {
+      "filepath": "/file.0",
+      "inode": "1536--1",
+      "file_type": "r",
+      "mode": "r---------",
+      "size": "0",
+      "modified": "1595674814",
+      "accessed": "1595674814",
+      "changed": "1595674814",
+      "created": "1595674814",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "file.binary": {
+      "filepath": "/file.binary",
+      "inode": "1536--2",
+      "file_type": "r",
+      "mode": "r---------",
+      "size": "10240",
+      "modified": "1595674815",
+      "accessed": "1595674815",
+      "changed": "1595674815",
+      "created": "1595674815",
+      "sha256": "9bdbf6e038011041f6352a9266cc99317a8172761077b2777e08c4e09250cc6d"
+    },
+    "file.txt": {
+      "filepath": "/file.txt",
+      "inode": "1536--3",
+      "file_type": "r",
+      "mode": "r---------",
+      "size": "10240",
+      "modified": "1595674816",
+      "accessed": "1595674816",
+      "changed": "1595674816",
+      "created": "1595674816",
+      "sha256": "e5301caeaa43fd065c24965fcc09d1edd126f5bfe6614ddf8157297f15bb4888"
+    }
+  }
+}

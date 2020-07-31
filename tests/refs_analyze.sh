@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # define Variables
-imageFile='/media/sf_data/ntfs.vmdk'
-jsonFile='/media/sf_data/ntfssrc.json'
-resultFile='/media/sf_data/ntfstsk.json'
+imageFile='/media/sf_data/refs.vmdk'
+jsonFile='/media/sf_data/refssrc.json'
+resultFile='/media/sf_data/refstsk.json'
 partitionSlot='001'
 
 # define functions
@@ -27,7 +27,9 @@ function get_fileinfo() {
 					else
 						name=$(basename -a "$filePath" | tr -d " ") # ohne Leerzeichen
 					fi
-					inode=$(echo "$line" | cut -d "|" -f 3)
+					#tsf for ReFS doesn't display full inode in body-file format
+					inode=$(fls -p -r -o "$firstUnit" "$imageFile" | grep $name | cut -d " " -f 2 | grep -oP '.*(?=:)') 
+					#inode=$(echo "$line" | cut -d "|" -f 3)
 					modified=$(echo "$line" | cut -d "|" -f 9)
 					accessed=$(echo "$line" | cut -d "|" -f 9)
 					changed=$(echo "$line" | cut -d "|" -f 9)

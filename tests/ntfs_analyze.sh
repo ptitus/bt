@@ -88,23 +88,32 @@ myJson=$(echo '{}' | jq \
         --arg pT "$partType" \
         --arg uS "$unitSize" \
         --arg fU "$firstUnit" \
-	--arg d "$description" \
-        ' . * {"partition": {"part_type": $pT, "unit_size": $uS, "first_unit": $fU, "description": $d}}')
+        ' . * {"partition": {"part_type": $pT, "unit_size": $uS, "first_unit": $fU}}')
 
 # file system analysis
 fsstatResult=$(fsstat -o "$firstUnit" "$imageFile")
 fsType=$(echo "$fsstatResult" | grep -oP "(?<=File System Type: ).*" | tr '[:upper:]' '[:lower:]' )
 fsName=$(echo "$fsstatResult" | grep -oP "(?<=Volume Name: ).*" )
-fsId=$(echo "$fsstatResult" | grep -oP "(?<=Volume ID: ).*" )
-fsSourceOs=$(echo "$fsstatResult" | grep -oP "(?<=Source OS: ).*" )
-#fsLastMount=?
-#fsFeatures=?
+fsId=$(echo "$fsstatResult" | grep -oP "(?<=Volume Serial Number: ).*" )
+fsVersionOs=$(echo "$fsstatResult" | grep -oP "(?<=Version: ).*" )
+case "$fsVersionOs" in
+	"Windows XP")
+		fsVersion=3.1
+		;;
+	"Windows NT")
+		fsVersion=3.0
+		;;
+	*)
+		fsVersion=""
+		;;
+esac
+
 myJson=$(echo "$myJson" | jq \
         --arg t "$fsType" \
 	--arg n "$fsName" \
         --arg i "$fsId" \
-        --arg o "$fsSourceOs" \
-        ' . * {"fs": {"type": $t, "name": $n, "id": $i, "os": $o, features:[]}}' )
+        --arg v "$fsVersion" \
+        ' . * {"fs": {"type": $t, "name": $n, "id": $i, "version": $v}}' )
 
 # files analysis
 myJson=$(echo "$myJson" | jq ' . + {'files':{}}')

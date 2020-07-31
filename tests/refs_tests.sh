@@ -25,19 +25,19 @@ testJSONOBJCOUNT(){
 testPARTITION(){
 	src=$(jq '.partition.part_type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	tsk=$(jq '.partition.part_type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty part_type" "$src"
+	assertNotNull "Source File $fileName empty part_type" "$src"
         assertNotNull "TSK File $fileName empty part_type" "$tsk"
 	assertEquals 'Type of partition does not match' "$src" "$tsk"
 
 	src=$(jq '.partition.unit_size' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	tsk=$(jq '.partition.unit_size' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty unit_size" "$src"
+	assertNotNull "Source File $fileName empty unit_size" "$src"
         assertNotNull "TSK File $fileName empty unit_sizee" "$tsk"
 	assertEquals 'Unit size of partition does not match' "$src" "$tsk"
 
 	src=$(jq '.partition.first_unit' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	tsk=$(jq '.partition.first_unit' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty first_unit" "$src"
+	assertNotNull "Source File $fileName empty first_unit" "$src"
         assertNotNull "TSK File $fileName empty first_unit" "$tsk"
 	assertEquals 'First unit of partition does not match' "$src" "$tsk"
 }
@@ -46,25 +46,25 @@ testPARTITION(){
 testFILESYSTEM(){
 	src=$(jq '.fs.type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	tsk=$(jq '.fs.type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.type" "$src"
+	assertNotNull "Source File $fileName empty fs.type" "$src"
         assertNotNull "TSK File $fileName empty fs.type" "$tsk"
 	assertEquals 'Type of filesystem does not match' "$src" "$tsk"
 
 	src=$(jq '.fs.name' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	tsk=$(jq '.fs.name' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.name" "$src"
+	assertNotNull "Source File $fileName empty fs.name" "$src"
         assertNotNull "TSK File $fileName empty fs.name" "$tsk"
 	assertEquals 'Name of fs does not match' "$src" "$tsk"
 
 	src=$(jq '.fs.id' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	tsk=$(jq '.fs.id' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.id" "$src"
+	assertNotNull "Source File $fileName empty fs.id" "$src"
         assertNotNull "TSK File $fileName empty fs.id" "$tsk"
 	assertEquals 'ID of fs does not match' "$src" "$tsk"
 	
 	src=$(jq '.fs.os' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	tsk=$(jq '.fs.os' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.os" "$src"
+	assertNotNull "Source File $fileName empty fs.os" "$src"
         assertNotNull "TSK File $fileName empty fs.os" "$tsk"
 	assertEquals 'Source OS of fs does not match' "$src" "$tsk"
 }

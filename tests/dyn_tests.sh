@@ -1,7 +1,7 @@
 #!/bin/bash
-# test for zfs Filesystem.
+# test for Ext4 Filesystem.
 
-# pooling File System
+# non pooling File System
 
 baseDir=".."
 
@@ -13,48 +13,64 @@ testJQ(){
 	assertContains 'jq version 1.5*' "$result" "jq-1.5"
 }
 
-testOBJCOUNT(){
+testJSONOBJCOUNT(){
 	src=$(jq '. | length' <<< "$srcJson")
 	tsk=$(jq '. | length' <<< "$tskJson")
-	assertNotNull "Source File $fileName no objects" "$src"
+        assertNotNull "Source File $fileName no objects" "$src"
         assertNotNull "TSK File $fileName no objects" "$tsk"
 	assertEquals 'Json object count is not equal' "$src" "$tsk"
 }
 
-# file system information
-testFILESYSTEM-TYPE(){
-	src=$(jq '.fs.type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.type" "$src"
+# partition information
+testPARTITION(){
+	src=$(jq '.partition.part_type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.partition.part_type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	assertNotNull "Source File $fileName empty part_type" "$src"
+        assertNotNull "TSK File $fileName empty part_type" "$tsk"
+	assertEquals 'Type of partition does not match' "$src" "$tsk"
+
+	src=$(jq '.partition.unit_size' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.partition.unit_size' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	assertNotNull "Source File $fileName emty unit_size" "$src"
+        assertNotNull "TSK File $fileName empty unit_size" "$tsk"
+	assertEquals 'Unit size of partition does not match' "$src" "$tsk"
+
+	src=$(jq '.partition.first_unit' <<< "$srcJson"| tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.partition.first_unit' <<< "$tskJson"| tr '[:upper:]' '[:lower:]' | tr -d '"')
+	assertNotNull "Source File $fileName empty first_unit" "$src"
+        assertNotNull "TSK File $fileName empty first_unit" "$tsk"
+	assertEquals 'Type of partition does not match' "$src" "$tsk"
+	assertEquals 'First unit of partition does not match' "$src" "$tsk"
+}
+
+# filesystem information
+testFILESYSTEM(){
+	src=$(jq '.fs.type' <<< "$srcJson"| tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.fs.type' <<< "$tskJson"| tr '[:upper:]' '[:lower:]' | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.type" "$src"
         assertNotNull "TSK File $fileName empty fs.type" "$tsk"
 	assertEquals 'Type of filesystem does not match' "$src" "$tsk"
-}
 
-testFILESYSTEM-LABEL(){
-	src=$(jq '.fs.label' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.label' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.label" "$src"
-        assertNotNull "TSK File $fileName empty fs.label" "$tsk"
-	assertEquals 'Label of fs does not match' "$src" "$tsk"
-}
+	src=$(jq '.fs.name' <<< "$srcJson"| tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.fs.name' <<< "$tskJson"| tr '[:upper:]' '[:lower:]' | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.name" "$src"
+        assertNotNull "TSK File $fileName empty fs.name" "$tsk"
+	assertEquals 'Name of fs does not match' "$src" "$tsk"
 
-testFILESYSTEM-ID(){
-	src=$(jq '.fs.id' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.id' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.id" "$src"
+	src=$(jq '.fs.id' <<< "$srcJson"| tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.fs.id' <<< "$tskJson"| tr '[:upper:]' '[:lower:]' | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.id" "$src"
         assertNotNull "TSK File $fileName empty fs.id" "$tsk"
 	assertEquals 'ID of fs does not match' "$src" "$tsk"
+	
+	src=$(jq '.fs.os' <<< "$srcJson"| tr '[:upper:]' '[:lower:]' | tr -d '"')
+	tsk=$(jq '.fs.os' <<< "$tskJson"| tr '[:upper:]' '[:lower:]' | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.os" "$src"
+        assertNotNull "TSK File $fileName empty fs.os" "$tsk"
+	assertEquals 'Source OS of fs does not match' "$src" "$tsk"
 }
 
-testFILESYSTEM-DEVICECOUNT(){
-	src=$(jq '.fs.device_count' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.device_count' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.device_count" "$src"
-        assertNotNull "TSK File $fileName empty fs.device_count" "$tsk"
-	assertEquals 'Device count of fs does not match' "$src" "$tsk"
-}
-
-# files
+# file
 
 testFILE-ZEROLENGTH(){
         fileName='file.0'
@@ -504,10 +520,10 @@ oneTimeSetUp() {
 	# Variables
 	myDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"	
 	genMachineName="generator_lnx"
-	tskMachineName="sleuthkit_fkiecad"
-	srcScript="zfs_generate.sh"
-	tskScript="zfs_analyze.sh"
-
+	tskMachineName="sleuthkit_49"
+	srcScript="ext4_generate.sh"
+	tskScript="ext4_analyze.sh"
+#<<COMMENT
 	# generate VM Names
 	vmGenMachineName=$(echo "$genMachineName" | sed 's/_/-/g')
 	vmTskMachineName=$(echo "$tskMachineName" | sed 's/_/-/g')
@@ -527,9 +543,36 @@ oneTimeSetUp() {
 	       	exit 1
 	fi
 	
-        # eventually bring generator machine up
-        genMachineState=$( echo "$vagrantStatus" | grep $genMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
-        [[ "$genMachineState" == running ]] || vagrant up "$genMachineId"
+	# eventually shutdown generator machine to mount vmdk
+  	genMachineState=$( echo "$vagrantStatus" | grep $genMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
+	[[ "$genMachineState" == running ]] && vagrant halt "$genMachineId"
+	
+	# generate .vmdk
+	vmdkFilePath="${baseDir}/data/ext4.vmdk"
+	vmdkFileId=$(vboxmanage list hdds | grep -B4 "$vmdkFilePath" | grep -oP '(?<=^UUID\: ).*' | sed 's/^ *//g')
+	if [[ -n "$vmdkFileId" ]] 
+	then
+		vboxmanage storageattach $vmGenMachineName --storagectl 'SATA Controller' --port 2 --type hdd --medium none
+		vboxmanage closemedium disk ${vmdkFileId} --delete
+		echo "removed $vmdkFilePath from VirtualBox"
+	fi
+	if [[ -e "$vmdkFilePath" ]]
+	then
+		rm $vmdkFilePath  
+		echo "File $vmdkFilePath deleted"
+	fi
+	vboxmanage createmedium disk --filename ${vmdkFilePath} --size 10000 --format VMDK
+	if [[ $? -ne 0 ]] 
+	then
+		echo "Unable to create $vmdkFilePath"
+		exit 1
+	fi
+	
+	# connect to Storagecontroller
+	vboxmanage storageattach $vmGenMachineName --storagectl 'SATA Controller' --port 2 --type hdd --medium $vmdkFilePath --comment 'Evidence Drive' --nonrotational on
+	
+	# bring up generator machine
+	vagrant up $genMachineId
 
 	# generate evidence
 	cd ${baseDir}/bolt/
@@ -538,7 +581,7 @@ oneTimeSetUp() {
 	# shutdown generator
 	vagrant halt $genMachineId
 
-	# eventually bring tsk machine up
+        # eventually bring tsk machine up
         tskMachineState=$( echo "$vagrantStatus" | grep $tskMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
         [[ "$tskMachineState" == running ]] || vagrant up "$tskMachineId"
 
@@ -548,16 +591,17 @@ oneTimeSetUp() {
 	# shutdown tsk machine
 	vagrant halt $tskMachineId
 
+#COMMENT
 	# load .json files in variables
-	srcJson=$(jq . < ${baseDir}/data/zfssrc.json | sed -e 's/ null / "" /g')
-	tskJson=$(jq . < ${baseDir}/data/zfstsk.json | sed -e 's/ null / "" /g')
+	srcJson=$(jq . < ${baseDir}/data/ext4src.json | sed -e 's/ null / "" /g')
+	tskJson=$(jq . < ${baseDir}/data/ext4tsk.json | sed -e 's/ null / "" /g')
 	
 	# back to original directory
 	cd $myDir
 }
 
 oneTimeTearDown() {
-  PATH=$originalPath
+	PATH=$originalPath
 }
 
 # Load and run shUnit2.

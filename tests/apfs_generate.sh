@@ -1,17 +1,24 @@
 #!/bin/bash
 
 # define Variables
-myDevice='/dev/sdb'
-myPartition='/dev/sdb1'
-mountPath='/media/hdd'
+imgFolder='apfsimg'
+homeFolder='/Users/user'
+deviceFolder="${homeFolder}/${imgFolder}"
+#sharedFolder='/media/sf_data'
+fsLabel='apfs-single'
+#rawFile1='drive1'
+imgFile='apfs.dmg'
+#loopDevice1='/dev/loop1'
+#loopDevice2='/dev/loop2'
+#mountPath='/media/hdd'
 resultJson="{}"
-resultFile='/media/sf_data/ext4src.json'
+resultFile="${sharedFolder}/apfssrc.json"
 
 # define functions
 
 function get_crtime() {
     for target in "${@}"; do
-        inode=$(stat -c '%i' "${target}")
+        tinode=$(stat -c '%i' "${target}")
         fs=$(df  --output=source "${target}"  | tail -1)
         crtimehex=$(debugfs -R 'stat <'"${inode}"'>' "${fs}" 2>/dev/null | grep crtime:  | grep -oP '0x\w{8}')
         crtime=$(echo $(($crtimehex)))
@@ -22,9 +29,10 @@ function get_crtime() {
 function get_fileinfo() {
 	for mypath in "${@}"; do
 		filePath=${mypath/#$mountPath}
-		name=$(stat --format=%n "${mypath}" | egrep -o [^/]+$ | tr -d " ") # ohne Leerzeichen
-		inode=$(stat --format=%i "${mypath}")
-		fileType=$(stat --format=%A "${mypath}" | cut -c 1 )
+		cd "$myPath"
+		name="$filePath:t"
+		inode=$(stat -f %i "$name")
+		fileType=$(stat -f %T "$name")
 		mode=$(stat --format=%A "${mypath}")
 		#tsk meldet - als r = regular File
 		if [[ "$fileType" == "-" ]]
@@ -60,50 +68,43 @@ function get_fileinfo() {
 	done
 }
 
-# create partition 
-parted -s $myDevice mklabel gpt
-parted -s -a optimal $myDevice mkpart primary ext4 0% 100%
 
-# create filesystem
+# create mage with apfs filesystem
+[[ -d "$deviceFolder" ]] && rm -r "$deviceFolder"
+[[ -d "$deviceFolder" ]] || mkdir "$deviceFolder"
+hdiutil create -megabytes 1000 -layout GPTSPUD -fs apfs -volname "$fsLabel" "${deviceFolder}/${imgFile}" 
+
+# attach filesystem
 sleep 2s
-mkfs -t ext4 "$myPartition" > /dev/null 2>&1
+attachResult=hdiutil attach "${deviceFolder}/${imgFile}" 
+mountPath=$(echo "$attachResult" | grep -o '/Volumes.*')
+deviceFile=$(echo "$attachResult" | grep '/Volumes.*' | cut -f 1)
 
-# mount filesystem
-[[ -d "$mountPath" ]] || mkdir $mountPath 
-mount $myPartition $mountPath 
-
-# create json files
-#  partition information
-fdiskResult=$(fdisk -l ${myDevice})
-partType=$(echo $fdiskResult | grep -oP '(?<=Disklabel type: )[[:alpha:]]{3}')
-unitSize=$(echo $fdiskResult | grep -oP '(?<= = )[[:digit:]]{1,10}')
-firstUnit=$(echo "$fdiskResult" | grep -oP '^\/.*' | grep -oP '(?<= )[[:digit:]]+(?=[[:blank:]]+[[:digit:]]+[[:blank:]]+[[:digit:]]+[[:blank:]]+[[:digit:]]+)')
+# partition
+imageInfo=$(hdiutil imageinfo "${deviceFolder}/${imgFile}")
+apfsPartNo=$(echo "$imageInfo" | sed -n '/partitions:/,/APFS:/p' | grep -o '[[:digit:]]:' | tail -1)
+apfsLines=$(echo "$imageInfo" | sed -n "/${apfsPartNo}/,/APFS:/p") 
+partType=$(echo "$imageInfo" | grep partition-scheme | cut -d " " -f 2)
+unitSize=$(echo "$imageInfo" | grep block-size | cut -d " " -f 2)
+firstUnit=$(echo "$apfsLines" | grep partition-start | grep -Eo '[[:digit:]]+')
 resultJson=$(echo "$resultJson" | jq \
-	--arg pT "$partType" \
-	--arg uS "$unitSize" \
-	--arg fU "$firstUnit" \
-	' . * {"partition": {"part_type": $pT, "unit_size": $uS, "first_unit": $fU}}')
-
-# file system 
-fileResult=$(file -sL $myPartition)
-fsType=$(echo $fileResult | grep -oP '[[:word:]]*(?= filesystem data)'| tr '[:upper:]' '[:lower:]')
-fsName=""
-fsId=$(echo $fileResult | grep -oP '(?<=UUID\=)([[:word:]]|-)*')
-fsSourceOs=$(echo $fileResult | grep -oP "(?<=${1}: )[[:word:]]*")
-features=$(echo $fileResult | grep -oP "\(([[:word:]]| )*\)" | tr '(' '"' | tr ')' '"')
+        --arg pT "$partType" \
+        --arg uS "$unitSize" \
+        --arg fU "$firstUnit" \
+        ' . * {"partition": {"part_type": $pT, "unit_size": $uS, "first_unit": $fU}}')
+# file system
+mountResult=$(mount)
+apfsResult=$(hdiutil apfs info)
+devFileName=$(echo "$devFile" | cut -d "/" -f 3
+fsType=$(echo "$mountResult" | grep "$deviceFile" | grep -Eo '\(.*\)' | grep -oE '\([[:alpha:]]+' | tr -d "(")
+fsLabel=$(echo "$apfsResult" | grep -A 6 "\+-> Volume ${devFileName}" | grep "Name: " | grep -Eo ' [[:alpha:]]+ ' | tr -d " ")
+fsId=$(echo "$apfsResult" | grep "\+-> Volume $devFileName" | cut -d " " -f 8)
 resultJson=$(echo "$resultJson" | jq \
         --arg t "$fsType" \
-        --arg n "$fsName" \
+        --arg l "$fsLabel" \
+        --arg s "$fsSectorSize" \
         --arg i "$fsId" \
-        --arg o "$fsSourceOs" \
-        ' . * {"fs": {"type": $t, "name": $n, "id": $i, "os": $o, features:[]}}' )
-
-#fill array with features
-while IFS= read -r line
-do
-	feature=$(echo "$line" | tr -d '"')
-	resultJson=$(echo "$resultJson" | jq --arg f "$feature" '.fs.features += [$f]')
-done < <(echo "$features")
+        ' . * {"fs": {"type": $t, "label": $l, "sector_size": $s, "id": $i}}')
 
 # create objects in fs, record infos in json
 resultJson=$(echo "$resultJson" | jq ' . + {'files':{}}')
@@ -131,6 +132,6 @@ get_fileinfo  ${mountPath}/subdir/file2.txt
 echo "$resultJson" > "$resultFile"
 
 # dismount filesystem
-umount $mountPath
+hdiutil detach "$devFile"
 
 exit 0

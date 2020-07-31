@@ -5,7 +5,7 @@
 $diskNo='1'
 $partitionStyle='gpt'
 $driveLetter='E'
-$resultFile='K:\ntfssrc.json'
+$resultFile='K:\refssrc.json'
 $fsLabel='refs_single'
 
 function make-filejson(){
@@ -45,7 +45,7 @@ New-Partition -Disknumber $diskNo -UseMaximumsize -AssignDriveLetter > Out-Null
 sleep 2
 
 # create filesystem
-Format-Volume -DriveLetter $driveLetter -Filesystem NTFS -NewFileSystemLabel $fsLabel > Out-Null
+Format-Volume -DriveLetter $driveLetter -Filesystem ReFS -NewFileSystemLabel $fsLabel > Out-Null
 sleep 5
 
 # create json files
