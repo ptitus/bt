@@ -4,7 +4,6 @@
 # pooling File System
 
 baseDir=".."
-
 # basic tests
 testJQ(){
 	result=$(jq --version)
@@ -21,8 +20,29 @@ testJSONOBJCOUNT(){
 	assertEquals 'Json object count is not equal' "$src" "$tsk"
 }
 
-# file system information
-testFILESYSTEM-TYPE(){
+# partition informatio
+testPARTITION(){
+	src=$(jq '.partition.type' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.partition.type' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName empty partition.type" "$src"
+        assertNotNull "TSK File $fileName empty partition.type" "$tsk"
+	assertEquals 'Type of partition does not match' "$src" "$tsk"
+
+	src=$(jq '.partition.unit_size' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.partition.unit_size' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName empty partition.unit_size" "$src"
+        assertNotNull "TSK File $fileName empty partition.unit_size" "$tsk"
+	assertEquals 'Partition unit Size does not match' "$src" "$tsk"
+
+	src=$(jq '.partition.first_unit' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.partition.first_unit' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName emty partition.first_unit" "$src"
+        assertNotNull "TSK File $fileName empty partition.first_unit" "$tsk"
+	assertEquals 'First unit od Partition does not match' "$src" "$tsk"
+}
+
+# Filesystem Information
+testFILESYSTEM(){
 	src=$(jq '.fs.type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	tsk=$(jq '.fs.type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
 	assertNotNull "Source File $fileName emty fs.type" "$src"
@@ -40,12 +60,6 @@ testFILESYSTEM-TYPE(){
 	assertNotNull "Source File $fileName emty fs.id" "$src"
         assertNotNull "TSK File $fileName empty fs.id" "$tsk"
 	assertEquals 'ID of fs does not match' "$src" "$tsk"
-
-	src=$(jq '.fs.device_count' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.device_count' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.device_count" "$src"
-        assertNotNull "TSK File $fileName empty fs.device_count" "$tsk"
-	assertEquals 'Device count of fs does not match' "$src" "$tsk"
 }
 
 # files
@@ -77,17 +91,21 @@ oneTimeSetUp() {
 	fi
 
         #check if generator machine is running
-      	cd ${baseDir}/bolt/
-	genIP=bolt command run 'ipconfig getifaddr en1' --targets generator-mac | grep -oP '[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}\.[[:digit:]]{1,3}'
+	if ping -c 2 $genMachineIP &> /dev/null
+	then
+		echo "Connected Generator Machine under $genMachineIP"
+	else
+		echo "Generator Machine IP $genMachineIP not reachable, cancelling Script!"
+		exit
+	fi
 	
-	[[ -z "$genIP" ]] && $(echo "Generator Machine IP $genIP not reachable!"; exit)
-
 	# generate evidence
-	cd ${baseDir}/bolt/
+      	cd ${baseDir}/bolt/
 	bolt script run ${myDir}/${srcScript} --targets "$vmGenMachineName"
 
-	# copy Image - pblic key must be in place on generator machine
-	scp "user@${genIP}:/Users/user/apfs.dmg" "${baseDir}/data"
+	# copy Image and Json - public key must be in place on generator machine
+	scp "user@${genMachineIP}:/Users/user/apfsimg/apfs.dmg" "${baseDir}/data"
+	scp "user@${genMachineIP}:/Users/user/apfssrc.json" "${baseDir}/data"
 
 	# eventually bring tsk machine up
         tskMachineState=$( echo "$vagrantStatus" | grep $tskMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
@@ -100,8 +118,8 @@ oneTimeSetUp() {
 	vagrant halt $tskMachineId
 
 	# load .json files in variables
-	srcJson=$(jq . < ${baseDir}/data/apfssrc.json | sed -e 's/ null / "" /g')
-	tskJson=$(jq . < ${baseDir}/data/apfstsk.json | sed -e 's/ null / "" /g')
+	srcJson=$(jq . < ${baseDir}/data/apfssrc.json | tr '[:upper:]' '[:lower:]' | sed -e 's/ null / "" /g')
+	tskJson=$(jq . < ${baseDir}/data/apfstsk.json | tr '[:upper:]' '[:lower:]' | sed -e 's/ null / "" /g')
 	
 	# back to original directory
 	cd $myDir

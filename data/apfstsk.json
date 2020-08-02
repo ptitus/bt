@@ -1,0 +1,122 @@
+{
+  "partition": {
+    "part_type": "gpt",
+    "unit_size": "512",
+    "first_unit": "40"
+  },
+  "fs": {
+    "type": "APFS",
+    "label": "apfs-single",
+    "id": "37e83e6f-2e59-4f21-8688-cfe4dc4306d7"
+  },
+  "files": {
+    "file.txt": {
+      "filepath": "/file.txt",
+      "inode": "20",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1596357677",
+      "accessed": "1596357677",
+      "changed": "1596357677",
+      "created": "1596357677",
+      "sha256": "1a71ae326f585f5f1631369ab13d92c7a419d6283339b9228580ca00f3755e09"
+    },
+    "file.0": {
+      "filepath": "/file.0",
+      "inode": "18",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "0",
+      "modified": "1596357677",
+      "accessed": "1596357677",
+      "changed": "1596357677",
+      "created": "1596357677",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "subdir": {
+      "filepath": "/subdir",
+      "inode": "22",
+      "file_type": "d",
+      "mode": "drwxr-xr-x",
+      "size": "0",
+      "modified": "1596357678",
+      "accessed": "1596357678",
+      "changed": "1596357678",
+      "created": "1596357678",
+      "sha256": ""
+    },
+    "file2.txt": {
+      "filepath": "/subdir/file2.txt",
+      "inode": "23",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1596357678",
+      "accessed": "1596357678",
+      "changed": "1596357678",
+      "created": "1596357678",
+      "sha256": "1e04335727eed3fba10c4d365e73afe430134ecad195b08bc3ae2c729b06f33f"
+    },
+    ".fseventsd": {
+      "filepath": "/.fseventsd",
+      "inode": "16",
+      "file_type": "d",
+      "mode": "drwx------",
+      "size": "0",
+      "modified": "1596357678",
+      "accessed": "1596357678",
+      "changed": "1596357678",
+      "created": "1596357678",
+      "sha256": ""
+    },
+    "0000000000003c48": {
+      "filepath": "/.fseventsd/0000000000003c48",
+      "inode": "24",
+      "file_type": "r",
+      "mode": "rrw-------",
+      "size": "132",
+      "modified": "1596357678",
+      "accessed": "1596357678",
+      "changed": "1596357678",
+      "created": "1596357678",
+      "sha256": "48c20a60cc26c26afe778d1e191afef722048b5a4b9631ba1be9557dca3420d4"
+    },
+    "fseventsd-uuid": {
+      "filepath": "/.fseventsd/fseventsd-uuid",
+      "inode": "17",
+      "file_type": "r",
+      "mode": "rrw-------",
+      "size": "36",
+      "modified": "1596357678",
+      "accessed": "1596357678",
+      "changed": "1596357678",
+      "created": "1596357678",
+      "sha256": "1254bcc90ccc07afd40c8a3cd0b6682988f9f1f9cdc31904eac35f86388036b6"
+    },
+    "0000000000003c49": {
+      "filepath": "/.fseventsd/0000000000003c49",
+      "inode": "25",
+      "file_type": "r",
+      "mode": "rrw-------",
+      "size": "70",
+      "modified": "1596357678",
+      "accessed": "1596357678",
+      "changed": "1596357678",
+      "created": "1596357678",
+      "sha256": "09f0500f6b3dc61d6634cd9a6298da31e2314313e45d1b65ccdb9a2c4e93ca33"
+    },
+    "file.binary": {
+      "filepath": "/file.binary",
+      "inode": "19",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1596357677",
+      "accessed": "1596357677",
+      "changed": "1596357677",
+      "created": "1596357677",
+      "sha256": "425d70a6d01035b1c92b6e4479b039abef6f0c321b14aaa88d8d804a1193c438"
+    }
+  }
+}
