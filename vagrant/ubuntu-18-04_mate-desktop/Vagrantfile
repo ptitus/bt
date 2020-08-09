@@ -47,14 +47,14 @@ Vagrant.configure("2") do |config|
 	sleuthkit_fkiecad.vm.network "forwarded_port", guest: 22, host: 2253
     end
 
-    config.vm.define "sleuthkit_refs" do |sleuthkit_refs|
-	sleuthkit_refs.vm.provider "virtualbox" do |vb|
-	    vb.name = "sleuthkit-refs"		
+    config.vm.define "sleuthkit_faui" do |sleuthkit_faui|
+	sleuthkit_faui.vm.provider "virtualbox" do |vb|
+	    vb.name = "sleuthkit-faui"		
 	end
-	sleuthkit_refs.vm.hostname = "sleuthkit-refs"
-	sleuthkit_refs.vm.provision "shell", inline: "echo Sleuthkit refs"
-        sleuthkit_refs.vm.provision "shell",  path: "sleuthkit-refs.sh", reboot: true    
-	sleuthkit_refs.vm.network "forwarded_port", guest: 22, host: 2254
+	sleuthkit_faui.vm.hostname = "sleuthkit-faui"
+	sleuthkit_faui.vm.provision "shell", inline: "echo Sleuthkit faui"
+        sleuthkit_faui.vm.provision "shell",  path: "sleuthkit-faui.sh", reboot: true    
+	sleuthkit_faui.vm.network "forwarded_port", guest: 22, host: 2254
     end
 
     config.vm.define "generator_lnx", primary: true do |generator_lnx|

@@ -6,8 +6,8 @@
                   },
     "fs":  {
                "type":  "NTFS",
-               "name":  "ntfs",
-               "id":  "e61486e81486bad7",
+               "name":  "ntfspart",
+               "id":  "94ba85eaba85c8e6",
                "version":  "3.1"
            },
     "files":  {
@@ -17,10 +17,10 @@
                                  "file_type":  "r",
                                  "mode":  "-a----",
                                  "size":  0,
-                                 "modified":  1595962908,
-                                 "accessed":  1595962908,
-                                 "changed":  1595962908,
-                                 "created":  1595962908,
+                                 "modified":  1597009160,
+                                 "accessed":  1597009160,
+                                 "changed":  1597009160,
+                                 "created":  1597009160,
                                  "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
                              },
                   "file.binary":  {
@@ -29,11 +29,11 @@
                                       "file_type":  "r",
                                       "mode":  "-a----",
                                       "size":  10240,
-                                      "modified":  1595962908,
-                                      "accessed":  1595962908,
-                                      "changed":  1595962908,
-                                      "created":  1595962908,
-                                      "sha256":  "044BEF5EA99C3AF1E207416EDA4E2D230013CF1AC2C2AA7517BD8D414648ABE4"
+                                      "modified":  1597009161,
+                                      "accessed":  1597009161,
+                                      "changed":  1597009161,
+                                      "created":  1597009161,
+                                      "sha256":  "E0307347E8E2E62986EF06E3D5542EE048592931D695E5D13C1E3FC85838C529"
                                   },
                   "file.txt":  {
                                    "filepath":  "/file.txt",
@@ -41,11 +41,11 @@
                                    "file_type":  "r",
                                    "mode":  "-a----",
                                    "size":  10240,
-                                   "modified":  1595962910,
-                                   "accessed":  1595962910,
-                                   "changed":  1595962910,
-                                   "created":  1595962908,
-                                   "sha256":  "B49B32ECD4CC8D65B79A85EF60389211CA65E340923F9A4D26D13FFE835D7D91"
+                                   "modified":  1597009163,
+                                   "accessed":  1597009163,
+                                   "changed":  1597009163,
+                                   "created":  1597009161,
+                                   "sha256":  "FD4B49D6704B939FD8AEA8325769F122668BB093C3266BB44D18F108DBF48572"
                                },
                   "delfile":  {
                                   "filepath":  "/delfile",
@@ -53,11 +53,11 @@
                                   "file_type":  "r",
                                   "mode":  "-a----",
                                   "size":  10240,
-                                  "modified":  1595962910,
-                                  "accessed":  1595962910,
-                                  "changed":  1595962910,
-                                  "created":  1595962910,
-                                  "sha256":  "2AA5F5DA0A1E8C19DA9FEF2171E517E54DEA0436577580C102AEBCD3BA84059F"
+                                  "modified":  1597009164,
+                                  "accessed":  1597009164,
+                                  "changed":  1597009164,
+                                  "created":  1597009163,
+                                  "sha256":  "854238078E6B9DFEB59FED89E21024EDA576AD5282932DEA4BBD47C3E5439BD0"
                               },
                   "subdir":  {
                                  "filepath":  "/subdir",
@@ -65,10 +65,10 @@
                                  "file_type":  "d",
                                  "mode":  "d-----",
                                  "size":  1,
-                                 "modified":  1595962911,
-                                 "accessed":  1595962911,
-                                 "changed":  1595962911,
-                                 "created":  1595962911,
+                                 "modified":  1597009164,
+                                 "accessed":  1597009164,
+                                 "changed":  1597009164,
+                                 "created":  1597009164,
                                  "sha256":  null
                              },
                   "file2.txt":  {
@@ -77,11 +77,11 @@
                                     "file_type":  "r",
                                     "mode":  "-a----",
                                     "size":  10240,
-                                    "modified":  1595962912,
-                                    "accessed":  1595962912,
-                                    "changed":  1595962912,
-                                    "created":  1595962911,
-                                    "sha256":  "8E866307C87EC3959E09F50F96ED5A898A350DF708094506B406950B48DE2FF7"
+                                    "modified":  1597009166,
+                                    "accessed":  1597009166,
+                                    "changed":  1597009166,
+                                    "created":  1597009164,
+                                    "sha256":  "134E93444B78DFEF344333637140AC88CDA4A600819B86213E77E3C003D6D656"
                                 }
               }
 }

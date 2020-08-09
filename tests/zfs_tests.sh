@@ -6,50 +6,45 @@
 baseDir=".."
 
 # basic tests
-testJQ(){
+<<COMMENT
+no_testJQ(){
 	result=$(jq --version)
 	rtrn=$?
 	assertEquals  'Error calling jq' 0 ${rtrn}
 	assertContains 'jq version 1.5*' "$result" "jq-1.5"
 }
 
-testOBJCOUNT(){
-	src=$(jq '. | length' <<< "$srcJson")
-	tsk=$(jq '. | length' <<< "$tskJson")
+no_testOBJCOUNT(){
+	src=$(jq '. | length // empty' <<< "$srcJson")
+	tsk=$(jq '. | length // empty' <<< "$tskJson")
 	assertNotNull "Source File $fileName no objects" "$src"
         assertNotNull "TSK File $fileName no objects" "$tsk"
 	assertEquals 'Json object count is not equal' "$src" "$tsk"
 }
-
+COMMENT
 # file system information
-testFILESYSTEM-TYPE(){
-	src=$(jq '.fs.type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.type" "$src"
+testFILESYSTEM(){
+	src=$(jq '.fs.type // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.type // empty' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.type" "$src"
         assertNotNull "TSK File $fileName empty fs.type" "$tsk"
 	assertEquals 'Type of filesystem does not match' "$src" "$tsk"
-}
-
-testFILESYSTEM-LABEL(){
-	src=$(jq '.fs.label' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.label' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.label" "$src"
+	
+	src=$(jq '.fs.label // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.label // empty' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.label" "$src"
         assertNotNull "TSK File $fileName empty fs.label" "$tsk"
 	assertEquals 'Label of fs does not match' "$src" "$tsk"
-}
 
-testFILESYSTEM-ID(){
-	src=$(jq '.fs.id' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.id' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.id" "$src"
+	src=$(jq '.fs.id // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.id // empty' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.id" "$src"
         assertNotNull "TSK File $fileName empty fs.id" "$tsk"
 	assertEquals 'ID of fs does not match' "$src" "$tsk"
-}
 
-testFILESYSTEM-DEVICECOUNT(){
-	src=$(jq '.fs.device_count' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.device_count' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.device_count" "$src"
+	src=$(jq '.fs.device_count // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.device_count // empty' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.device_count" "$src"
         assertNotNull "TSK File $fileName empty fs.device_count" "$tsk"
 	assertEquals 'Device count of fs does not match' "$src" "$tsk"
 }
@@ -108,8 +103,8 @@ oneTimeSetUp() {
 	vagrant halt $tskMachineId
 
 	# load .json files in variables
-	srcJson=$(jq . < ${baseDir}/data/zfssrc.json | sed -e 's/ null / "" /g')
-	tskJson=$(jq . < ${baseDir}/data/zfstsk.json | sed -e 's/ null / "" /g')
+	srcJson=$(jq . < ${baseDir}/data/zfssrc.json | tr '[:upper:]' '[:lower:]' | sed -e 's/ null / "" /g')
+	tskJson=$(jq . < ${baseDir}/data/zfstsk.json | tr '[:upper:]' '[:lower:]' | sed -e 's/ null / "" /g')
 	
 	# back to original directory
 	cd $myDir

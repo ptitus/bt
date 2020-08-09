@@ -81,34 +81,28 @@ if [[ "$partType" == 'dos' ]]; then
 fi
 partLine=$(echo "$mmlsResult" | grep -P "^[[:digit:]]{3}:  ${partitionSlot} " | sed -e 's/ \+/;/g')
 firstUnit=$(echo "$partLine" | awk 'BEGIN { FS = ";" } ; { print $3 }' | sed 's/^0*//')
-description=$(echo "$partLine" | awk 'BEGIN { FS = ";" } ; { print $6 }')
 myJson=$(echo '{}' | jq \
-        --arg pT "$partType" \
-        --arg uS "$unitSize" \
-        --arg fU "$firstUnit" \
-	--arg d "$description" \
-        ' . * {"partition": {"part_type": $pT, "unit_size": $uS, "first_unit": $fU, "description": $d}}')
+        --arg t "$partType" \
+        --arg s "$unitSize" \
+        --arg f "$firstUnit" \
+        ' . * {"partition": {"part_type": $t, "unit_size": $s, "first_unit": $f}}')
 
 # file system analysis
 fsstatResult=$(fsstat -o "$firstUnit" "$imageFile")
 fsType=$(echo "$fsstatResult" | grep -oP "(?<=File System Type: ).*" | tr '[:upper:]' '[:lower:]' )
 fsName=$(echo "$fsstatResult" | grep -oP "(?<=Volume Name: ).*" )
 fsId=$(echo "$fsstatResult" | grep -oP "(?<=Volume ID: ).*" )
-fsSourceOs=$(echo "$fsstatResult" | grep -oP "(?<=Source OS: ).*" )
-#fsLastMount=?
-#fsFeatures=?
 myJson=$(echo "$myJson" | jq \
         --arg t "$fsType" \
 	--arg n "$fsName" \
         --arg i "$fsId" \
-        --arg o "$fsSourceOs" \
-        ' . * {"fs": {"type": $t, "name": $n, "id": $i, "os": $o, features:[]}}' )
+        ' . * {"fs": {"type": $t, "name": $n, "id": $i}}' )
 
 
 # files analysis
 myJson=$(echo "$myJson" | jq ' . + {'files':{}}')
 
-flsResult=$(fls -m -p -r -o "$firstUnit" "$imageFile")
+flsResult=$(fls -pro "$firstUnit" -m / "$imageFile")
 get_fileinfo "$flsResult"
 
 # recover file

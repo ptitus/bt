@@ -1,14 +1,16 @@
 #!/bin/bash
 
 # define Variables
-myDevice='/dev/sdb'
-myPartition='/dev/sdb1'
+drive='sdb'
+drivePath="/dev/${drive}"
+partition="${drive}1"
+partitionPath="/dev/${partition}"
 mountPath='/media/hdd'
+fsLabel='ext4part'
 resultJson="{}"
 resultFile='/media/sf_data/ext4src.json'
 
 # define functions
-
 function get_crtime() {
     for target in "${@}"; do
         inode=$(stat -c '%i' "${target}")
@@ -61,22 +63,23 @@ function get_fileinfo() {
 }
 
 # create partition 
-parted -s $myDevice mklabel gpt
-parted -s -a optimal $myDevice mkpart primary ext4 0% 100%
+parted -s "$drivePath" mklabel gpt
+parted -s -a optimal "$drivePath" mkpart primary ext4 0% 100%
 
 # create filesystem
 sleep 2s
-mkfs -t ext4 "$myPartition" > /dev/null 2>&1
+mkfs -t ext4 -L "$fsLabel" "$partitionPath" > /dev/null 2>&1
 
 # mount filesystem
-[[ -d "$mountPath" ]] || mkdir $mountPath 
-mount $myPartition $mountPath 
+rm -r "${mountPath}"
+[[ -d "$mountPath" ]] || mkdir "$mountPath"
+mount "$partitionPath" "$mountPath" || echo "mount of $partitionPath failed!"
 
 # create json files
 #  partition information
-fdiskResult=$(fdisk -l ${myDevice})
-partType=$(echo $fdiskResult | grep -oP '(?<=Disklabel type: )[[:alpha:]]{3}')
-unitSize=$(echo $fdiskResult | grep -oP '(?<= = )[[:digit:]]{1,10}')
+fdiskResult=$(fdisk -l "$drivePath")
+partType=$(echo "$fdiskResult" | grep -oP '(?<=Disklabel type: )[[:alpha:]]{3}')
+unitSize=$(echo "$fdiskResult" | grep -oP '(?<= = )[[:digit:]]{1,10}')
 firstUnit=$(echo "$fdiskResult" | grep -oP '^\/.*' | grep -oP '(?<= )[[:digit:]]+(?=[[:blank:]]+[[:digit:]]+[[:blank:]]+[[:digit:]]+[[:blank:]]+[[:digit:]]+)')
 resultJson=$(echo "$resultJson" | jq \
 	--arg pT "$partType" \
@@ -85,52 +88,43 @@ resultJson=$(echo "$resultJson" | jq \
 	' . * {"partition": {"part_type": $pT, "unit_size": $uS, "first_unit": $fU}}')
 
 # file system 
-fileResult=$(file -sL $myPartition)
-fsType=$(echo $fileResult | grep -oP '[[:word:]]*(?= filesystem data)'| tr '[:upper:]' '[:lower:]')
-fsName=""
-fsId=$(echo $fileResult | grep -oP '(?<=UUID\=)([[:word:]]|-)*')
-fsSourceOs=$(echo $fileResult | grep -oP "(?<=${1}: )[[:word:]]*")
-features=$(echo $fileResult | grep -oP "\(([[:word:]]| )*\)" | tr '(' '"' | tr ')' '"')
+fsType=$(lsblk -f "$partitionPath" | grep "$partition" | awk '{print $2}')
+fsName=$(lsblk -f "$partitionPath" | grep "$partition" | awk '{print $3}')
+# tsk reads UUIDs with different Byte Order
+fsId=$(lsblk -f "$partitionPath" | grep "$partition" | awk '{print $4}' | tr -d "-" | fold -w 2 | tac | paste -sd '\0' -)
+
 resultJson=$(echo "$resultJson" | jq \
         --arg t "$fsType" \
         --arg n "$fsName" \
         --arg i "$fsId" \
-        --arg o "$fsSourceOs" \
-        ' . * {"fs": {"type": $t, "name": $n, "id": $i, "os": $o, features:[]}}' )
-
-#fill array with features
-while IFS= read -r line
-do
-	feature=$(echo "$line" | tr -d '"')
-	resultJson=$(echo "$resultJson" | jq --arg f "$feature" '.fs.features += [$f]')
-done < <(echo "$features")
+        ' . * {"fs": {"type": $t, "name": $n, "id": $i}}' )
 
 # create objects in fs, record infos in json
 resultJson=$(echo "$resultJson" | jq ' . + {'files':{}}')
 
 touch ${mountPath}/file.0
-get_fileinfo ${mountPath}/file.0 
+get_fileinfo "${mountPath}/file.0" 
 
-cat < /dev/urandom | head -c 10000000 > ${mountPath}/file.binary 
-get_fileinfo  ${mountPath}/file.binary 
+cat < /dev/urandom | head -c 10000000 > "${mountPath}/file.binary" 
+get_fileinfo "${mountPath}/file.binary" 
 
-base64 /dev/urandom | head -c 10000000 > ${mountPath}/file.txt 
-get_fileinfo ${mountPath}/file.txt
+base64 /dev/urandom | head -c 10000000 > "${mountPath}/file.txt" 
+get_fileinfo "${mountPath}/file.txt"
 
-base64 /dev/urandom | head -c 10000000 > ${mountPath}/delfile.txt 
-get_fileinfo  ${mountPath}/delfile.txt
-rm ${mountPath}/delfile.txt
+base64 /dev/urandom | head -c 10000000 > "${mountPath}/delfile.txt" 
+get_fileinfo "${mountPath}/delfile.txt"
+rm "${mountPath}/delfile.txt"
 
-mkdir ${mountPath}/subdir 
-get_fileinfo  ${mountPath}/subdir
+mkdir "${mountPath}/subdir" 
+get_fileinfo "${mountPath}/subdir"
 
-base64 /dev/urandom | head -c 10000000 > ${mountPath}/subdir/file2.txt
-get_fileinfo  ${mountPath}/subdir/file2.txt
+base64 /dev/urandom | head -c 10000000 > "${mountPath}/subdir/file2.txt"
+get_fileinfo "${mountPath}/subdir/file2.txt"
  
 # write json file
 echo "$resultJson" > "$resultFile"
 
 # dismount filesystem
-umount $mountPath
+umount "$mountPath"
 
 exit 0

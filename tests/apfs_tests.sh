@@ -13,8 +13,8 @@ testJQ(){
 }
 
 testJSONOBJCOUNT(){
-	src=$(jq '. | length' <<< "$srcJson")
-	tsk=$(jq '. | length' <<< "$tskJson")
+	src=$(jq '. | length // empty' <<< "$srcJson")
+	tsk=$(jq '. | length // empty' <<< "$tskJson")
 	assertNotNull "Source File $fileName no objects" "$src"
         assertNotNull "TSK File $fileName no objects" "$tsk"
 	assertEquals 'Json object count is not equal' "$src" "$tsk"
@@ -22,42 +22,42 @@ testJSONOBJCOUNT(){
 
 # partition informatio
 testPARTITION(){
-	src=$(jq '.partition.type' <<< "$srcJson" | tr -d '"')
-	tsk=$(jq '.partition.type' <<< "$tskJson" | tr -d '"')
+	src=$(jq '.partition.type // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.partition.type // empty' <<< "$tskJson" | tr -d '"')
 	assertNotNull "Source File $fileName empty partition.type" "$src"
         assertNotNull "TSK File $fileName empty partition.type" "$tsk"
 	assertEquals 'Type of partition does not match' "$src" "$tsk"
 
-	src=$(jq '.partition.unit_size' <<< "$srcJson" | tr -d '"')
-	tsk=$(jq '.partition.unit_size' <<< "$tskJson" | tr -d '"')
+	src=$(jq '.partition.unit_size // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.partition.unit_size // empty' <<< "$tskJson" | tr -d '"')
 	assertNotNull "Source File $fileName empty partition.unit_size" "$src"
         assertNotNull "TSK File $fileName empty partition.unit_size" "$tsk"
 	assertEquals 'Partition unit Size does not match' "$src" "$tsk"
 
-	src=$(jq '.partition.first_unit' <<< "$srcJson" | tr -d '"')
-	tsk=$(jq '.partition.first_unit' <<< "$tskJson" | tr -d '"')
-	assertNotNull "Source File $fileName emty partition.first_unit" "$src"
+	src=$(jq '.partition.first_unit // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.partition.first_unit // empty' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName empty partition.first_unit" "$src"
         assertNotNull "TSK File $fileName empty partition.first_unit" "$tsk"
 	assertEquals 'First unit od Partition does not match' "$src" "$tsk"
 }
 
 # Filesystem Information
 testFILESYSTEM(){
-	src=$(jq '.fs.type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.type" "$src"
+	src=$(jq '.fs.type // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.type // empty' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.type" "$src"
         assertNotNull "TSK File $fileName empty fs.type" "$tsk"
 	assertEquals 'Type of filesystem does not match' "$src" "$tsk"
 
-	src=$(jq '.fs.label' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.label' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.label" "$src"
+	src=$(jq '.fs.label // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.label // empty' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.label" "$src"
         assertNotNull "TSK File $fileName empty fs.label" "$tsk"
 	assertEquals 'Label of fs does not match' "$src" "$tsk"
 
-	src=$(jq '.fs.id' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.id' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	assertNotNull "Source File $fileName emty fs.id" "$src"
+	src=$(jq '.fs.id // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.id // empty' <<< "$tskJson" | tr -d '"')
+	assertNotNull "Source File $fileName empty fs.id" "$src"
         assertNotNull "TSK File $fileName empty fs.id" "$tsk"
 	assertEquals 'ID of fs does not match' "$src" "$tsk"
 }

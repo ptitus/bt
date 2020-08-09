@@ -6,37 +6,38 @@
 baseDir=".."
 
 # basic tests
-testJQ(){
+<<COMMENT
+no_testJQ(){
 	result=$(jq --version)
 	rtrn=$?
 	assertEquals  'Error calling jq' 0 ${rtrn}
 	assertContains 'jq version 1.5*' "$result" "jq-1.5"
 }
 
-testJSONOBJCOUNT(){
-	src=$(jq '. | length' <<< "$srcJson")
-	tsk=$(jq '. | length' <<< "$tskJson")
+no_testJSONOBJCOUNT(){
+	src=$(jq '. | length // empty' <<< "$srcJson")
+	tsk=$(jq '. | length // empty' <<< "$tskJson")
 	assertNotNull "Source File $fileName no objects" "$src"
         assertNotNull "TSK File $fileName no objects" "$tsk"
 	assertEquals 'Json object count is not equal' "$src" "$tsk"
 }
-
+COMMENT
 # partition information
 testPARTITION(){
-	src=$(jq '.partition.part_type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.partition.part_type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	src=$(jq '.partition.part_type // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.partition.part_type // empty' <<< "$tskJson" | tr -d '"')
 	assertNotNull "Source File $fileName empty part_type" "$src"
         assertNotNull "TSK File $fileName empty part_type" "$tsk"
 	assertEquals 'Type of partition does not match' "$src" "$tsk"
 
-	src=$(jq '.partition.unit_size' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.partition.unit_size' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	src=$(jq '.partition.unit_size // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.partition.unit_size // empty' <<< "$tskJson" | tr -d '"')
 	assertNotNull "Source File $fileName empty unit_size" "$src"
         assertNotNull "TSK File $fileName empty unit_sizee" "$tsk"
 	assertEquals 'Unit size of partition does not match' "$src" "$tsk"
 
-	src=$(jq '.partition.first_unit' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.partition.first_unit' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	src=$(jq '.partition.first_unit // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.partition.first_unit // empty' <<< "$tskJson" | tr -d '"')
 	assertNotNull "Source File $fileName empty first_unit" "$src"
         assertNotNull "TSK File $fileName empty first_unit" "$tsk"
 	assertEquals 'First unit of partition does not match' "$src" "$tsk"
@@ -44,26 +45,26 @@ testPARTITION(){
 
 # filesystem information
 testFILESYSTEM(){
-	src=$(jq '.fs.type' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.type' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	src=$(jq '.fs.type // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.type // empty' <<< "$tskJson" | tr -d '"')
 	assertNotNull "Source File $fileName empty fs.type" "$src"
         assertNotNull "TSK File $fileName empty fs.type" "$tsk"
 	assertEquals 'Type of filesystem does not match' "$src" "$tsk"
 
-	src=$(jq '.fs.name' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.name' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	src=$(jq '.fs.name // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.name // empty' <<< "$tskJson" | tr -d '"')
 	assertNotNull "Source File $fileName empty fs.name" "$src"
         assertNotNull "TSK File $fileName empty fs.name" "$tsk"
 	assertEquals 'Name of fs does not match' "$src" "$tsk"
 
-	src=$(jq '.fs.id' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.id' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	src=$(jq '.fs.id // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.id // empty' <<< "$tskJson" | tr -d '"')
 	assertNotNull "Source File $fileName empty fs.id" "$src"
         assertNotNull "TSK File $fileName empty fs.id" "$tsk"
 	assertEquals 'ID of fs does not match' "$src" "$tsk"
 	
-	src=$(jq '.fs.version' <<< "$srcJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
-	tsk=$(jq '.fs.version' <<< "$tskJson" | tr '[:upper:]' '[:lower:]' | tr -d '"')
+	src=$(jq '.fs.version // empty' <<< "$srcJson" | tr -d '"')
+	tsk=$(jq '.fs.version // empty' <<< "$tskJson" | tr -d '"')
 	assertNotNull "Source File $fileName empty fs.version" "$src"
         assertNotNull "TSK File $fileName empty fs.version" "$tsk"
 	assertEquals 'Version of fs does not match' "$src" "$tsk"
@@ -155,8 +156,8 @@ oneTimeSetUp() {
 
 #COMMENT
 	# load .json files in variables
-	srcJson=$(jq . < ${baseDir}/data/ntfssrc.json | sed -e 's/ null / "" /g' )
-	tskJson=$(jq . < ${baseDir}/data/ntfstsk.json | sed -e 's/ null / "" /g' )
+	srcJson=$(jq . < ${baseDir}/data/ntfssrc.json | tr '[:upper:]' '[:lower:]' | sed -e 's/ null / "" /g' )
+	tskJson=$(jq . < ${baseDir}/data/ntfstsk.json | tr '[:upper:]' '[:lower:]' | sed -e 's/ null / "" /g' )
 
 	# back to original directory
 	cd $myDir

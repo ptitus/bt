@@ -92,16 +92,19 @@ myJson=$(echo '{}' | jq \
 
 # file system analysis
 fsstatResult=$(fsstat -o "$firstUnit" "$imageFile")
-fsType=$(echo "$fsstatResult" | grep -oP "(?<=File System Type: ).*" | tr '[:upper:]' '[:lower:]' )
+fsType=$(echo "$fsstatResult" | grep -oP "(?<=File System Type: ).*")
 fsName=$(echo "$fsstatResult" | grep -oP "(?<=Volume Name: ).*" )
-fsId=$(echo "$fsstatResult" | grep -oP "(?<=Volume Serial Number: ).*" )
+fsId=$(echo "$fsstatResult" | grep -oP "(?<=Volume Serial Number: ).*")
 fsVersionOs=$(echo "$fsstatResult" | grep -oP "(?<=Version: ).*" )
 case "$fsVersionOs" in
 	"Windows XP")
 		fsVersion=3.1
 		;;
-	"Windows NT")
+	"Windows 2000")
 		fsVersion=3.0
+		;;
+	"Windows NT")
+		fsVersion=1.2
 		;;
 	*)
 		fsVersion=""
@@ -118,7 +121,7 @@ myJson=$(echo "$myJson" | jq \
 # files analysis
 myJson=$(echo "$myJson" | jq ' . + {'files':{}}')
 
-flsResult=$(fls -m -p -r -o "$firstUnit" "$imageFile")
+flsResult=$(fls -pro "$firstUnit" -m / "$imageFile")
 get_fileinfo "$flsResult"
 
 # recover file

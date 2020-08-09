@@ -1,0 +1,98 @@
+{
+  "partition": {
+    "part_type": "gpt",
+    "unit_size": "512",
+    "first_unit": "2048"
+  },
+  "fs": {
+    "type": "ext3",
+    "name": "ext3part",
+    "id": "446e642d8d338692dc49726f560dd68d"
+  },
+  "files": {
+    "lost+found": {
+      "filepath": "/lost+found",
+      "inode": "11",
+      "file_type": "d",
+      "mode": "drwx------",
+      "size": "16384",
+      "modified": "1596970811",
+      "accessed": "1596970811",
+      "changed": "1596970811",
+      "created": "1596970811",
+      "sha256": ""
+    },
+    "file.0": {
+      "filepath": "/file.0",
+      "inode": "12",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "0",
+      "modified": "1596970812",
+      "accessed": "1596970812",
+      "changed": "1596970812",
+      "created": "1596970812",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "file.binary": {
+      "filepath": "/file.binary",
+      "inode": "13",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1596970812",
+      "accessed": "1596970812",
+      "changed": "1596970812",
+      "created": "1596970812",
+      "sha256": "72f782b622c21580eb73510f8fce24f5ef4d136a48c71603af63d01c1889441c"
+    },
+    "file.txt": {
+      "filepath": "/file.txt",
+      "inode": "14",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1596970813",
+      "accessed": "1596970813",
+      "changed": "1596970813",
+      "created": "1596970813",
+      "sha256": "8845d7320334ee4835cbbb23ab4f25e3274db6411420fe42a3c82ca99af5d599"
+    },
+    "subdir": {
+      "filepath": "/subdir",
+      "inode": "527281",
+      "file_type": "d",
+      "mode": "drwxr-xr-x",
+      "size": "4096",
+      "modified": "1596970813",
+      "accessed": "1596970813",
+      "changed": "1596970813",
+      "created": "1596970813",
+      "sha256": ""
+    },
+    "file2.txt": {
+      "filepath": "/subdir/file2.txt",
+      "inode": "527282",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1596970813",
+      "accessed": "1596970813",
+      "changed": "1596970813",
+      "created": "1596970813",
+      "sha256": "e4c25d84f0e7f916b23de5c485c63bdf67755cf0ba3d17c668c7b7fb854d025e"
+    },
+    "OrphanFile-15": {
+      "filepath": "/$OrphanFiles/OrphanFile-15 (deleted)",
+      "inode": "15",
+      "file_type": "-",
+      "mode": "rrw-r--r--",
+      "size": "0",
+      "modified": "1596970813",
+      "accessed": "1596970813",
+      "changed": "1596970813",
+      "created": "1596970813",
+      "sha256": ""
+    }
+  }
+}

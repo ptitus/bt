@@ -6,9 +6,9 @@ $diskNo='1'
 $partitionStyle='gpt'
 $driveLetter='E'
 $resultFile='K:\ntfssrc.json'
-$fsLabel='ntfs'
+$fsLabel='ntfspart'
 
-
+#define functions
 function make-filejson(){
 	param(
 		[string]$fileName,
@@ -57,7 +57,6 @@ function make-filejson(){
 	end {}
 }
 
-#write-Host $resultFile
 
 # create partition 
 Initialize-Disk -Number $diskNo -PartitionStyle $partitionStyle > Out-Null
@@ -80,7 +79,6 @@ $fsutilResult = fsutil fsinfo ntfsinfo "${driveletter}:"
 $myJson.fs.type = Get-Volume | where DriveLetter -like $driveLetter | select -ExpandProperty FileSystemType
 $myJson.fs.name = Get-Volume | where DriveLetter -like $driveLetter | select -ExpandProperty FileSystemLabel
 $myJson.fs.id = $fsutilResult | select-String -pattern "NTFS VOLUME Serial Number : \s+0x(.*)" | %{$_.matches.groups[1].Value}
-#$myJson.fs.id = Get-Partition -DiskNumber $diskNo | where DriveLetter -like $driveLetter | select -ExpandProperty Guid
 $myJson.fs.version = $fsutilResult | select-String -pattern "NTFS Version\s+:\s+(.*)" | %{$_.matches.groups[1].Value}
 
 # create objects in fs, record infos in json

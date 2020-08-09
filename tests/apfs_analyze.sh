@@ -108,7 +108,7 @@ myJson=$(echo "$myJson" | jq \
 # files analysis
 myJson=$(echo "$myJson" | jq ' . + {'files':{}}')
 
-flsResult=$(fls -m -p -r -o "$firstUnit" -B "$apsbBlockNo" "$imageFile")
+flsResult=$(fls -pro "$firstUnit" -m / -B "$apsbBlockNo" "$imageFile")
 get_fileinfo "$flsResult"
 
 # recover file
