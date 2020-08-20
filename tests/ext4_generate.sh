@@ -91,7 +91,7 @@ resultJson=$(echo "$resultJson" | jq \
 fsType=$(lsblk -f "$partitionPath" | grep "$partition" | awk '{print $2}')
 fsName=$(lsblk -f "$partitionPath" | grep "$partition" | awk '{print $3}')
 # tsk reads UUIDs with different Byte Order
-fsId=$(lsblk -f "$partitionPath" | grep "$partition" | awk '{print $4}' | tr -d "-" | fold -w 2 | tac | paste -sd '\0' -)
+fsId=$(lsblk -f "$partitionPath" | grep "$partition" | awk '{print $4}' | tr -d "-" | fold -w 2 | tac | paste -sd '\0' - | sed 's/^0*//')
 
 resultJson=$(echo "$resultJson" | jq \
         --arg t "$fsType" \

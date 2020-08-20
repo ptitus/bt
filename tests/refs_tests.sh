@@ -6,20 +6,22 @@
 baseDir=".."
 
 # basic tests
-testJQ(){
+<<COMMENT
+no_testJQ(){
 	result=$(jq --version)
 	rtrn=$?
 	assertEquals  'Error calling jq' 0 ${rtrn}
 	assertContains 'jq version 1.5*' "$result" "jq-1.5"
 }
 
-testJSONOBJCOUNT(){
+no_testJSONOBJCOUNT(){
 	src=$(jq '. | length // empty' <<< "$srcJson")
 	tsk=$(jq '. | length // empty' <<< "$tskJson")
 	assertNotNull "Source File $fileName no objects" "$src"
         assertNotNull "TSK File $fileName no objects" "$tsk"
 	assertEquals 'Json object count is not equal' "$src" "$tsk"
 }
+COMMENT
 
 # partition information
 testPARTITION(){
@@ -61,12 +63,6 @@ testFILESYSTEM(){
 	assertNotNull "Source File $fileName empty fs.id" "$src"
         assertNotNull "TSK File $fileName empty fs.id" "$tsk"
 	assertEquals 'ID of fs does not match' "$src" "$tsk"
-	
-	src=$(jq '.fs.os // empty' <<< "$srcJson" | tr -d '"')
-	tsk=$(jq '.fs.os // empty' <<< "$tskJson" | tr -d '"')
-	assertNotNull "Source File $fileName empty fs.os" "$src"
-        assertNotNull "TSK File $fileName empty fs.os" "$tsk"
-	assertEquals 'Source OS of fs does not match' "$src" "$tsk"
 }
 
 # file

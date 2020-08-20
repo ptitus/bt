@@ -8,11 +8,11 @@ groups:
     - uri: 127.0.0.1:2253
       name: sleuthkit-fkiecad
     - uri: 127.0.0.1:2254
-      name: sleuthkit-refs
+      name: sleuthkit-faui
     - uri: 127.0.0.1:2255
       name: generator-lnx
-    - uri: 192.168.168.82
-      name: generator-mac
+    - uri: 127.0.0.1:2256
+      name: sleuthkit-sy
   config:
     transport: ssh
     ssh:
@@ -21,6 +21,21 @@ groups:
       host-key-check: false
       run-as: root
       sudo-password: linux
+
+- name: mac
+  targets:
+    - uri: 192.168.168.84
+      name: generator-mac
+    - uri: 192.168.168.82
+      name: generator-mac-wlan  
+  config:
+    transport: ssh
+    ssh:
+      user: user
+      host-key-check: false
+      run-as: root
+      sudo-password: linux
+      connect-timeout: 30
 
 - name: win
   targets:

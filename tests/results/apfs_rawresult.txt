@@ -1,0 +1,52 @@
+Connected Generator Machine under 192.168.168.84
+Started on generator-mac...
+Finished on generator-mac:
+  STDOUT:
+    created: /Users/user/apfsimg/apfs.dmg
+    "disk2" ejected.
+Successful on 1 target: generator-mac
+Ran on 1 target in 13.78 sec
+Bringing machine 'sleuthkit_49' up with 'virtualbox' provider...
+==> sleuthkit_49: Clearing any previously set forwarded ports...
+==> sleuthkit_49: Clearing any previously set network interfaces...
+==> sleuthkit_49: Preparing network interfaces based on configuration...
+    sleuthkit_49: Adapter 1: nat
+==> sleuthkit_49: Forwarding ports...
+    sleuthkit_49: 22 (guest) => 2252 (host) (adapter 1)
+    sleuthkit_49: 22 (guest) => 2222 (host) (adapter 1)
+==> sleuthkit_49: Running 'pre-boot' VM customizations...
+==> sleuthkit_49: Booting VM...
+==> sleuthkit_49: Waiting for machine to boot. This may take a few minutes...
+    sleuthkit_49: SSH address: 127.0.0.1:2222
+    sleuthkit_49: SSH username: vagrant
+    sleuthkit_49: SSH auth method: private key
+==> sleuthkit_49: Machine booted and ready!
+==> sleuthkit_49: Checking for guest additions in VM...
+==> sleuthkit_49: Setting hostname...
+==> sleuthkit_49: Mounting shared folders...
+    sleuthkit_49: /data => /home/peter/projects/bt/data
+    sleuthkit_49: /vagrant => /home/peter/projects/bt/vagrant/ubuntu-18-04_mate-desktop
+==> sleuthkit_49: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> sleuthkit_49: flag to force provisioning. Provisioners marked to run always will still run.
+Started on sleuthkit-49...
+Finished on sleuthkit-49:
+  STDERR:
+    Attribute not found in file (tsk_fs_attrlist_get: Attribute 4352 not found)
+Successful on 1 target: sleuthkit-49
+Ran on 1 target in 1.72 sec
+==> sleuthkit_49: Attempting graceful shutdown of VM...
+testPARTITION
+testFILESYSTEM
+testFILE-ZEROLENGTH
+testFILE-BINARY
+testFILE-TEXT
+[1;31mASSERT:[0mAccessed Timestamp of file does not match expected:<1597481748> but was:<1597481749>
+[1;31mASSERT:[0mCreation Timestamp of file does not match expected:<1597481748> but was:<1597481749>
+testFILE-SUBDIR
+testFILE-SUBFILE
+testFILE-DELETED
+[1;31mASSERT:[0mTSK File delfile.txt not found
+
+Ran [1;36m8[0m tests.
+
+[1;31mFAILED[0m ([1;31mfailures=3[0m,[1;33mskipped=30[0m)

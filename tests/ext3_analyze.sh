@@ -21,7 +21,8 @@ function get_fileinfo() {
 				filePath=$(echo "$line" | cut -d "|" -f 2 | grep -oP '/.*')
 				if [[ "$fileType" == "-" ]]
 				then
-					name=$(basename -a "$filePath" | grep -oP '.*(?= \(.*\))') # ohne (deleted)
+					name=$(basename -a "$filePath" | grep -oP '.*(?= \(.*\))') # ohne (deleted) da .json sonst nicht richtig geparst wird
+					fileType=$(echo "$mode" | head -c 1) # Dateityp wiederherstellen
 				else
 					name=$(basename -a "$filePath" | tr -d " ") # ohne Leerzeichen
 				fi
@@ -42,14 +43,6 @@ function get_fileinfo() {
 					sha256=$(sha256sum "restoredir${filePath}"| cut -d " " -f 1)
 					;;
 				esac					
-				#if [[ "$fileType" == "d" ]]
-				#then
-				#	mkdir "restoredir${filePath}"
-				#	sha256=""
-				#else
-				#	icat -o "$firstUnit" "$imageFile" "$inode" > "restoredir${filePath}" 
-				#	sha256=$(sha256sum "restoredir${filePath}"| cut -d " " -f 1)
-				#fi
 	                        myJson=$(echo "$myJson" | jq \
 				--arg n "$name" \
                 	        --arg fP "$filePath" \

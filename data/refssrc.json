@@ -7,81 +7,80 @@
     "fs":  {
                "type":  "ReFS",
                "name":  "refs_single",
-               "id":  "{f9dff023-dbe2-4198-a5f4-778f0f609e01}",
-               "os":  ""
+               "id":  "{5c4bca56-7dd5-4ac3-878d-ec9500dda1c5}"
            },
     "files":  {
                   "file.0":  {
                                  "filepath":  "/file.0",
-                                 "inode":  "0x00000000000006000000000000000001",
+                                 "inode":  "",
                                  "file_type":  "r",
                                  "mode":  "-a----",
                                  "size":  0,
-                                 "modified":  1596878072,
-                                 "accessed":  1596878072,
+                                 "modified":  1597481649,
+                                 "accessed":  1597481649,
                                  "changed":  "",
-                                 "created":  1596878072,
+                                 "created":  1597481649,
                                  "sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
                              },
                   "file.binary":  {
                                       "filepath":  "/file.binary",
-                                      "inode":  "0x00000000000006000000000000000002",
+                                      "inode":  "",
                                       "file_type":  "r",
                                       "mode":  "-a----",
                                       "size":  10240,
-                                      "modified":  1596878073,
-                                      "accessed":  1596878073,
+                                      "modified":  1597481649,
+                                      "accessed":  1597481649,
                                       "changed":  "",
-                                      "created":  1596878073,
-                                      "sha256":  "3F1B76E5A6CE9ABCE769699CB32DD1423199C0A61C2274F3008455AE6908E03A"
+                                      "created":  1597481649,
+                                      "sha256":  "1CB5630EE06250397302DD989329AA596FA3EE536DB19AB3DFF23DA8EAAA2613"
                                   },
                   "file.txt":  {
                                    "filepath":  "/file.txt",
-                                   "inode":  "0x00000000000006000000000000000003",
+                                   "inode":  "",
                                    "file_type":  "r",
                                    "mode":  "-a----",
                                    "size":  10240,
-                                   "modified":  1596878075,
-                                   "accessed":  1596878073,
+                                   "modified":  1597481651,
+                                   "accessed":  1597481649,
                                    "changed":  "",
-                                   "created":  1596878073,
-                                   "sha256":  "49AE16933D708462922C9041944F5B6CD55612FE961F2C5E98369B8446A4F8C8"
+                                   "created":  1597481649,
+                                   "sha256":  "92132A5CC59381285686A027C76E625B7D55B3C21E483566D2445A2646C59A63"
                                },
                   "delfile":  {
                                   "filepath":  "/delfile",
-                                  "inode":  "0x00000000000006000000000000000004",
+                                  "inode":  "",
                                   "file_type":  "r",
                                   "mode":  "-a----",
                                   "size":  10240,
-                                  "modified":  1596878075,
-                                  "accessed":  1596878075,
+                                  "modified":  1597481651,
+                                  "accessed":  1597481651,
                                   "changed":  "",
-                                  "created":  1596878075,
-                                  "sha256":  "4AC0F90B4CCE1E1E5562CF5FEDB8EA6F7964E72C255261E5FF016EBD6AB7C7DE"
+                                  "created":  1597481651,
+                                  "sha256":  "CC44B550BDCA3058A8A1F96343DB3A3D5443C7E596B67F5EF6707C676CE0528E"
                               },
                   "subdir":  {
                                  "filepath":  "/subdir",
-                                 "inode":  "0x00000000000007010000000000000000",
+                                 "inode":  "",
                                  "file_type":  "d",
                                  "mode":  "d-----",
                                  "size":  1,
-                                 "modified":  1596878075,
-                                 "accessed":  1596878075,
+                                 "modified":  1597481651,
+                                 "accessed":  1597481651,
                                  "changed":  "",
-                                 "created":  1596878075,
+                                 "created":  1597481651,
                                  "sha256":  null
                              },
                   "file2.txt":  {
                                     "filepath":  "/subdir/file2.txt",
-                                    "inode":  "0x00000000000007010000000000000001",
+                                    "inode":  "",
                                     "file_type":  "r",
                                     "mode":  "-a----",
                                     "size":  10240,
-                                    "modified":  1596878077,
-                                    "accessed":  1596878075,
+                                    "modified":  1597481652,
+                                    "accessed":  1597481651,
                                     "changed":  "",
-                                    "created":  1596878075,
-                                    "sha256":  "409D4C700EBB16884454BA9F7611469B5E83679DF797A2EA5E83607AD0AC0D01"
+                                    "created":  1597481651,
+                                    "sha256":  "2FE74EC32E1200C8BB8C8092A395B239F6DA4E8FCB7EBAFCE3554A55F9C3AE02"
                                 }
               }
 }

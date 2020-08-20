@@ -292,15 +292,16 @@ testFILE-TEXT(){
 
 # subdirectory
 testFILE-SUBDIR(){
-        fileName='subdir'
-        fileSrcObj=$(jq '.files."subdir" // empty' <<< "$srcJson")
-        fileTskObj=$(jq '.files."subdir" // empty' <<< "$tskJson")
+	fileName='subdir'
+	fileSrcObj=$(jq '.files."subdir" // empty' <<< "$srcJson")
+	fileTskObj=$(jq '.files."subdir" // empty' <<< "$tskJson")
 	
 	assertNotNull "Source File $fileName not found" "$fileSrcObj"
-        assertNotNull "TSK File $fileName not found" "$fileTskObj"
+	assertNotNull "TSK File $fileName not found" "$fileTskObj"
 
 	[[ -z "$fileSrcObj" ]] && startSkipping
         [[ -z "$fileTskObj" ]] && startSkipping
+	
 
         src=$(jq '.filepath // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.filepath // empty' <<< "$fileTskObj" | tr -d '"')
@@ -326,11 +327,7 @@ testFILE-SUBDIR(){
         assertNotNull "TSK File $fileName empty mode" "$tsk"
         assertEquals 'Mode of file does not match' "$src" "$tsk"
 
-        src=$(jq '.size // empty' <<< "$fileSrcObj" | tr -d '"')
-        tsk=$(jq '.size // empty' <<< "$fileTskObj" | tr -d '"')
-        assertNotNull "Source File $fileName empty size" "$src"
-        assertNotNull "TSK File $fileName empty size" "$tsk"
-        assertEquals 'Size of file does not match' "$src" "$tsk"
+        #subdir has no size to compare
 
         src=$(jq '.modified // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.modified // empty' <<< "$fileTskObj" | tr -d '"')
@@ -357,11 +354,6 @@ testFILE-SUBDIR(){
         assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
 
 	#subdir has no content to hash
-        #src=$(jq '.sha256 // empty' <<< "$fileSrcObj" | tr -d '"')
-        #tsk=$(jq '.sha256 // empty' <<< "$fileTskObj" | tr -d '"')
-        #assertNotNull "Source File $fileName empty sha256" "$src"
-        #assertNotNull "TSK File $fileName empty sha256" "$tsk"
-        #assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
 }
 
 # file in subdirectory
@@ -423,14 +415,14 @@ testFILE-SUBFILE(){
         assertNotNull "Source File $fileName empty changed" "$src"
         assertNotNull "TSK File $fileName empty changed" "$tsk"
         assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
-
-        src=$(jq '.created // empty' <<< "$fileSrcObj" | tr -d '"')
+        
+	src=$(jq '.created // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.created // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty created" "$src"
         assertNotNull "TSK File $fileName empty created" "$tsk"
         assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
-
-        src=$(jq '.sha256 // empty' <<< "$fileSrcObj" | tr -d '"')
+        
+	src=$(jq '.sha256 // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.sha256 // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty sha256" "$src"
         assertNotNull "TSK File $fileName empty sha256" "$tsk"
@@ -443,9 +435,7 @@ testFILE-DELETED(){
 	fileName="delfile.txt"
 	fileSrcObj=$(jq '.files."delfile.txt" // empty' <<< "$srcJson")
 	delInode=$(jq --arg f "$fileName" '.files | select( .[$f] ) | .[$f].inode  // empty' <<< "$srcJson" | tr -d '"')
-	orphanKey=$(jq --arg reg_exp ".*${delInode}.*" '.files | with_entries(select(.key | match($reg_exp))) | select(length > 0) | keys []  // empty' <<< "$tskJson" | tr -d '"')
-	fileTskObj=$(jq --arg sel "$orphanKey" '.files[] | .[$sel] | select(length > 0) // empty' <<< "$tskJson")
-	
+	fileTskObj=$(jq --arg reg_exp ".*${delInode}.*" '.files | with_entries(select(.key | match($reg_exp))) | [.[]|select(length > 0)][0] // empty' <<< "$tskJson")
 	assertNotNull "Source File $fileName not found" "$fileSrcObj"
         assertNotNull "TSK File $fileName not found" "$fileTskObj"
 
@@ -591,7 +581,7 @@ oneTimeSetUp() {
 	bolt script run ${myDir}/${tskScript} --targets "$vmTskMachineName"
 
 	# shutdown tsk machine
-	vagrant halt "$tskMachineId"
+#	vagrant halt "$tskMachineId"
 
 
 #COMMENT

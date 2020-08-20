@@ -16,4 +16,4 @@ if ! [[ -e /home/user/shunit2/.git ]]
   then git clone --depth=1 https://github.com/kward/shunit2.git /home/user/shunit2
 fi
 # jshon installieren
-apt-get install zfsutils-linux jq tree -y
+apt-get install jq tree -y

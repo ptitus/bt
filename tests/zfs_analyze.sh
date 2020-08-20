@@ -22,14 +22,15 @@ function get_fileinfo() {
 		case "$fileType" in
 			(d|r|-)
 				filePath="" #not implemented
-				modified=$(echo "$istatResult" | grep -oP '(?<=Modified time: ).+' | sed -e 's/^ *//g' | date "+%s")
-				accessed=$(echo "$istatResult" | grep -oP '(?<=Access time: ).+' | sed -e 's/^ *//g' | date "+%s")
-        		        changed=""
-				created=$(echo "$istatResult" | grep -oP '(?<=Modified time: ).+' | sed -e 's/^ *//g'| date "+%s")
-	        	        size=$(echo "$istatResult" | grep -oP '(?<=Size: )[[:digit:]]+')
+	        	        modified=$(echo "$istatResult" | grep -oP '(?<=Modified time: ).+' | sed -e 's/^ *//g' | date -f - +%s)
+                                accessed=$(echo "$istatResult" | grep -oP '(?<=Access time: ).+' | sed -e 's/^ *//g' | date -f - +%s)
+                                changed=$(echo "$istatResult" | grep -oP '(?<=Change time: ).+' | sed -e 's/^ *//g'| date -f +%s)
+                                created=$(echo "$istatResult" | grep -oP '(?<=Created time: ).+' | sed -e 's/^ *//g'| date -f +%s)
+				size=$(echo "$istatResult" | grep -oP '(?<=Size: )[[:digit:]]+')
 				case "$fileType" in
 					(d)
 						mkdir "restoredir/${fileName}"
+						size=0
 						sha256=""
 						;;
 	

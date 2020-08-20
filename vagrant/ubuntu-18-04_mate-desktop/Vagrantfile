@@ -67,5 +67,14 @@ Vagrant.configure("2") do |config|
 	generator_lnx.vm.network "forwarded_port", guest: 22, host: 2255
     end
 
+    config.vm.define "sleuthkit_sy" do |sleuthkit_sy|
+	sleuthkit_sy.vm.provider "virtualbox" do |vb|
+	    vb.name = "sleuthkit-sy"		
+	end
+	sleuthkit_sy.vm.hostname = "sleuthkit-sy"
+	sleuthkit_sy.vm.provision "shell", inline: "echo Sleuthkit SY"
+        sleuthkit_sy.vm.provision "shell",  path: "sleuthkit-sy.sh", reboot: true    
+	sleuthkit_sy.vm.network "forwarded_port", guest: 22, host: 2256
+    end
 end
 

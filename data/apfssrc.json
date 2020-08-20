@@ -1,86 +1,86 @@
 {
   "partition": {
-    "part_type": "GUID",
+    "part_type": "GPT",
     "unit_size": "512",
     "first_unit": "40"
   },
   "fs": {
     "type": "apfs",
     "label": "apfs-single",
-    "id": "7E0386DC-0EF7-4857-B289-80D5E322CDB5"
+    "id": "832AFE0D-EAEE-47E1-B32B-122EFF497DD1"
   },
   "files": {
     "file.0": {
       "filepath": "/file.0",
       "inode": "18",
       "file_type": "r",
-      "mode": "-rw-r--r--",
+      "mode": "rrw-r--r--",
       "size": "0",
-      "modified": "1596892501",
-      "accessed": "1596892501",
-      "changed": "1596892501",
-      "created": "1596892501",
+      "modified": "1597481748",
+      "accessed": "1597481748",
+      "changed": "1597481748",
+      "created": "1597481748",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     "file.binary": {
       "filepath": "/file.binary",
       "inode": "19",
       "file_type": "r",
-      "mode": "-rw-r--r--",
+      "mode": "rrw-r--r--",
       "size": "10000000",
-      "modified": "1596892501",
-      "accessed": "1596892501",
-      "changed": "1596892501",
-      "created": "1596892501",
-      "sha256": "5019231e8693755a8d8cbace1edd4a23dd377cd76f3328f73c7c383396cee188"
+      "modified": "1597481748",
+      "accessed": "1597481748",
+      "changed": "1597481748",
+      "created": "1597481748",
+      "sha256": "7e33f547928fc472149c033cb82376e2eceefceadfe989c7b14f0d4b3d5e1709"
     },
     "file.txt": {
       "filepath": "/file.txt",
       "inode": "20",
       "file_type": "r",
-      "mode": "-rw-r--r--",
+      "mode": "rrw-r--r--",
       "size": "10000000",
-      "modified": "1596892501",
-      "accessed": "1596892501",
-      "changed": "1596892501",
-      "created": "1596892501",
-      "sha256": "99a4fa2495186ce81fe6c1616405b68518dda1132c942e8f0732cab109efa400"
+      "modified": "1597481749",
+      "accessed": "1597481748",
+      "changed": "1597481749",
+      "created": "1597481748",
+      "sha256": "7a156d08346d08660cf85e58e3c4ff37a3933566d9c4e24c2acf8a4171263c00"
     },
     "delfile.txt": {
       "filepath": "/delfile.txt",
       "inode": "21",
       "file_type": "r",
-      "mode": "-rw-r--r--",
+      "mode": "rrw-r--r--",
       "size": "10000000",
-      "modified": "1596892502",
-      "accessed": "1596892501",
-      "changed": "1596892502",
-      "created": "1596892501",
-      "sha256": "6c5f4c69b4eeda7f03255cab1a5cb4f15c842e5dbb68ab51fc2aad92f6d653c0"
+      "modified": "1597481749",
+      "accessed": "1597481749",
+      "changed": "1597481749",
+      "created": "1597481749",
+      "sha256": "c5fe9c830e1b1689cc517e23eae805e9eff23111adfc9fe7590a734126fc9bf3"
     },
     "subdir": {
       "filepath": "/subdir",
       "inode": "22",
       "file_type": "d",
-      "mode": "",
+      "mode": "drwxr-xr-x",
       "size": "64",
-      "modified": "1596892502",
-      "accessed": "1596892502",
-      "changed": "1596892502",
-      "created": "1596892502",
+      "modified": "1597481749",
+      "accessed": "1597481749",
+      "changed": "1597481749",
+      "created": "1597481749",
       "sha256": ""
     },
     "file2.txt": {
       "filepath": "/subdir/file2.txt",
       "inode": "23",
       "file_type": "r",
-      "mode": "-rw-r--r--",
+      "mode": "rrw-r--r--",
       "size": "10000000",
-      "modified": "1596892502",
-      "accessed": "1596892502",
-      "changed": "1596892502",
-      "created": "1596892502",
-      "sha256": "795fd4246d53f0d289e7d5e21c762b47b7f4581297cc59a6cadd4c44d121a003"
+      "modified": "1597481749",
+      "accessed": "1597481749",
+      "changed": "1597481749",
+      "created": "1597481749",
+      "sha256": "3f28b0b4f95391edd2ee5e19b0d6d91c11bdec7f8211c5da7d19a45182fcb9fc"
     }
   }
 }

@@ -14,12 +14,12 @@ function get_fileinfo() {
 		mkdir "restoredir"
 	fi
         while IFS= read -r line; do
-		if [[ ! "$line" == *'$'* ]] 
+		mode=$(echo "$line" | cut -d "|" -f 4 | grep -oP '(?<=/).*')
+		fileType=$(echo "$line" | cut -d "|" -f 4 | grep -oP '.{1}(?=/)')
+		if [[ ! "$line" == *'$'* ]] || [[ "$fileType" == 'V' ]]
 		then
-			mode=$(echo "$line" | cut -d "|" -f 4 | grep -oP '(?<=/).*')
-			fileType=$(echo "$line" | cut -d "|" -f 4 | grep -oP '.{1}(?=/)')
 			case "$fileType" in
-				(d|r|-)
+				(d|r|V)
 					filePath=$(echo "$line" | cut -d "|" -f 2 | grep -oP '/.*')
 					if [[ "$fileType" == "-" ]]
 					then
@@ -39,19 +39,18 @@ function get_fileinfo() {
 							sha256=""
 							;;
 		
-						(r|-)
-						icat -o "$firstUnit" "$imageFile" "$inode" > "restoredir${filePath}" 
-						sha256=$(sha256sum "restoredir${filePath}"| cut -d " " -f 1)
-						;;
+						(V)
+							inode=$(ifind -d "$inode" -o "$firstUnit" "$imageFile")
+							icat -o "$firstUnit" "$imageFile" "$inode" > "restoredir${filePath}" 
+							sha256=$(sha256sum "restoredir${filePath}"| cut -d " " -f 1)
+							;;
+						(r)
+
+							icat -o "$firstUnit" "$imageFile" "$inode" > "restoredir${filePath}" 
+							sha256=$(sha256sum "restoredir${filePath}"| cut -d " " -f 1)
+							;;
+
 					esac					
-					#if [[ "$fileType" == "d" ]]
-					#then
-					#	mkdir "restoredir${filePath}"
-					#	sha256=""
-					#else
-					#	icat -o "$firstUnit" "$imageFile" "$inode" > "restoredir${filePath}" 
-					#	sha256=$(sha256sum "restoredir${filePath}"| cut -d " " -f 1)
-					#fi
 					myJson=$(echo "$myJson" | jq \
 					--arg n "$name" \
 					--arg fP "$filePath" \

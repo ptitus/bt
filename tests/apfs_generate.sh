@@ -17,13 +17,13 @@ function get_fileinfo() {
 		name=$(basename "$myPath")
 		inode=$(stat -f %i "$myPath")
 		fileType=$(ls -ld "$myPath" | head -c 1)
+		mode=$(ls -ld "$myPath" | cut -d " " -f 1)
 		#tsk meldet - als r = regular File
 		if [[ "$fileType" == "-" ]]
 		then
 			fileType="r"
 			mode=$(echo "$mode" | sed 's/^./r/')
 		fi
-		mode=$(ls -l "$myPath" | cut -d " " -f 1)
 		modified=$(stat -st %s "$myPath" | cut -d " " -f 10 | cut -d "=" -f 2)
 		accessed=$(stat -st %s "$myPath" | cut -d " " -f 9 | cut -d "=" -f 2)
 		changed=$(stat -st %s "$myPath" | cut -d " " -f 11 | cut -d "=" -f 2)
@@ -68,7 +68,7 @@ deviceFile=$(echo "$attachResult" | grep '/Volumes.*' | cut -d " " -f 1)
 imageInfo=$(hdiutil imageinfo "${deviceFolder}/${imgFile}")
 apfsPartNo=$(echo "$imageInfo" | sed -n '/partitions:/,/APFS:/p' | grep -o '[[:digit:]]:' | tail -1)
 apfsLines=$(echo "$imageInfo" | sed -n "/${apfsPartNo}/,/APFS:/p") 
-partType=$(echo "$imageInfo" | grep partition-scheme | cut -d " " -f 2)
+partType=$(echo "$imageInfo" | grep 'Primary GPT Header' | awk '{print $3}')
 unitSize=$(echo "$imageInfo" | grep block-size | cut -d " " -f 2)
 firstUnit=$(echo "$apfsLines" | grep partition-start | grep -Eo '[[:digit:]]+')
 resultJson=$(echo "$resultJson" | /usr/local/bin/jq \

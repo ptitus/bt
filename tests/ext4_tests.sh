@@ -63,11 +63,6 @@ testFILESYSTEM(){
         assertNotNull "TSK File $fileName empty fs.id" "$tsk"
 	assertEquals 'ID of fs does not match' "$src" "$tsk"
 	
-	src=$(jq '.fs.os // empty' <<< "$srcJson"| tr -d '"')
-	tsk=$(jq '.fs.os // empty' <<< "$tskJson"| tr -d '"')
-	assertNotNull "Source File $fileName empty fs.os" "$src"
-        assertNotNull "TSK File $fileName empty fs.os" "$tsk"
-	assertEquals 'Source OS of fs does not match' "$src" "$tsk"
 }
 
 # file

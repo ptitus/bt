@@ -6,20 +6,22 @@
 baseDir=".."
 
 # basic tests
-testJQ(){
+<<COMMENT
+no_testJQ(){
 	result=$(jq --version)
 	rtrn=$?
 	assertEquals  'Error calling jq' 0 ${rtrn}
 	assertContains 'jq version 1.5*' "$result" "jq-1.5"
 }
 
-testJSONOBJCOUNT(){
+no_testJSONOBJCOUNT(){
 	src=$(jq '. | length // empty' <<< "$srcJson")
 	tsk=$(jq '. | length // empty' <<< "$tskJson")
 	assertNotNull "Source File $fileName no objects" "$src"
         assertNotNull "TSK File $fileName no objects" "$tsk"
 	assertEquals 'Json object count is not equal' "$src" "$tsk"
 }
+COMMENT
 
 # file system information
 testFILESYSTEM-TYPE(){
@@ -52,7 +54,7 @@ testFILESYSTEM-TYPE(){
 INSERT_FILE_TESTS
 
 oneTimeSetUp() {
-	originalPath=$PATH
+ 	originalPath=$PATH
 	PATH=$PWD:$PATH
 	# Variables
 	myDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"	

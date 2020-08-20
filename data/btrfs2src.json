@@ -1,0 +1,86 @@
+{
+  "partition": {
+    "part_type": "gpt",
+    "unit_size": "512",
+    "first_unit": "2048"
+  },
+  "fs": {
+    "type": "btrfs",
+    "name": "btrfs_single",
+    "id": "e37e5f74e78beebaa645c8b15542f9bb"
+  },
+  "files": {
+    "file.0": {
+      "filepath": "/file.0",
+      "inode": "257",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "0",
+      "modified": "1597357326",
+      "accessed": "1597357326",
+      "changed": "1597357326",
+      "created": "0",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "file.binary": {
+      "filepath": "/file.binary",
+      "inode": "258",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1597357327",
+      "accessed": "1597357327",
+      "changed": "1597357327",
+      "created": "0",
+      "sha256": "7915e8cc90895b0d583435aa02b58c1764a482529d7198b1e32e52c30352be6e"
+    },
+    "file.txt": {
+      "filepath": "/file.txt",
+      "inode": "259",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1597357327",
+      "accessed": "1597357327",
+      "changed": "1597357327",
+      "created": "0",
+      "sha256": "2f652c41447651e7b1c7c9d7ac76eda41b56d18f54e0cd7b8dc80cb9cb6019e5"
+    },
+    "delfile.txt": {
+      "filepath": "/delfile.txt",
+      "inode": "260",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1597357327",
+      "accessed": "1597357327",
+      "changed": "1597357327",
+      "created": "0",
+      "sha256": "c7e4e7c1c9845cccf599b3c9307ae3ab4f5294b9af2c644162fb4f56af5e5a11"
+    },
+    "subdir": {
+      "filepath": "/subdir",
+      "inode": "261",
+      "file_type": "d",
+      "mode": "drwxr-xr-x",
+      "size": "0",
+      "modified": "1597357328",
+      "accessed": "1597357328",
+      "changed": "1597357328",
+      "created": "0",
+      "sha256": ""
+    },
+    "file2.txt": {
+      "filepath": "/subdir/file2.txt",
+      "inode": "262",
+      "file_type": "r",
+      "mode": "rrw-r--r--",
+      "size": "10000000",
+      "modified": "1597357328",
+      "accessed": "1597357328",
+      "changed": "1597357328",
+      "created": "0",
+      "sha256": "333ac94e70c718894b79860e4b405c8664dea9e68ad42aa8bd5a7716b6b460e6"
+    }
+  }
+}

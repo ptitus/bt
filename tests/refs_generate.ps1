@@ -20,8 +20,8 @@ function make-filejson(){
 		$myFile = "${filepath}\${fileName}"
 		$myJson.files.${fileName}=[ordered]@{}
 		$myJson.files.${fileName}.filepath = ((Get-Item $myFile).FullName).substring(2).replace("\","/")
-		$id = fsutil file queryFileID $myFile
-		$myJson.files.$($fileName).inode = ($id).Split(" ")[3]
+		#$id = fsutil file queryFileID $myFile
+		$myJson.files.$($fileName).inode = ""
 		$attr = (Get-Item $myFile).Mode.Substring(0,1)
 		$myFileType = "r"
 		if ($attr -like "d") {$myFileType = "d"}
@@ -59,7 +59,6 @@ $myJson.partition.first_unit = [int](Get-Partition -DiskNumber $diskNo | where D
 $myJson.fs.type = Get-Volume | where DriveLetter -like $driveLetter | select -ExpandProperty FileSystemType
 $myJson.fs.name = Get-Volume | where DriveLetter -like $driveLetter | select -ExpandProperty FileSystemLabel
 $myJson.fs.id = Get-Partition -DiskNumber $diskNo | where DriveLetter -like $driveLetter | select -ExpandProperty Guid
-$myJson.fs.os = ""
 
 # create objects in fs, record infos in json
 

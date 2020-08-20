@@ -8,14 +8,15 @@ sharedFolder='/media/sf_data'
 fsLabel='btrfs-2dev-raid1'
 rawFile1='drive1'
 rawFile2='drive2'
-loopDevice1='/dev/loop1'
-loopDevice2='/dev/loop2'
+devName1='loop1'
+devName2='loop2'
+loopDevice1="/dev/${devName1}"
+loopDevice2="/dev/${devName2}"
 mountPath='/media/hdd'
 resultJson="{}"
 resultFile="${sharedFolder}/btrfssrc.json"
 
 # define functions
-
 function get_crtime() {
     for target in "${@}"; do
         inode=$(stat -c '%i' "${target}")
@@ -27,46 +28,45 @@ function get_crtime() {
 }
 
 function get_fileinfo() {
-	for mypath in "${@}"; do
-		filePath=${mypath/#$mountPath}
-		name=$(stat --format=%n "${mypath}" | egrep -o [^/]+$ | tr -d " ") # ohne Leerzeichen
-		inode=$(stat --format=%i "${mypath}")
-		fileType=$(stat --format=%A "${mypath}" | cut -c 1 )
-		mode=$(stat --format=%A "${mypath}")
-		#tsk meldet - als r = regular File
-		if [[ "$fileType" == "-" ]]
-		then
-			fileType="r"
-			mode=$(echo "$mode" | sed 's/^./r/' )
-		fi
-		modified=$(stat --format=%Y "${mypath}")
-		accessed=$(stat --format=%X "${mypath}")
-		changed=$(stat --format=%Z "${mypath}")
-		created=$(get_crtime "${mypath}")
-		size=$(stat --format=%s "${mypath}")
-		if [[ "$fileType" == "d" ]]
-		then
-			sha256=""
-		else	
-			sha256=$(sha256sum "${mypath}" | cut -d " " -f 1)
-		fi
-		resultJson=$(echo "$resultJson" | jq \
-			--arg n "$name" \
-			--arg fP "$filePath" \
-			--arg i "$inode" \
-			--arg fT "$fileType" \
-			--arg m "$mode" \
-			--arg s "$size" \
-			--arg mo "$modified" \
-			--arg ac "$accessed" \
-			--arg ch "$changed" \
-			--arg cr "$created" \
-			--arg sh "$sha256" \
-			'.files += {($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}')
+        for mypath in "${@}"; do
+                filePath=${mypath/#$mountPath}
+                name=$(stat --format=%n "${mypath}" | egrep -o [^/]+$ | tr -d " ") # ohne Leerzeichen
+                inode=$(stat --format=%i "${mypath}")
+                fileType=$(stat --format=%A "${mypath}" | cut -c 1 )
+                mode=$(stat --format=%A "${mypath}")
+                #tsk meldet - als r = regular File
+                if [[ "$fileType" == "-" ]]
+                then
+                        fileType="r"
+                        mode=$(echo "$mode" | sed 's/^./r/' )
+                fi
+                modified=$(stat --format=%Y "${mypath}")
+                accessed=$(stat --format=%X "${mypath}")
+                changed=$(stat --format=%Z "${mypath}")
+                created=$(get_crtime "${mypath}")
+                size=$(stat --format=%s "${mypath}")
+                if [[ "$fileType" == "d" ]]
+                then
+                        sha256=""
+                else
+                        sha256=$(sha256sum "${mypath}" | cut -d " " -f 1)
+                fi
+                resultJson=$(echo "$resultJson" | jq \
+                        --arg n "$name" \
+                        --arg fP "$filePath" \
+                        --arg i "$inode" \
+                        --arg fT "$fileType" \
+                        --arg m "$mode" \
+                        --arg s "$size" \
+                        --arg mo "$modified" \
+                        --arg ac "$accessed" \
+                        --arg ch "$changed" \
+                        --arg cr "$created" \
+                        --arg sh "$sha256" \
+                        '.files += {($n):{"filepath": $fP, "inode": $i, "file_type": $fT, "mode": $m, "size": $s, "modified": $mo, "accessed": $ac, "changed": $ch, "created": $cr, "sha256": $sh}}')
 
-	done
+        done
 }
-
 
 # creat device files
 [[ -d "$deviceFolder" ]] && rm -r "$deviceFolder"
@@ -93,18 +93,16 @@ mount "$loopDevice1" "$mountPath"
  
 # file system
 fileResult=$(file -sL $loopDevice1)
-btrfsResult=$(btrfs filesystem show "$mountPath")
-fsType=$(echo "$fileResult"| grep -oP '[[:word:]]*(?= Filesystem)' | tr '[:upper:]' '[:lower:]')
-fsLabel=$(echo "$btrfsResult" | grep -oP '(?<=Label: ).+(?=  uuid:)' | tr -d "'")
-fsId=$(echo "$btrfsResult" | grep -oP '(?<=uuid: )([[:word:]]|-)*$' | tr '[:lower:]' '[:upper:]')
+fsType=$(lsblk -f "$loopDevice1" | grep "$devName1" | awk '{print $2}')
+fsName=$(lsblk -f "$loopDevice1" | grep "$devName1" | awk '{print $3}')
+fsId=$(lsblk -f "$loopDevice1" | grep "$devName1" | awk '{print $4}')
 fsDevCount=$(echo "$fileResult" | grep -oP '(?<=used, )[[:digit:]]+(?= device)')
 resultJson=$(echo "$resultJson" | jq \
         --arg t "$fsType" \
         --arg l "$fsLabel" \
-        --arg s "$fsSectorSize" \
         --arg i "$fsId" \
         --arg c "$fsDevCount" \
-        ' . * {"fs": {"type": $t, "label": $l, "sector_size": $s, "id": $i, "device_count": $c}}')
+        ' . * {"fs": {"type": $t, "label": $l, "id": $i, "device_count": $c}}')
 
 # create objects in fs, record infos in json
 resultJson=$(echo "$resultJson" | jq ' . + {'files':{}}')

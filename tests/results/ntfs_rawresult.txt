@@ -1,0 +1,45 @@
+Eventually shutdown generator machine to mount .vmdk
+removed ../data/ntfs.vmdk from VirtualBox
+Medium created. UUID: 83ea2fe9-73b7-4f24-9e3d-9df3a253837a
+Waiting for VM "generator-win" to power on...
+VM "generator-win" has been successfully started.
+Wait 30s for generator machine to boot...
+Started on generator-win...
+Finished on generator-win:
+Successful on 1 target: generator-win
+Ran on 1 target in 22.99 sec
+Wait 45 Second for generator machine to shut down...
+Started on sleuthkit-49...
+Finished on sleuthkit-49:
+Successful on 1 target: sleuthkit-49
+Ran on 1 target in 2.78 sec
+testPARTITION
+testFILESYSTEM
+testFILE-ZEROLENGTH
+[1;31mASSERT:[0mSource File file.0 empty inode
+[1;31mASSERT:[0mInode of file does not match expected:<> but was:<36-128-1>
+[1;31mASSERT:[0mMode of file does not match expected:<-a----> but was:<rrwxrwxrwx>
+testFILE-BINARY
+[1;31mASSERT:[0mSource File file.binary empty inode
+[1;31mASSERT:[0mInode of file does not match expected:<> but was:<37-128-4>
+[1;31mASSERT:[0mMode of file does not match expected:<-a----> but was:<rrwxrwxrwx>
+testFILE-TEXT
+[1;31mASSERT:[0mSource File file.txt empty inode
+[1;31mASSERT:[0mInode of file does not match expected:<> but was:<38-128-3>
+[1;31mASSERT:[0mMode of file does not match expected:<-a----> but was:<rrwxrwxrwx>
+[1;31mASSERT:[0mCreation Timestamp of file does not match expected:<1597518581> but was:<1597518583>
+testFILE-SUBDIR
+[1;31mASSERT:[0mSource File subdir empty inode
+[1;31mASSERT:[0mInode of file does not match expected:<> but was:<39-144-1>
+[1;31mASSERT:[0mMode of file does not match expected:<d-----> but was:<drwxrwxrwx>
+testFILE-SUBFILE
+[1;31mASSERT:[0mSource File file2.txt empty inode
+[1;31mASSERT:[0mInode of file does not match expected:<> but was:<40-128-3>
+[1;31mASSERT:[0mMode of file does not match expected:<-a----> but was:<rrwxrwxrwx>
+[1;31mASSERT:[0mCreation Timestamp of file does not match expected:<1597518583> but was:<1597518586>
+testFILE-DELETED
+[1;31mASSERT:[0mSource File delfile.txt not found
+
+Ran [1;36m8[0m tests.
+
+[1;31mFAILED[0m ([1;31mfailures=18[0m,[1;33mskipped=30[0m)

@@ -14,7 +14,7 @@ function get_fileinfo() {
 		mkdir "restoredir"
 	fi
         while IFS= read -r line; do
-		if [[ ! "$line" == *'$'* ]] 
+		if [[ ! "$line" == *'File System Metadata'* ]] 
 		then
 			mode=$(echo "$line" | cut -d "|" -f 4 | grep -oP '(?<=/).*')
 			fileType=$(echo "$line" | cut -d "|" -f 4 | grep -oP '.{1}(?=/)')
@@ -27,7 +27,7 @@ function get_fileinfo() {
 					else
 						name=$(basename -a "$filePath" | tr -d " ") # ohne Leerzeichen
 					fi
-					#tsf for ReFS doesn't display full inode in body-file format
+					#tsk for ReFS doesn't display full inode in body-file format
 					inode=$(fls -p -r -o "$firstUnit" "$imageFile" | grep $name | cut -d " " -f 2 | grep -oP '.*(?=:)') 
 					#inode=$(echo "$line" | cut -d "|" -f 3)
 					modified=$(echo "$line" | cut -d "|" -f 9)
@@ -90,28 +90,23 @@ myJson=$(echo '{}' | jq \
         --arg pT "$partType" \
         --arg uS "$unitSize" \
         --arg fU "$firstUnit" \
-	--arg d "$description" \
-        ' . * {"partition": {"part_type": $pT, "unit_size": $uS, "first_unit": $fU, "description": $d}}')
+        ' . * {"partition": {"part_type": $pT, "unit_size": $uS, "first_unit": $fU}}')
 
 # file system analysis
 fsstatResult=$(fsstat -o "$firstUnit" "$imageFile")
-fsType=$(echo "$fsstatResult" | grep -oP "(?<=File System Type: ).*" | tr '[:upper:]' '[:lower:]' )
-fsName=$(echo "$fsstatResult" | grep -oP "(?<=Volume Name: ).*" )
-fsId=$(echo "$fsstatResult" | grep -oP "(?<=Volume ID: ).*" )
-fsSourceOs=$(echo "$fsstatResult" | grep -oP "(?<=Source OS: ).*" )
-#fsLastMount=?
-#fsFeatures=?
+fsType=$(echo "$fsstatResult" | grep -oP "(?<=File System Type: ).*")
+fsName=$(echo "$fsstatResult" | grep 'Volume Label:' | awk '{print $3}' | tr -d '"')
+fsId=$(echo "$fsstatResult" | grep -oP "(?<=Volume Serial Number: ).*" )
 myJson=$(echo "$myJson" | jq \
         --arg t "$fsType" \
 	--arg n "$fsName" \
         --arg i "$fsId" \
-        --arg o "$fsSourceOs" \
-        ' . * {"fs": {"type": $t, "name": $n, "id": $i, "os": $o, features:[]}}' )
+        ' . * {"fs": {"type": $t, "name": $n, "id": $i}}' )
 
 # files analysis
 myJson=$(echo "$myJson" | jq ' . + {'files':{}}')
 
-flsResult=$(fls -m -p -r -o "$firstUnit" "$imageFile")
+flsResult=$(fls -pro "$firstUnit" -m / "$imageFile")
 get_fileinfo "$flsResult"
 
 # recover file

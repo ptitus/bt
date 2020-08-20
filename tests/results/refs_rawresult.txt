@@ -1,0 +1,82 @@
+removed ../data/refs.vmdk from VirtualBox
+Medium created. UUID: 9e99ea41-19be-4aeb-96c5-068d6d6af117
+Waiting for VM "generator-win" to power on...
+VM "generator-win" has been successfully started.
+Wait 30s for generator machine to boot...
+Started on generator-win...
+Finished on generator-win:
+Successful on 1 target: generator-win
+Ran on 1 target in 17.95 sec
+Wait 45 Second for generator machine to shut down...
+Bringing machine 'sleuthkit_faui' up with 'virtualbox' provider...
+==> sleuthkit_faui: Clearing any previously set forwarded ports...
+==> sleuthkit_faui: Clearing any previously set network interfaces...
+==> sleuthkit_faui: Preparing network interfaces based on configuration...
+    sleuthkit_faui: Adapter 1: nat
+==> sleuthkit_faui: Forwarding ports...
+    sleuthkit_faui: 22 (guest) => 2254 (host) (adapter 1)
+    sleuthkit_faui: 22 (guest) => 2222 (host) (adapter 1)
+==> sleuthkit_faui: Running 'pre-boot' VM customizations...
+==> sleuthkit_faui: Booting VM...
+==> sleuthkit_faui: Waiting for machine to boot. This may take a few minutes...
+    sleuthkit_faui: SSH address: 127.0.0.1:2222
+    sleuthkit_faui: SSH username: vagrant
+    sleuthkit_faui: SSH auth method: private key
+==> sleuthkit_faui: Machine booted and ready!
+==> sleuthkit_faui: Checking for guest additions in VM...
+==> sleuthkit_faui: Setting hostname...
+==> sleuthkit_faui: Mounting shared folders...
+    sleuthkit_faui: /data => /home/peter/projects/bt/data
+    sleuthkit_faui: /vagrant => /home/peter/projects/bt/vagrant/ubuntu-18-04_mate-desktop
+==> sleuthkit_faui: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> sleuthkit_faui: flag to force provisioning. Provisioners marked to run always will still run.
+Started on sleuthkit-faui...
+Finished on sleuthkit-faui:
+Successful on 1 target: sleuthkit-faui
+Ran on 1 target in 1.45 sec
+==> sleuthkit_faui: Attempting graceful shutdown of VM...
+testPARTITION
+testFILESYSTEM
+[1;31mASSERT:[0mID of fs does not match expected:<{5c4bca56-7dd5-4ac3-878d-ec9500dda1c5}> but was:<aeac9f1bac9edd61>
+testFILE-ZEROLENGTH
+[1;31mASSERT:[0mSource File file.0 empty inode
+[1;31mASSERT:[0mInode of file does not match expected:<> but was:<1536--1>
+[1;31mASSERT:[0mMode of file does not match expected:<-a----> but was:<r--------->
+[1;31mASSERT:[0mSource File file.0 empty changed
+[1;31mASSERT:[0mChange Timestamp of file does not match expected:<> but was:<1597481649>
+testFILE-BINARY
+[1;31mASSERT:[0mSource File file.binary empty inode
+[1;31mASSERT:[0mInode of file does not match expected:<> but was:<1536--2>
+[1;31mASSERT:[0mMode of file does not match expected:<-a----> but was:<r--------->
+[1;31mASSERT:[0mSource File file.binary empty changed
+[1;31mASSERT:[0mChange Timestamp of file does not match expected:<> but was:<1597481649>
+testFILE-TEXT
+[1;31mASSERT:[0mSource File file.txt empty inode
+[1;31mASSERT:[0mInode of file does not match expected:<> but was:<1536--3>
+[1;31mASSERT:[0mMode of file does not match expected:<-a----> but was:<r--------->
+[1;31mASSERT:[0mAccessed Timestamp of file does not match expected:<1597481649> but was:<1597481651>
+[1;31mASSERT:[0mSource File file.txt empty changed
+[1;31mASSERT:[0mChange Timestamp of file does not match expected:<> but was:<1597481651>
+[1;31mASSERT:[0mCreation Timestamp of file does not match expected:<1597481649> but was:<1597481651>
+testFILE-SUBDIR
+[1;31mASSERT:[0mSource File subdir empty inode
+[1;31mASSERT:[0mInode of file does not match expected:<> but was:<1793--0
+1793--1>
+[1;31mASSERT:[0mMode of file does not match expected:<d-----> but was:<d--------->
+[1;31mASSERT:[0mSource File subdir empty changed
+[1;31mASSERT:[0mChange Timestamp of file does not match expected:<> but was:<1597481651>
+testFILE-SUBFILE
+[1;31mASSERT:[0mSource File file2.txt empty inode
+[1;31mASSERT:[0mInode of file does not match expected:<> but was:<1793--1>
+[1;31mASSERT:[0mMode of file does not match expected:<-a----> but was:<r--------->
+[1;31mASSERT:[0mAccessed Timestamp of file does not match expected:<1597481651> but was:<1597481652>
+[1;31mASSERT:[0mSource File file2.txt empty changed
+[1;31mASSERT:[0mChange Timestamp of file does not match expected:<> but was:<1597481652>
+[1;31mASSERT:[0mCreation Timestamp of file does not match expected:<1597481651> but was:<1597481652>
+testFILE-DELETED
+[1;31mASSERT:[0mSource File delfile.txt not found
+[1;31mASSERT:[0mTSK File delfile.txt not found
+
+Ran [1;36m8[0m tests.
+
+[1;31mFAILED[0m ([1;31mfailures=33[0m,[1;33mskipped=30[0m)

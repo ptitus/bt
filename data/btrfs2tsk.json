@@ -1,0 +1,13 @@
+{
+  "partition": {
+    "part_type": "",
+    "unit_size": "",
+    "first_unit": ""
+  },
+  "fs": {
+    "type": "",
+    "name": "",
+    "id": ""
+  },
+  "files": {}
+}

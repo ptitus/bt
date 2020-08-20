@@ -14,7 +14,7 @@ function get_fileinfo() {
 		mkdir "restoredir"
 	fi
         while IFS= read -r line; do
-		if [[ ! "$line" == *'$'* ]] 
+		if [[ ! "$line" == *'fseventsd'* ]] 
 		then
 			mode=$(echo "$line" | cut -d "|" -f 4 | grep -oP '(?<=/).*')
 			fileType=$(echo "$line" | cut -d "|" -f 4 | grep -oP '.{1}(?=/)')
