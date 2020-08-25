@@ -117,7 +117,7 @@ oneTimeSetUp() {
 	bolt script run ${myDir}/${tskScript} --targets "$vmTskMachineName"
 
 	# shutdown tsk machine
-	vagrant halt $tskMachineId
+#	vagrant halt $tskMachineId
 
 	# load .json files in variables
 	srcJson=$(jq . < ${baseDir}/data/apfssrc.json | tr '[:upper:]' '[:lower:]' | sed -e 's/ null / "" /g')

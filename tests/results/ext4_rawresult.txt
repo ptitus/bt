@@ -1,5 +1,5 @@
 removed ../data/ext4.vmdk from VirtualBox
-Medium created. UUID: 1920f654-e09e-4800-81e0-ce702e26af26
+Medium created. UUID: 2b689915-a275-434b-a255-fa568ebd4c5f
 Bringing machine 'generator_lnx' up with 'virtualbox' provider...
 ==> generator_lnx: Clearing any previously set forwarded ports...
 ==> generator_lnx: Clearing any previously set network interfaces...
@@ -25,7 +25,7 @@ Bringing machine 'generator_lnx' up with 'virtualbox' provider...
 Started on generator-lnx...
 Finished on generator-lnx:
 Successful on 1 target: generator-lnx
-Ran on 1 target in 3.92 sec
+Ran on 1 target in 4.06 sec
 ==> generator_lnx: Attempting graceful shutdown of VM...
 Bringing machine 'sleuthkit_49' up with 'virtualbox' provider...
 ==> sleuthkit_49: Clearing any previously set forwarded ports...
@@ -52,9 +52,10 @@ Bringing machine 'sleuthkit_49' up with 'virtualbox' provider...
 Started on sleuthkit-49...
 Finished on sleuthkit-49:
   STDERR:
-    /tmp/c3dfffe6-f681-4126-80c7-49f76da02f95/ext4_analyze.sh: Zeile 42: restoredir/$OrphanFiles/OrphanFile-15 (deleted): Datei oder Verzeichnis nicht gefunden
+    /tmp/21fe4c49-dd13-4af0-8f37-823e3c1fd6ae/ext4_analyze.sh: Zeile 42: restoredir/$OrphanFiles/OrphanFile-15 (deleted): Datei oder Verzeichnis nicht gefunden
+    sha256sum: 'restoredir/$OrphanFiles/OrphanFile-15 (deleted)': Datei oder Verzeichnis nicht gefunden
 Successful on 1 target: sleuthkit-49
-Ran on 1 target in 1.65 sec
+Ran on 1 target in 1.87 sec
 ==> sleuthkit_49: Attempting graceful shutdown of VM...
 testPARTITION
 testFILESYSTEM
@@ -64,10 +65,13 @@ testFILE-TEXT
 testFILE-SUBDIR
 testFILE-SUBFILE
 testFILE-DELETED
-[1;31mASSERT:[0mPath of file does not match expected:</delfile.txt> but was:</$orphanfiles/orphanfile-15 (deleted)>
-[1;31mASSERT:[0mSize of file does not match expected:<10000000> but was:<0>
-[1;31mASSERT:[0mSha256 Checksum of file does not match expected:<ea6b31f11da9d122976f8ec6fba1b7609e45d7ebffa09a8c53cb69d1a122acbf> but was:<5c29f8b918d95ed1c01a238a7f1a2070f62ffe273d4ee6287dbdc24f08bcbf75>
+[1;31mASSERT:[0mPath of delfile.txt does not match expected:</delfile.txt> but was:</$orphanfiles/orphanfile-15 (deleted)>
+[1;31mASSERT:[0mSize of delfile.txt does not match expected:<10000000> but was:<0>
+[1;31mASSERT:[0mAccessed Timestamp of delfile.txt does not match expected:<1598362157> but was:<1598362158>
+[1;31mASSERT:[0mCreation Timestamp of delfile.txt does not match expected:<1598362157> but was:<1598362158>
+[1;31mASSERT:[0mTSK File delfile.txt empty sha256
+[1;31mASSERT:[0mSha256 Checksum of delfile.txt does not match expected:<1bc48ab2edad83cad1ae92a4311d1abc27b9e05c0bf77d4fcc8fdce88730898f> but was:<>
 
 Ran [1;36m8[0m tests.
 
-[1;31mFAILED[0m ([1;31mfailures=4[0m)
+[1;31mFAILED[0m ([1;31mfailures=7[0m)

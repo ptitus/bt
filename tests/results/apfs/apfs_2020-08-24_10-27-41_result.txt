@@ -1,0 +1,12 @@
+testPARTITION
+testFILESYSTEM
+testFILE-ZEROLENGTH
+testFILE-BINARY
+testFILE-TEXT
+ASSERT:Accessed Timestamp of file.txt does not match expected:<1598257644> but was:<1598257645>
+ASSERT:Creation Timestamp of file.txt does not match expected:<1598257644> but was:<1598257645>
+testFILE-SUBDIR
+testFILE-SUBFILE
+testFILE-DELETED
+ASSERT:TSK File delfile.txt not found
+FAILED (failures=3,skipped=30)

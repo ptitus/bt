@@ -1,0 +1,76 @@
+removed ../data/ntfs.vmdk from VirtualBox
+Medium created. UUID: 2e47357f-b1eb-4059-87af-1c8caa4f8de5
+Bringing machine 'generator_win' up with 'virtualbox' provider...
+==> generator_win: Clearing any previously set forwarded ports...
+==> generator_win: Fixed port collision for 22 => 2222. Now on port 2200.
+==> generator_win: Clearing any previously set network interfaces...
+==> generator_win: Preparing network interfaces based on configuration...
+    generator_win: Adapter 1: nat
+==> generator_win: Forwarding ports...
+    generator_win: 3389 (guest) => 3389 (host) (adapter 1)
+    generator_win: 5985 (guest) => 55985 (host) (adapter 1)
+    generator_win: 5986 (guest) => 55986 (host) (adapter 1)
+    generator_win: 22 (guest) => 2200 (host) (adapter 1)
+==> generator_win: Running 'pre-boot' VM customizations...
+==> generator_win: Booting VM...
+==> generator_win: Waiting for machine to boot. This may take a few minutes...
+    generator_win: WinRM address: 127.0.0.1:55985
+    generator_win: WinRM username: vagrant
+    generator_win: WinRM execution_time_limit: PT2H
+    generator_win: WinRM transport: negotiate
+==> generator_win: Machine booted and ready!
+==> generator_win: Checking for guest additions in VM...
+    generator_win: The guest additions on this VM do not match the installed version of
+    generator_win: VirtualBox! In most cases this is fine, but in rare cases it can
+    generator_win: prevent things such as shared folders from working properly. If you see
+    generator_win: shared folder errors, please make sure the guest additions within the
+    generator_win: virtual machine match the version of VirtualBox you have installed on
+    generator_win: your host and reload your VM.
+    generator_win: 
+    generator_win: Guest Additions Version: 6.1.8
+    generator_win: VirtualBox Version: 6.0
+==> generator_win: Setting hostname...
+==> generator_win: Mounting shared folders...
+    generator_win: c:\data => /home/peter/projects/bt/data
+    generator_win: /vagrant => /home/peter/projects/bt/vagrant/windows-server-2019-core
+==> generator_win: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> generator_win: flag to force provisioning. Provisioners marked to run always will still run.
+Started on generator-win...
+Finished on generator-win:
+Successful on 1 target: generator-win
+Ran on 1 target in 19.38 sec
+==> generator_win: Attempting graceful shutdown of VM...
+Started on sleuthkit-49...
+Finished on sleuthkit-49:
+Successful on 1 target: sleuthkit-49
+Ran on 1 target in 1.51 sec
+testPARTITION
+testFILESYSTEM
+testFILE-ZEROLENGTH
+[1;31mASSERT:[0mSource File file.0 empty inode
+[1;31mASSERT:[0mInode of file.0 does not match expected:<> but was:<36-128-1>
+[1;31mASSERT:[0mMode of file.0 does not match expected:<-a----> but was:<rrwxrwxrwx>
+testFILE-BINARY
+[1;31mASSERT:[0mSource File file.binary empty inode
+[1;31mASSERT:[0mInode of file.binary does not match expected:<> but was:<37-128-4>
+[1;31mASSERT:[0mMode of file.binary does not match expected:<-a----> but was:<rrwxrwxrwx>
+testFILE-TEXT
+[1;31mASSERT:[0mSource File file.txt empty inode
+[1;31mASSERT:[0mInode of file.txt does not match expected:<> but was:<38-128-3>
+[1;31mASSERT:[0mMode of file.txt does not match expected:<-a----> but was:<rrwxrwxrwx>
+[1;31mASSERT:[0mCreation Timestamp of file.txt does not match expected:<1598305626> but was:<1598305627>
+testFILE-SUBDIR
+[1;31mASSERT:[0mSource File subdir empty inode
+[1;31mASSERT:[0mInode of subdir does not match expected:<> but was:<39-144-1>
+[1;31mASSERT:[0mMode of subdir does not match expected:<d-----> but was:<drwxrwxrwx>
+testFILE-SUBFILE
+[1;31mASSERT:[0mSource File file2.txt empty inode
+[1;31mASSERT:[0mInode of file2.txt does not match expected:<> but was:<40-128-3>
+[1;31mASSERT:[0mMode of file2.txt does not match expected:<-a----> but was:<rrwxrwxrwx>
+[1;31mASSERT:[0mCreation Timestamp of file2.txt does not match expected:<1598305627> but was:<1598305629>
+testFILE-DELETED
+[1;31mASSERT:[0mSource File delfile.txt not found
+
+Ran [1;36m8[0m tests.
+
+[1;31mFAILED[0m ([1;31mfailures=18[0m,[1;33mskipped=30[0m)

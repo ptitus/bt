@@ -1,14 +1,14 @@
 # load functions
-. k:\Get-FileTimeStamp.ps1
+. c:\data\Get-FileTimeStamp.ps1
 
 # define Variables
 $diskNo='1'
 $partitionStyle='gpt'
-$driveLetter='E'
-$resultFile='K:\ntfssrc.json'
-$fsLabel='ntfs'
+$driveLetter='D'
+$resultFile='C:\data\ntfssrc.json'
+$fsLabel='ntfspart'
 
-
+#define functions
 function make-filejson(){
 	param(
 		[string]$fileName,
@@ -43,17 +43,11 @@ function make-filejson(){
 		
 		$fchanged = $fsutilResult | select-string -pattern "Change Time\s+:\s+(.*)" | %{$_.matches.groups[1].Value}
 		$Y = ("$fchanged").split(" ")[0].split(".")[2]
-		$Y
 		$M = ("$fchanged").split(" ")[0].split(".")[1]
-		$M
 		$D = ("$fchanged").split(" ")[0].split(".")[0]
-		$D
-		$hh = ("$fchanged").split(" ")[1].split(".")[0]
-		$hh
-		$mm = ("$fchanged").split(" ")[1].split(".")[1]
-		$mm
-		$ss = ("$fchanged").split(" ")[1].split(".")[2]
-		$ss
+		$hh = ("$fchanged").split(" ")[1].split(":")[0]
+		$mm = ("$fchanged").split(" ")[1].split(":")[1]
+		$ss = ("$fchanged").split(" ")[1].split(":")[2]
 		$myJson.files.${fileName}.changed = [Math]::Floor([decimal](Get-Date -Year $Y -Month $M -Day $D -Hour $hh -Minute $mm -Second $ss -uformat "%s"))
 		
 		$myJson.files.${fileName}.created = [Math]::Floor([decimal](Get-Date((Get-Item $myFile).CreationTimeUtc) -uformat "%s"))
@@ -63,7 +57,6 @@ function make-filejson(){
 	end {}
 }
 
-#write-Host $resultFile
 
 # create partition 
 Initialize-Disk -Number $diskNo -PartitionStyle $partitionStyle > Out-Null
@@ -86,7 +79,6 @@ $fsutilResult = fsutil fsinfo ntfsinfo "${driveletter}:"
 $myJson.fs.type = Get-Volume | where DriveLetter -like $driveLetter | select -ExpandProperty FileSystemType
 $myJson.fs.name = Get-Volume | where DriveLetter -like $driveLetter | select -ExpandProperty FileSystemLabel
 $myJson.fs.id = $fsutilResult | select-String -pattern "NTFS VOLUME Serial Number : \s+0x(.*)" | %{$_.matches.groups[1].Value}
-#$myJson.fs.id = Get-Partition -DiskNumber $diskNo | where DriveLetter -like $driveLetter | select -ExpandProperty Guid
 $myJson.fs.version = $fsutilResult | select-String -pattern "NTFS Version\s+:\s+(.*)" | %{$_.matches.groups[1].Value}
 
 # create objects in fs, record infos in json

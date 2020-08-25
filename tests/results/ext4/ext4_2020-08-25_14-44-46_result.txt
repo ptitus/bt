@@ -1,0 +1,15 @@
+testPARTITION
+testFILESYSTEM
+testFILE-ZEROLENGTH
+testFILE-BINARY
+testFILE-TEXT
+testFILE-SUBDIR
+testFILE-SUBFILE
+ASSERT:Accessed Timestamp of file2.txt does not match expected:<1598359440> but was:<1598359441>
+ASSERT:Creation Timestamp of file2.txt does not match expected:<1598359440> but was:<1598359441>
+testFILE-DELETED
+ASSERT:Path of delfile.txt does not match expected:</delfile.txt> but was:</$orphanfiles/orphanfile-15 (deleted)>
+ASSERT:Size of delfile.txt does not match expected:<10000000> but was:<0>
+ASSERT:TSK File delfile.txt empty sha256
+ASSERT:Sha256 Checksum of delfile.txt does not match expected:<a5eb00d656f17e67573c530e09c44c716ff194391c0b209565262a17027d8b0f> but was:<>
+FAILED (failures=7)

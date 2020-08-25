@@ -1,0 +1,47 @@
+testFILESYSTEM-TYPE
+ASSERT:TSK File  empty fs.type
+ASSERT:Type of filesystem does not match expected:<btrfs> but was:<>
+testFILE-ZEROLENGTH
+ASSERT:TSK File file.0 empty filepath
+ASSERT:Path of file.0 does not match expected:</file.0> but was:<>
+ASSERT:TSK File file.0 empty mode
+ASSERT:Mode of file.0 does not match expected:<rrw-r--r--> but was:<>
+ASSERT:TSK File file.0 empty changed
+ASSERT:Change Timestamp of file.0 does not match expected:<1598277828> but was:<>
+ASSERT:Creation Timestamp of file.0 does not match expected:<0> but was:<1598277828>
+testFILE-BINARY
+ASSERT:TSK File file.binary empty filepath
+ASSERT:Path of file.binary does not match expected:</file.binary> but was:<>
+ASSERT:TSK File file.binary empty mode
+ASSERT:Mode of file.binary does not match expected:<rrw-r--r--> but was:<>
+ASSERT:TSK File file.binary empty changed
+ASSERT:Change Timestamp of file.binary does not match expected:<1598277828> but was:<>
+ASSERT:Creation Timestamp of file.binary does not match expected:<0> but was:<1598277828>
+testFILE-TEXT
+ASSERT:TSK File file.txt empty filepath
+ASSERT:Path of file.txt does not match expected:</file.txt> but was:<>
+ASSERT:TSK File file.txt empty mode
+ASSERT:Mode of file.txt does not match expected:<rrw-r--r--> but was:<>
+ASSERT:Accessed Timestamp of file.txt does not match expected:<1598277828> but was:<1598277829>
+ASSERT:TSK File file.txt empty changed
+ASSERT:Change Timestamp of file.txt does not match expected:<1598277829> but was:<>
+ASSERT:Creation Timestamp of file.txt does not match expected:<0> but was:<1598277829>
+testFILE-SUBDIR
+ASSERT:TSK File subdir empty filepath
+ASSERT:Path of subdir does not match expected:</subdir> but was:<>
+ASSERT:TSK File subdir empty mode
+ASSERT:Mode of subdir does not match expected:<drwxr-xr-x> but was:<>
+ASSERT:TSK File subdir empty changed
+ASSERT:Change Timestamp of subdir does not match expected:<1598277829> but was:<>
+ASSERT:Creation Timestamp of subdir does not match expected:<0> but was:<1598277829>
+testFILE-SUBFILE
+ASSERT:TSK File file2.txt empty filepath
+ASSERT:Path of file2.txt does not match expected:</subdir/file2.txt> but was:<>
+ASSERT:TSK File file2.txt empty mode
+ASSERT:Mode of file2.txt does not match expected:<rrw-r--r--> but was:<>
+ASSERT:TSK File file2.txt empty changed
+ASSERT:Change Timestamp of file2.txt does not match expected:<1598277829> but was:<>
+ASSERT:Creation Timestamp of file2.txt does not match expected:<0> but was:<1598277829>
+testFILE-DELETED
+ASSERT:TSK File delfile.txt not found
+FAILED (failures=40,skipped=30)

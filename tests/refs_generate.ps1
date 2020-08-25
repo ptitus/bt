@@ -1,11 +1,8 @@
-# load functions
-. k:\Get-FileTimeStamp.ps1
-
 # define Variables
 $diskNo='1'
 $partitionStyle='gpt'
-$driveLetter='E'
-$resultFile='K:\refssrc.json'
+$driveLetter='D'
+$resultFile='c:\data\refssrc.json'
 $fsLabel='refs_single'
 
 function make-filejson(){

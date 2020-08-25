@@ -1,11 +1,8 @@
-# load functions
-. k:\Get-FileTimeStamp.ps1
-
 # define Variables
 $diskNo='1'
 $partitionStyle='gpt'
-$driveLetter='E'
-$resultFile='K:\ntfssrc.json'
+$driveLetter='D'
+$resultFile='C:\data\ntfssrc.json'
 $fsLabel='ntfspart'
 
 #define functions
@@ -42,21 +39,20 @@ function make-filejson(){
 		$myJson.files.${fileName}.accessed = [Math]::Floor([decimal](Get-Date((Get-Item $myFile).LastAccessTimeUtc) -uformat "%s"))
 		
 		$fchanged = $fsutilResult | select-string -pattern "Change Time\s+:\s+(.*)" | %{$_.matches.groups[1].Value}
-		$Y = ("$fchanged").split(" ")[0].split(".")[2]
-		$M = ("$fchanged").split(" ")[0].split(".")[1]
-		$D = ("$fchanged").split(" ")[0].split(".")[0]
+		$Y = ("$fchanged").split(" ")[0].split("/")[2]
+		$M = ("$fchanged").split(" ")[0].split("/")[0]
+		$D = ("$fchanged").split(" ")[0].split("/")[1]
 		$hh = ("$fchanged").split(" ")[1].split(":")[0]
 		$mm = ("$fchanged").split(" ")[1].split(":")[1]
 		$ss = ("$fchanged").split(" ")[1].split(":")[2]
 		$myJson.files.${fileName}.changed = [Math]::Floor([decimal](Get-Date -Year $Y -Month $M -Day $D -Hour $hh -Minute $mm -Second $ss -uformat "%s"))
-		
+
 		$myJson.files.${fileName}.created = [Math]::Floor([decimal](Get-Date((Get-Item $myFile).CreationTimeUtc) -uformat "%s"))
 		
 		$myJson.files.${filename}.sha256 = Get-FileHash $myFile -Algorithm SHA256 | select -ExpandProperty Hash
 		}
 	end {}
 }
-
 
 # create partition 
 Initialize-Disk -Number $diskNo -PartitionStyle $partitionStyle > Out-Null
@@ -69,6 +65,7 @@ sleep 5
 
 # create json files
 $myJson = [ordered]@{partition=[ordered]@{};fs=[ordered]@{};files=[ordered]@{}}
+
 #  partition information
 $myJson.partition.part_type = Get-Disk -Number $diskNo | select -ExpandProperty Partitionstyle
 $myJson.partition.unit_size = Get-Disk -Number $diskNo | select -ExpandProperty LogicalSectorSize
@@ -82,7 +79,6 @@ $myJson.fs.id = $fsutilResult | select-String -pattern "NTFS VOLUME Serial Numbe
 $myJson.fs.version = $fsutilResult | select-String -pattern "NTFS Version\s+:\s+(.*)" | %{$_.matches.groups[1].Value}
 
 # create objects in fs, record infos in json
-
 new-Item "${driveLetter}:\file.0" -ItemType File > Out-Null
 make-filejson -fileName "file.0" -filePath "${driveLetter}:\"
 

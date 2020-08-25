@@ -1,0 +1,14 @@
+testPARTITION
+testFILESYSTEM
+testFILE-ZEROLENGTH
+testFILE-BINARY
+testFILE-TEXT
+testFILE-SUBDIR
+ASSERT:Modified Timestamp of subdir does not match expected:<1598240541> but was:<1598240542>
+ASSERT:Accessed Timestamp of subdir does not match expected:<1598240541> but was:<1598240542>
+ASSERT:Change Timestamp of subdir does not match expected:<1598240541> but was:<1598240542>
+ASSERT:Creation Timestamp of subdir does not match expected:<1598240541> but was:<1598240542>
+testFILE-SUBFILE
+testFILE-DELETED
+ASSERT:TSK File delfile.txt not found
+FAILED (failures=6,skipped=30)

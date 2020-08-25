@@ -1,0 +1,40 @@
+testPARTITION
+testFILESYSTEM
+ASSERT:ID of fs does not match expected:<{d480d7ef-6964-46c5-a7d9-ed0eb7d90863}> but was:<24a0e07ea0e05836>
+testFILE-ZEROLENGTH
+ASSERT:Source File file.0 empty inode
+ASSERT:Inode of file.0 does not match expected:<> but was:<1536--1>
+ASSERT:Mode of file.0 does not match expected:<-a----> but was:<r--------->
+ASSERT:Source File file.0 empty changed
+ASSERT:Change Timestamp of file.0 does not match expected:<> but was:<1598341181>
+testFILE-BINARY
+ASSERT:Source File file.binary empty inode
+ASSERT:Inode of file.binary does not match expected:<> but was:<1536--2>
+ASSERT:Mode of file.binary does not match expected:<-a----> but was:<r--------->
+ASSERT:Source File file.binary empty changed
+ASSERT:Change Timestamp of file.binary does not match expected:<> but was:<1598341182>
+testFILE-TEXT
+ASSERT:Source File file.txt empty inode
+ASSERT:Inode of file.txt does not match expected:<> but was:<1536--3>
+ASSERT:Mode of file.txt does not match expected:<-a----> but was:<r--------->
+ASSERT:Accessed Timestamp of file.txt does not match expected:<1598341182> but was:<1598341183>
+ASSERT:Source File file.txt empty changed
+ASSERT:Change Timestamp of file.txt does not match expected:<> but was:<1598341183>
+ASSERT:Creation Timestamp of file.txt does not match expected:<1598341182> but was:<1598341183>
+testFILE-SUBDIR
+ASSERT:Source File subdir empty inode
+ASSERT:Inode of subdir does not match expected:<> but was:<1793--0
+ASSERT:Mode of subdir does not match expected:<d-----> but was:<d--------->
+ASSERT:Source File subdir empty changed
+ASSERT:Change Timestamp of subdir does not match expected:<> but was:<1598341183>
+testFILE-SUBFILE
+ASSERT:Source File file2.txt empty inode
+ASSERT:Inode of file2.txt does not match expected:<> but was:<1793--1>
+ASSERT:Mode of file2.txt does not match expected:<-a----> but was:<r--------->
+ASSERT:Accessed Timestamp of file2.txt does not match expected:<1598341183> but was:<1598341184>
+ASSERT:Source File file2.txt empty changed
+ASSERT:Change Timestamp of file2.txt does not match expected:<> but was:<1598341184>
+ASSERT:Creation Timestamp of file2.txt does not match expected:<1598341183> but was:<1598341184>
+testFILE-DELETED
+ASSERT:Source File delfile.txt not found
+FAILED (failures=32,skipped=30)

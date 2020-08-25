@@ -1,0 +1,14 @@
+testPARTITION
+testFILESYSTEM
+ASSERT:ID of fs does not match expected:<5268d32ea0b329bb014ee5736ac15f29> but was:<5268d32ea0b329bb14ee5736ac15f29>
+testFILE-ZEROLENGTH
+testFILE-BINARY
+testFILE-TEXT
+testFILE-SUBDIR
+testFILE-SUBFILE
+testFILE-DELETED
+ASSERT:Path of delfile.txt does not match expected:</delfile.txt> but was:</$orphanfiles/orphanfile-15 (deleted)>
+ASSERT:Size of delfile.txt does not match expected:<10000000> but was:<0>
+ASSERT:TSK File delfile.txt empty sha256
+ASSERT:Sha256 Checksum of delfile.txt does not match expected:<fe0319cff62c179b44cba6b9f12e613eb325732b2bea7e915123a4602e43cbd2> but was:<>
+FAILED (failures=7)

@@ -37,13 +37,13 @@ groups:
       sudo-password: linux
       connect-timeout: 30
 
-- name: win
+- name: windows
   targets:
-    - uri: 192.168.56.10
+    - uri: 127.0.0.1:55985
       name: generator-win
   config:
     transport: winrm
     winrm:
-      user: win-t5hvad8bb7v\administrator
+      user: user
       password: Windoof2020
       ssl: false

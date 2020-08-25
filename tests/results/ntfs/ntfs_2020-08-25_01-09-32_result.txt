@@ -1,0 +1,27 @@
+testPARTITION
+testFILESYSTEM
+testFILE-ZEROLENGTH
+ASSERT:Source File file.0 empty inode
+ASSERT:Inode of file.0 does not match expected:<> but was:<36-128-1>
+ASSERT:Mode of file.0 does not match expected:<-a----> but was:<rrwxrwxrwx>
+testFILE-BINARY
+ASSERT:Source File file.binary empty inode
+ASSERT:Inode of file.binary does not match expected:<> but was:<37-128-4>
+ASSERT:Mode of file.binary does not match expected:<-a----> but was:<rrwxrwxrwx>
+testFILE-TEXT
+ASSERT:Source File file.txt empty inode
+ASSERT:Inode of file.txt does not match expected:<> but was:<38-128-3>
+ASSERT:Mode of file.txt does not match expected:<-a----> but was:<rrwxrwxrwx>
+ASSERT:Creation Timestamp of file.txt does not match expected:<1598310547> but was:<1598310548>
+testFILE-SUBDIR
+ASSERT:Source File subdir empty inode
+ASSERT:Inode of subdir does not match expected:<> but was:<39-144-1>
+ASSERT:Mode of subdir does not match expected:<d-----> but was:<drwxrwxrwx>
+testFILE-SUBFILE
+ASSERT:Source File file2.txt empty inode
+ASSERT:Inode of file2.txt does not match expected:<> but was:<40-128-3>
+ASSERT:Mode of file2.txt does not match expected:<-a----> but was:<rrwxrwxrwx>
+ASSERT:Creation Timestamp of file2.txt does not match expected:<1598310549> but was:<1598310550>
+testFILE-DELETED
+ASSERT:Source File delfile.txt not found
+FAILED (failures=18,skipped=30)

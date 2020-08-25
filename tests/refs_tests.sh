@@ -84,59 +84,57 @@ oneTimeSetUp() {
 	
 	# find vagrant machines
 	vagrantStatus=$(vagrant global-status)
-	#Generator is not manageb by vagrant
-	tskMachineId=$(echo "$vagrantStatus" | grep $tskMachineName | cut -d " " -f 1) 
-	if [[ -z "$tskMachineId" ]]
-	then
-		echo "Vagrant machine $tskMachineName not found"
-	       	exit 1
-	fi
-	
-	# eventually shutdown generator machine to mount vmdk
-  	genMachineState=$(vboxmanage list runningvms | grep "$vmGenMachineName" | wc -l)
-	[[ "$genMachineState" == 1 ]] && $(shutdown_vm.sh "$vmGenMachineName"; echo "wait 60s for generato machine to shut down"; sleep 60s)
-	
-	# generate .vmdk
-	vmdkFilePath="${baseDir}/data/refs.vmdk"
-	vmdkFileId=$(vboxmanage list hdds | grep -B4 "$vmdkFilePath" | grep -oP '(?<=^UUID\: ).*' | sed 's/^ *//g')
+        genMachineId=$(echo "$vagrantStatus" | grep "$genMachineName" | cut -d " " -f 1)
+        if [[ -z "$genMachineId" ]]
+        then
+                echo "Vagrant machine $genMachineName not found"
+                exit 1
+        fi
+        tskMachineId=$(echo "$vagrantStatus" | grep $tskMachineName | cut -d " " -f 1)
+        if [[ -z "$tskMachineId" ]]
+        then
+                echo "Vagrant machine $tskMachineName not found"
+                exit 1
+        fi
 
-	if [[ -n "$vmdkFileId" ]] 
-	then
-		vboxmanage storageattach $vmGenMachineName --storagectl 'SATA' --port 2 --type hdd --medium none
-		vboxmanage closemedium disk ${vmdkFileId} --delete
-		echo "removed $vmdkFilePath from VirtualBox"
-	fi
+        # eventually shutdown generator machine to mount .vmdk
+        genMachineState=$( echo "$vagrantStatus" | grep $genMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
+        [[ "$genMachineState" == running ]] && vagrant halt "$genMachineId"
 
-	if [[ -e "$vmdkFilePath" ]]
-	then
-		rm $vmdkFilePath  
-		echo "File $vmdkFilePath deleted"
-	fi
+        # generate .vmdk
+        vmdkFilePath="${baseDir}/data/refs.vmdk"
+        vmdkFileId=$(vboxmanage list hdds | grep -B4 "$vmdkFilePath" | grep -oP '(?<=^UUID\: ).*' | sed 's/^ *//g')
 
-	vboxmanage createmedium disk --filename ${vmdkFilePath} --size 10000 --format VMDK
+        if [[ -n "$vmdkFileId" ]]
+        then
+                vboxmanage storageattach $vmGenMachineName --storagectl 'SATA Controller' --port 2 --type hdd --medium none
+                vboxmanage closemedium disk ${vmdkFileId} --delete
+                echo "removed $vmdkFilePath from VirtualBox"
+        fi
+        if [[ -e "$vmdkFilePath" ]]
+        then
+                rm $vmdkFilePath
+                echo "File $vmdkFilePath deleted"
+        fi
+        vboxmanage createmedium disk --filename ${vmdkFilePath} --size 10000 --format VMDK
+        if [[ $? -ne 0 ]]
+        then
+                echo "Unable to create $vmdkFilePath"
+                exit 1
+        fi
 
-	if [[ $? -ne 0 ]] 
-	then
-		echo "Unable to create $vmdkFilePath"
-		exit 1
-	fi
-	
-	# connect to Storagecontroller
-	vboxmanage storageattach $vmGenMachineName --storagectl 'SATA' --port 2 --type hdd --medium $vmdkFilePath --comment 'Evidence Drive' --nonrotational on
-	
-	# bring up generator machine
-	startup_vm.sh $vmGenMachineName
-	echo "Wait 30s for generator machine to boot..."
-	sleep 30s
+        # connect to Storagecontroller
+        vboxmanage storageattach $vmGenMachineName --storagectl 'SATA Controller' --port 2 --type hdd --medium $vmdkFilePath --comment 'Evidence Drive' --nonrotational on
+
+        # bring up generator machine
+        vagrant up "$genMachineId"
 
 	# generate evidence
 	cd ${baseDir}/bolt/
 	bolt script run ${myDir}/${srcScript} --targets "$vmGenMachineName"
 
 	# shutdown generator machine
-	shutdown_vm.sh $vmGenMachineName
-	echo "Wait 45 Second for generator machine to shut down..."
-	sleep 45s
+        vagrant halt $genMachineId
 
 	# eventually bring tsk machine up
 	tskMachineState=$( echo "$vagrantStatus" | grep $tskMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)

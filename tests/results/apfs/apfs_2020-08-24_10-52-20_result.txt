@@ -1,0 +1,33 @@
+testPARTITION
+testFILESYSTEM
+ASSERT:ID of fs does not match expected:<76e88489-6bd8-454f-871c-0905bcbc6567> but was:<53bb7799-e8a9-4b8c-89dc-11742340f0b4>
+testFILE-ZEROLENGTH
+ASSERT:Modified Timestamp of file.0 does not match expected:<1598259057> but was:<1598258394>
+ASSERT:Accessed Timestamp of file.0 does not match expected:<1598259057> but was:<1598258394>
+ASSERT:Change Timestamp of file.0 does not match expected:<1598259057> but was:<1598258394>
+ASSERT:Creation Timestamp of file.0 does not match expected:<1598259057> but was:<1598258394>
+testFILE-BINARY
+ASSERT:Modified Timestamp of file.binary does not match expected:<1598259057> but was:<1598258394>
+ASSERT:Accessed Timestamp of file.binary does not match expected:<1598259057> but was:<1598258394>
+ASSERT:Change Timestamp of file.binary does not match expected:<1598259057> but was:<1598258394>
+ASSERT:Creation Timestamp of file.binary does not match expected:<1598259057> but was:<1598258394>
+testFILE-TEXT
+ASSERT:Modified Timestamp of file.txt does not match expected:<1598259058> but was:<1598258395>
+ASSERT:Accessed Timestamp of file.txt does not match expected:<1598259058> but was:<1598258395>
+ASSERT:Change Timestamp of file.txt does not match expected:<1598259058> but was:<1598258395>
+ASSERT:Creation Timestamp of file.txt does not match expected:<1598259058> but was:<1598258395>
+ASSERT:Sha256 Checksum of file.txt does not match expected:<395b7e14f8aaaa7a7fcac0a673190f00e5a022ccc48ae556325708e292b32408> but was:<3c6e09e738fd1dd3aecab7bed9fb4d18c17c520008ca106af5b0d1c4386b62bf>
+testFILE-SUBDIR
+ASSERT:Modified Timestamp of subdir does not match expected:<1598259058> but was:<1598258395>
+ASSERT:Accessed Timestamp of subdir does not match expected:<1598259058> but was:<1598258395>
+ASSERT:Change Timestamp of subdir does not match expected:<1598259058> but was:<1598258395>
+ASSERT:Creation Timestamp of subdir does not match expected:<1598259058> but was:<1598258395>
+testFILE-SUBFILE
+ASSERT:Modified Timestamp of file2.txt does not match expected:<1598259059> but was:<1598258395>
+ASSERT:Accessed Timestamp of file2.txt does not match expected:<1598259058> but was:<1598258395>
+ASSERT:Change Timestamp of file2.txt does not match expected:<1598259059> but was:<1598258395>
+ASSERT:Creation Timestamp of file2.txt does not match expected:<1598259058> but was:<1598258395>
+ASSERT:Sha256 Checksum of file2.txt does not match expected:<7cbdba384aa188d5a55cb4e0f21a02fedcac8765031b6bb46aec26761c51343d> but was:<fbd77e7d8fdeea81bd02a30045b60b1c92b907f8fb2fadef2a6be3fa9ce10973>
+testFILE-DELETED
+ASSERT:TSK File delfile.txt not found
+FAILED (failures=28,skipped=30)

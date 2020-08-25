@@ -87,61 +87,61 @@ testFILE-ZEROLENGTH(){
         tsk=$(jq '.filepath // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty filepath" "$src"
         assertNotNull "TSK File $fileName empty filepath" "$tsk"
-        assertEquals 'Path of file does not match' "$src" "$tsk"
+        assertEquals "Path of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.inode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.inode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty inode" "$src"
         assertNotNull "TSK File $fileName empty inode" "$tsk"
-        assertEquals 'Inode of file does not match' "$src" "$tsk"
+        assertEquals "Inode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.file_type // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.file_type // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty file_type" "$src"
         assertNotNull "TSK File $fileName empty file_type" "$tsk"
-        assertEquals 'Type of file does not match' "$src" "$tsk"
+        assertEquals "Type of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.mode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.mode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty mode" "$src"
         assertNotNull "TSK File $fileName empty mode" "$tsk"
-        assertEquals 'Mode of file does not match' "$src" "$tsk"
+        assertEquals "Mode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.size // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.size // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty size" "$src"
         assertNotNull "TSK File $fileName empty size" "$tsk"
-        assertEquals 'Size of file does not match' "$src" "$tsk"
+        assertEquals "Size of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.modified // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.modified // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty modified" "$src"
         assertNotNull "TSK File $fileName empty modified" "$tsk"
-        assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Modified Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.accessed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.accessed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty accessed" "$src"
         assertNotNull "TSK File $fileName empty accessed" "$tsk"
-        assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Accessed Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.changed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.changed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty changed" "$src"
         assertNotNull "TSK File $fileName empty changed" "$tsk"
-        assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Change Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.created // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.created // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty created" "$src"
         assertNotNull "TSK File $fileName empty created" "$tsk"
-        assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Creation Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.sha256 // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.sha256 // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty sha256" "$src"
         assertNotNull "TSK File $fileName empty sha256" "$tsk"
-        assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
+        assertEquals "Sha256 Checksum of $fileName does not match" "$src" "$tsk"
 }
 
 # binary file
@@ -160,61 +160,61 @@ testFILE-BINARY() {
         tsk=$(jq '.filepath // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty filepath" "$src"
         assertNotNull "TSK File $fileName empty filepath" "$tsk"
-        assertEquals 'Path of file does not match' "$src" "$tsk"
+        assertEquals "Path of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.inode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.inode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty inode" "$src"
         assertNotNull "TSK File $fileName empty inode" "$tsk"
-        assertEquals 'Inode of file does not match' "$src" "$tsk"
+        assertEquals "Inode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.file_type // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.file_type // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty file_type" "$src"
         assertNotNull "TSK File $fileName empty file_type" "$tsk"
-        assertEquals 'Type of file does not match' "$src" "$tsk"
+        assertEquals "Type of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.mode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.mode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty mode" "$src"
         assertNotNull "TSK File $fileName empty mode" "$tsk"
-        assertEquals 'Mode of file does not match' "$src" "$tsk"
+        assertEquals "Mode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.size // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.size // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty size" "$src"
         assertNotNull "TSK File $fileName empty size" "$tsk"
-        assertEquals 'Size of file does not match' "$src" "$tsk"
+        assertEquals "Size of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.modified // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.modified // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty modified" "$src"
         assertNotNull "TSK File $fileName empty modified" "$tsk"
-        assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Modified Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.accessed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.accessed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty accessed" "$src"
         assertNotNull "TSK File $fileName empty accessed" "$tsk"
-        assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Accessed Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.changed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.changed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty changed" "$src"
         assertNotNull "TSK File $fileName empty changed" "$tsk"
-        assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Change Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.created // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.created // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty created" "$src"
         assertNotNull "TSK File $fileName empty created" "$tsk"
-        assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Creation Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.sha256 // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.sha256 // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty sha256" "$src"
         assertNotNull "TSK File $fileName empty sha256" "$tsk"
-        assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
+        assertEquals "Sha256 Checksum of $fileName does not match" "$src" "$tsk"
 }
 
 # text file
@@ -233,61 +233,61 @@ testFILE-TEXT(){
         tsk=$(jq '.filepath // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty filepath" "$src"
         assertNotNull "TSK File $fileName empty filepath" "$tsk"
-        assertEquals 'Path of file does not match' "$src" "$tsk"
+        assertEquals "Path of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.inode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.inode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty inode" "$src"
         assertNotNull "TSK File $fileName empty inode" "$tsk"
-        assertEquals 'Inode of file does not match' "$src" "$tsk"
+        assertEquals "Inode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.file_type // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.file_type // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty file_type" "$src"
         assertNotNull "TSK File $fileName empty file_type" "$tsk"
-        assertEquals 'Type of file does not match' "$src" "$tsk"
+        assertEquals "Type of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.mode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.mode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty mode" "$src"
         assertNotNull "TSK File $fileName empty mode" "$tsk"
-        assertEquals 'Mode of file does not match' "$src" "$tsk"
+        assertEquals "Mode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.size // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.size // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty size" "$src"
         assertNotNull "TSK File $fileName empty size" "$tsk"
-        assertEquals 'Size of file does not match' "$src" "$tsk"
+        assertEquals "Size of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.modified // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.modified // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty modified" "$src"
         assertNotNull "TSK File $fileName empty modified" "$tsk"
-        assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Modified Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.accessed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.accessed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty accessed" "$src"
         assertNotNull "TSK File $fileName empty accessed" "$tsk"
-        assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Accessed Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.changed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.changed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty changed" "$src"
         assertNotNull "TSK File $fileName empty changed" "$tsk"
-        assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Change Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.created // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.created // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty created" "$src"
         assertNotNull "TSK File $fileName empty created" "$tsk"
-        assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Creation Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.sha256 // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.sha256 // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty sha256" "$src"
         assertNotNull "TSK File $fileName empty sha256" "$tsk"
-        assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
+        assertEquals "Sha256 Checksum of $fileName does not match" "$src" "$tsk"
 }
 
 # subdirectory
@@ -307,25 +307,25 @@ testFILE-SUBDIR(){
         tsk=$(jq '.filepath // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty filepath" "$src"
         assertNotNull "TSK File $fileName empty filepath" "$tsk"
-        assertEquals 'Path of file does not match' "$src" "$tsk"
+        assertEquals "Path of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.inode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.inode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty inode" "$src"
         assertNotNull "TSK File $fileName empty inode" "$tsk"
-        assertEquals 'Inode of file does not match' "$src" "$tsk"
+        assertEquals "Inode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.file_type // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.file_type // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty file_type" "$src"
         assertNotNull "TSK File $fileName empty file_type" "$tsk"
-        assertEquals 'Type of file does not match' "$src" "$tsk"
+        assertEquals "Type of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.mode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.mode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty mode" "$src"
         assertNotNull "TSK File $fileName empty mode" "$tsk"
-        assertEquals 'Mode of file does not match' "$src" "$tsk"
+        assertEquals "Mode of $fileName does not match" "$src" "$tsk"
 
         #subdir has no size to compare
 
@@ -333,25 +333,25 @@ testFILE-SUBDIR(){
         tsk=$(jq '.modified // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty modified" "$src"
         assertNotNull "TSK File $fileName empty modified" "$tsk"
-        assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Modified Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.accessed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.accessed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty accessed" "$src"
         assertNotNull "TSK File $fileName empty accessed" "$tsk"
-        assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Accessed Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.changed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.changed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty changed" "$src"
         assertNotNull "TSK File $fileName empty changed" "$tsk"
-        assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Change Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.created // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.created // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty created" "$src"
         assertNotNull "TSK File $fileName empty created" "$tsk"
-        assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Creation Timestamp of $fileName does not match" "$src" "$tsk"
 
 	#subdir has no content to hash
 }
@@ -372,61 +372,61 @@ testFILE-SUBFILE(){
         tsk=$(jq '.filepath // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty filepath" "$src"
         assertNotNull "TSK File $fileName empty filepath" "$tsk"
-        assertEquals 'Path of file does not match' "$src" "$tsk"
+        assertEquals "Path of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.inode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.inode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty inode" "$src"
         assertNotNull "TSK File $fileName empty inode" "$tsk"
-        assertEquals 'Inode of file does not match' "$src" "$tsk"
+        assertEquals "Inode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.file_type // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.file_type // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty file_type" "$src"
         assertNotNull "TSK File $fileName empty file_type" "$tsk"
-        assertEquals 'Type of file does not match' "$src" "$tsk"
+        assertEquals "Type of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.mode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.mode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty mode" "$src"
         assertNotNull "TSK File $fileName empty mode" "$tsk"
-        assertEquals 'Mode of file does not match' "$src" "$tsk"
+        assertEquals "Mode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.size // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.size // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty size" "$src"
         assertNotNull "TSK File $fileName empty size" "$tsk"
-        assertEquals 'Size of file does not match' "$src" "$tsk"
+        assertEquals "Size of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.modified // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.modified // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty modified" "$src"
         assertNotNull "TSK File $fileName empty modified" "$tsk"
-        assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Modified Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.accessed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.accessed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty accessed" "$src"
         assertNotNull "TSK File $fileName empty accessed" "$tsk"
-        assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Accessed Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.changed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.changed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty changed" "$src"
         assertNotNull "TSK File $fileName empty changed" "$tsk"
-        assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Change Timestamp of $fileName does not match" "$src" "$tsk"
         
 	src=$(jq '.created // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.created // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty created" "$src"
         assertNotNull "TSK File $fileName empty created" "$tsk"
-        assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Creation Timestamp of $fileName does not match" "$src" "$tsk"
         
 	src=$(jq '.sha256 // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.sha256 // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty sha256" "$src"
         assertNotNull "TSK File $fileName empty sha256" "$tsk"
-        assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
+        assertEquals "Sha256 Checksum of $fileName does not match" "$src" "$tsk"
 }
 
 
@@ -446,61 +446,61 @@ testFILE-DELETED(){
         tsk=$(jq '.filepath // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty filepath" "$src"
         assertNotNull "TSK File $fileName empty filepath" "$tsk"
-        assertEquals 'Path of file does not match' "$src" "$tsk"
+        assertEquals "Path of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.inode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.inode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty inode" "$src"
         assertNotNull "TSK File $fileName empty inode" "$tsk"
-        assertEquals 'Inode of file does not match' "$src" "$tsk"
+        assertEquals "Inode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.file_type // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.file_type // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty file_type" "$src"
         assertNotNull "TSK File $fileName empty file_type" "$tsk"
-        assertEquals 'Type of file does not match' "$src" "$tsk"
+        assertEquals "Type of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.mode // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.mode // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty mode" "$src"
         assertNotNull "TSK File $fileName empty mode" "$tsk"
-        assertEquals 'Mode of file does not match' "$src" "$tsk"
+        assertEquals "Mode of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.size // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.size // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty size" "$src"
         assertNotNull "TSK File $fileName empty size" "$tsk"
-        assertEquals 'Size of file does not match' "$src" "$tsk"
+        assertEquals "Size of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.modified // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.modified // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty modified" "$src"
         assertNotNull "TSK File $fileName empty modified" "$tsk"
-        assertEquals 'Modified Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Modified Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.accessed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.accessed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty accessed" "$src"
         assertNotNull "TSK File $fileName empty accessed" "$tsk"
-        assertEquals 'Accessed Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Accessed Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.changed // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.changed // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty changed" "$src"
         assertNotNull "TSK File $fileName empty changed" "$tsk"
-        assertEquals 'Change Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Change Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.created // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.created // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty created" "$src"
         assertNotNull "TSK File $fileName empty created" "$tsk"
-        assertEquals 'Creation Timestamp of file does not match' "$src" "$tsk"
+        assertEquals "Creation Timestamp of $fileName does not match" "$src" "$tsk"
 
         src=$(jq '.sha256 // empty' <<< "$fileSrcObj" | tr -d '"')
         tsk=$(jq '.sha256 // empty' <<< "$fileTskObj" | tr -d '"')
         assertNotNull "Source File $fileName empty sha256" "$src"
         assertNotNull "TSK File $fileName empty sha256" "$tsk"
-        assertEquals 'Sha256 Checksum of file does not match' "$src" "$tsk"
+        assertEquals "Sha256 Checksum of $fileName does not match" "$src" "$tsk"
 }
 
 oneTimeSetUp() {
@@ -519,7 +519,12 @@ oneTimeSetUp() {
 	
 	# find vagrant machines
 	vagrantStatus=$(vagrant global-status)
-	#Generator is not manageb by vagrant
+	genMachineId=$(echo "$vagrantStatus" | grep "$genMachineName" | cut -d " " -f 1)
+        if [[ -z "$genMachineId" ]]
+        then
+                echo "Vagrant machine $genMachineName not found"
+                exit 1
+        fi
 	tskMachineId=$(echo "$vagrantStatus" | grep $tskMachineName | cut -d " " -f 1) 
 	if [[ -z "$tskMachineId" ]]
 	then
@@ -527,17 +532,17 @@ oneTimeSetUp() {
 	       	exit 1
 	fi
 	
-	echo "Eventually shutdown generator machine to mount .vmdk"
-  	genMachineState=$(vboxmanage list runningvms | grep "$vmGenMachineName" | wc -l)
-	[[ "$genMachineState" == 1 ]] && $(shutdown_vm.sh "$vmGenMachineName"; sleep 60s)
-	
+	# eventually shutdown generator machine to mount .vmdk
+	genMachineState=$( echo "$vagrantStatus" | grep $genMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
+        [[ "$genMachineState" == running ]] && vagrant halt "$genMachineId"
+
 	# generate .vmdk
 	vmdkFilePath="${baseDir}/data/ntfs.vmdk"
 	vmdkFileId=$(vboxmanage list hdds | grep -B4 "$vmdkFilePath" | grep -oP '(?<=^UUID\: ).*' | sed 's/^ *//g')
 
 	if [[ -n "$vmdkFileId" ]] 
 	then
-		vboxmanage storageattach $vmGenMachineName --storagectl 'SATA' --port 2 --type hdd --medium none
+		vboxmanage storageattach $vmGenMachineName --storagectl 'SATA Controller' --port 2 --type hdd --medium none
 		vboxmanage closemedium disk ${vmdkFileId} --delete
 		echo "removed $vmdkFilePath from VirtualBox"
 	fi
@@ -557,21 +562,17 @@ oneTimeSetUp() {
 	fi
 	
 	# connect to Storagecontroller
-	vboxmanage storageattach $vmGenMachineName --storagectl 'SATA' --port 2 --type hdd --medium $vmdkFilePath --comment 'Evidence Drive' --nonrotational on
+	vboxmanage storageattach $vmGenMachineName --storagectl 'SATA Controller' --port 2 --type hdd --medium $vmdkFilePath --comment 'Evidence Drive' --nonrotational on
 	
 	# bring up generator machine
-	startup_vm.sh $vmGenMachineName
-	echo "Wait 30s for generator machine to boot..."
-	sleep 30s
+	vagrant up "$genMachineId"
 
 	# generate evidence
 	cd ${baseDir}/bolt/
 	bolt script run ${myDir}/${srcScript} --targets "$vmGenMachineName"
 
 	# shutdown generator machine
-	shutdown_vm.sh $vmGenMachineName
-	echo "Wait 45 Second for generator machine to shut down..."
-	sleep 45s
+	vagrant halt $genMachineId
 
 	# eventually bring tsk machine up
 	tskMachineState=$( echo "$vagrantStatus" | grep $tskMachineName | sed -e 's/ \+/;/g' | cut -d ";" -f 4)
