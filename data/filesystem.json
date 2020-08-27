@@ -1,5 +1,0 @@
-{
-	"os":"Linux",
-	"fs_type":"ext4",
-	"features":{"extents", "64bit", "large files", "huge files"}
-}

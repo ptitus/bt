@@ -1,6 +1,0 @@
-{ 
-   "part_type" : "dos",
-   "unit_size" : "512",
-   "first_unit" : "63",
-   "description" :"Linux"
-}

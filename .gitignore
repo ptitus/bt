@@ -24,6 +24,8 @@ vagrant/*/.vagrant
 *.dd
 disk?
 *.dmg
+drive1
+drive2
 
 # packed files
 *.tar.gz
