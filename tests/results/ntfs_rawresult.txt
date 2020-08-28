@@ -1,5 +1,5 @@
 removed ../data/ntfs.vmdk from VirtualBox
-Medium created. UUID: 0097b847-f4e1-4cfc-9679-af70655b8b49
+Medium created. UUID: 89346853-bea2-4aa6-8a44-e30bc010447e
 Bringing machine 'generator_win' up with 'virtualbox' provider...
 ==> generator_win: Clearing any previously set forwarded ports...
 ==> generator_win: Clearing any previously set network interfaces...
@@ -37,7 +37,7 @@ Bringing machine 'generator_win' up with 'virtualbox' provider...
 Started on generator-win...
 Finished on generator-win:
 Successful on 1 target: generator-win
-Ran on 1 target in 17.77 sec
+Ran on 1 target in 17.36 sec
 ==> generator_win: Attempting graceful shutdown of VM...
 Bringing machine 'sleuthkit_49' up with 'virtualbox' provider...
 ==> sleuthkit_49: Clearing any previously set forwarded ports...
@@ -64,7 +64,7 @@ Bringing machine 'sleuthkit_49' up with 'virtualbox' provider...
 Started on sleuthkit-49...
 Finished on sleuthkit-49:
 Successful on 1 target: sleuthkit-49
-Ran on 1 target in 1.52 sec
+Ran on 1 target in 1.82 sec
 testPARTITION
 testFILESYSTEM
 testFILE-ZEROLENGTH
@@ -79,7 +79,6 @@ testFILE-TEXT
 [1;31mASSERT:[0mSource File file.txt empty inode
 [1;31mASSERT:[0mInode of file.txt does not match expected:<> but was:<38-128-3>
 [1;31mASSERT:[0mMode of file.txt does not match expected:<-a----> but was:<rrwxrwxrwx>
-[1;31mASSERT:[0mCreation Timestamp of file.txt does not match expected:<1598383649> but was:<1598383651>
 testFILE-SUBDIR
 [1;31mASSERT:[0mSource File subdir empty inode
 [1;31mASSERT:[0mInode of subdir does not match expected:<> but was:<39-144-1>
@@ -88,10 +87,9 @@ testFILE-SUBFILE
 [1;31mASSERT:[0mSource File file2.txt empty inode
 [1;31mASSERT:[0mInode of file2.txt does not match expected:<> but was:<40-128-3>
 [1;31mASSERT:[0mMode of file2.txt does not match expected:<-a----> but was:<rrwxrwxrwx>
-[1;31mASSERT:[0mCreation Timestamp of file2.txt does not match expected:<1598383651> but was:<1598383653>
 testFILE-DELETED
 [1;31mASSERT:[0mSource File delfile.txt not found
 
 Ran [1;36m8[0m tests.
 
-[1;31mFAILED[0m ([1;31mfailures=18[0m,[1;33mskipped=30[0m)
+[1;31mFAILED[0m ([1;31mfailures=16[0m,[1;33mskipped=30[0m)

@@ -1,8 +1,8 @@
 removed ../data/refs.vmdk from VirtualBox
-Medium created. UUID: 51a3c684-6320-444e-b5f8-3695c0a534c4
+Medium created. UUID: c5df3fb5-c256-4ebf-a6c9-49f83460e454
 Bringing machine 'generator_win' up with 'virtualbox' provider...
 ==> generator_win: Clearing any previously set forwarded ports...
-==> generator_win: Fixed port collision for 22 => 2222. Now on port 2200.
+==> generator_win: Fixed port collision for 22 => 2222. Now on port 2201.
 ==> generator_win: Clearing any previously set network interfaces...
 ==> generator_win: Preparing network interfaces based on configuration...
     generator_win: Adapter 1: nat
@@ -10,7 +10,7 @@ Bringing machine 'generator_win' up with 'virtualbox' provider...
     generator_win: 3389 (guest) => 3389 (host) (adapter 1)
     generator_win: 5985 (guest) => 55985 (host) (adapter 1)
     generator_win: 5986 (guest) => 55986 (host) (adapter 1)
-    generator_win: 22 (guest) => 2200 (host) (adapter 1)
+    generator_win: 22 (guest) => 2201 (host) (adapter 1)
 ==> generator_win: Running 'pre-boot' VM customizations...
 ==> generator_win: Booting VM...
 ==> generator_win: Waiting for machine to boot. This may take a few minutes...
@@ -38,21 +38,21 @@ Bringing machine 'generator_win' up with 'virtualbox' provider...
 Started on generator-win...
 Finished on generator-win:
 Successful on 1 target: generator-win
-Ran on 1 target in 16.72 sec
+Ran on 1 target in 17.2 sec
 ==> generator_win: Attempting graceful shutdown of VM...
 Bringing machine 'sleuthkit_faui' up with 'virtualbox' provider...
 ==> sleuthkit_faui: Clearing any previously set forwarded ports...
-==> sleuthkit_faui: Fixed port collision for 22 => 2222. Now on port 2200.
+==> sleuthkit_faui: Fixed port collision for 22 => 2222. Now on port 2201.
 ==> sleuthkit_faui: Clearing any previously set network interfaces...
 ==> sleuthkit_faui: Preparing network interfaces based on configuration...
     sleuthkit_faui: Adapter 1: nat
 ==> sleuthkit_faui: Forwarding ports...
     sleuthkit_faui: 22 (guest) => 2254 (host) (adapter 1)
-    sleuthkit_faui: 22 (guest) => 2200 (host) (adapter 1)
+    sleuthkit_faui: 22 (guest) => 2201 (host) (adapter 1)
 ==> sleuthkit_faui: Running 'pre-boot' VM customizations...
 ==> sleuthkit_faui: Booting VM...
 ==> sleuthkit_faui: Waiting for machine to boot. This may take a few minutes...
-    sleuthkit_faui: SSH address: 127.0.0.1:2200
+    sleuthkit_faui: SSH address: 127.0.0.1:2201
     sleuthkit_faui: SSH username: vagrant
     sleuthkit_faui: SSH auth method: private key
 ==> sleuthkit_faui: Machine booted and ready!
@@ -66,49 +66,44 @@ Bringing machine 'sleuthkit_faui' up with 'virtualbox' provider...
 Started on sleuthkit-faui...
 Finished on sleuthkit-faui:
 Successful on 1 target: sleuthkit-faui
-Ran on 1 target in 1.4 sec
-==> sleuthkit_faui: Attempting graceful shutdown of VM...
+Ran on 1 target in 1.53 sec
 testPARTITION
 testFILESYSTEM
-[1;31mASSERT:[0mID of fs does not match expected:<{85525259-d04f-48eb-8cc9-19d4e802bf9a}> but was:<260424180423e98f>
+[1;31mASSERT:[0mID of fs does not match expected:<{59409216-a9a9-41f7-8d98-9d4b5e483c58}> but was:<0292b03092b029d5>
 testFILE-ZEROLENGTH
 [1;31mASSERT:[0mSource File file.0 empty inode
 [1;31mASSERT:[0mInode of file.0 does not match expected:<> but was:<1536--1>
 [1;31mASSERT:[0mMode of file.0 does not match expected:<-a----> but was:<r--------->
 [1;31mASSERT:[0mSource File file.0 empty changed
-[1;31mASSERT:[0mChange Timestamp of file.0 does not match expected:<> but was:<1598353321>
+[1;31mASSERT:[0mChange Timestamp of file.0 does not match expected:<> but was:<1598648620>
 testFILE-BINARY
 [1;31mASSERT:[0mSource File file.binary empty inode
 [1;31mASSERT:[0mInode of file.binary does not match expected:<> but was:<1536--2>
 [1;31mASSERT:[0mMode of file.binary does not match expected:<-a----> but was:<r--------->
 [1;31mASSERT:[0mSource File file.binary empty changed
-[1;31mASSERT:[0mChange Timestamp of file.binary does not match expected:<> but was:<1598353321>
+[1;31mASSERT:[0mChange Timestamp of file.binary does not match expected:<> but was:<1598648620>
 testFILE-TEXT
 [1;31mASSERT:[0mSource File file.txt empty inode
 [1;31mASSERT:[0mInode of file.txt does not match expected:<> but was:<1536--3>
 [1;31mASSERT:[0mMode of file.txt does not match expected:<-a----> but was:<r--------->
-[1;31mASSERT:[0mAccessed Timestamp of file.txt does not match expected:<1598353321> but was:<1598353322>
 [1;31mASSERT:[0mSource File file.txt empty changed
-[1;31mASSERT:[0mChange Timestamp of file.txt does not match expected:<> but was:<1598353322>
-[1;31mASSERT:[0mCreation Timestamp of file.txt does not match expected:<1598353321> but was:<1598353322>
+[1;31mASSERT:[0mChange Timestamp of file.txt does not match expected:<> but was:<1598648622>
 testFILE-SUBDIR
 [1;31mASSERT:[0mSource File subdir empty inode
 [1;31mASSERT:[0mInode of subdir does not match expected:<> but was:<1793--0
 1793--1>
 [1;31mASSERT:[0mMode of subdir does not match expected:<d-----> but was:<d--------->
 [1;31mASSERT:[0mSource File subdir empty changed
-[1;31mASSERT:[0mChange Timestamp of subdir does not match expected:<> but was:<1598353322>
+[1;31mASSERT:[0mChange Timestamp of subdir does not match expected:<> but was:<1598648622>
 testFILE-SUBFILE
 [1;31mASSERT:[0mSource File file2.txt empty inode
 [1;31mASSERT:[0mInode of file2.txt does not match expected:<> but was:<1793--1>
 [1;31mASSERT:[0mMode of file2.txt does not match expected:<-a----> but was:<r--------->
-[1;31mASSERT:[0mAccessed Timestamp of file2.txt does not match expected:<1598353322> but was:<1598353324>
 [1;31mASSERT:[0mSource File file2.txt empty changed
-[1;31mASSERT:[0mChange Timestamp of file2.txt does not match expected:<> but was:<1598353324>
-[1;31mASSERT:[0mCreation Timestamp of file2.txt does not match expected:<1598353322> but was:<1598353324>
+[1;31mASSERT:[0mChange Timestamp of file2.txt does not match expected:<> but was:<1598648624>
 testFILE-DELETED
 [1;31mASSERT:[0mSource File delfile.txt not found
 
 Ran [1;36m8[0m tests.
 
-[1;31mFAILED[0m ([1;31mfailures=32[0m,[1;33mskipped=30[0m)
+[1;31mFAILED[0m ([1;31mfailures=28[0m,[1;33mskipped=30[0m)

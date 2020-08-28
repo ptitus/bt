@@ -1,0 +1,16 @@
+testFILESYSTEM
+ASSERT:TSK File  empty fs.type
+ASSERT:Type of filesystem does not match expected:<zfs> but was:<>
+testFILE-ZEROLENGTH
+ASSERT:TSK File file.0 not found
+testFILE-BINARY
+ASSERT:TSK File file.binary not found
+testFILE-TEXT
+ASSERT:TSK File file.txt not found
+testFILE-SUBDIR
+ASSERT:TSK File subdir not found
+testFILE-SUBFILE
+ASSERT:TSK File file2.txt not found
+testFILE-DELETED
+ASSERT:TSK File delfile.txt not found
+FAILED (failures=8,skipped=174)

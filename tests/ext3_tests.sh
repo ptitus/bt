@@ -148,7 +148,7 @@ oneTimeSetUp() {
 	bolt script run ${myDir}/${tskScript} --targets "$vmTskMachineName"
 
 	# shutdown tsk machine
-	vagrant halt $tskMachineId
+#	vagrant halt $tskMachineId
 
 #COMMENT
 	# load .json files in variables

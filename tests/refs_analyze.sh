@@ -31,9 +31,9 @@ function get_fileinfo() {
 					inode=$(fls -p -r -o "$firstUnit" "$imageFile" | grep $name | cut -d " " -f 2 | grep -oP '.*(?=:)') 
 					#inode=$(echo "$line" | cut -d "|" -f 3)
 					modified=$(echo "$line" | cut -d "|" -f 9)
-					accessed=$(echo "$line" | cut -d "|" -f 9)
-					changed=$(echo "$line" | cut -d "|" -f 9)
-					created=$(echo "$line" | cut -d "|" -f 9)
+					accessed=$(echo "$line" | cut -d "|" -f 8)
+					changed=$(echo "$line" | cut -d "|" -f 10)
+					created=$(echo "$line" | cut -d "|" -f 11)
 					size=$(echo "$line" | cut -d "|" -f 7)
 					case "$fileType" in
 						(d)

@@ -17,8 +17,6 @@ testFILESYSTEM
 testFILE-ZEROLENGTH
 testFILE-BINARY
 testFILE-TEXT
-[1;31mASSERT:[0mAccessed Timestamp of file.txt does not match expected:<1598259615> but was:<1598259616>
-[1;31mASSERT:[0mCreation Timestamp of file.txt does not match expected:<1598259615> but was:<1598259616>
 testFILE-SUBDIR
 testFILE-SUBFILE
 testFILE-DELETED
@@ -26,4 +24,4 @@ testFILE-DELETED
 
 Ran [1;36m8[0m tests.
 
-[1;31mFAILED[0m ([1;31mfailures=3[0m,[1;33mskipped=30[0m)
+[1;31mFAILED[0m ([1;31mfailures=1[0m,[1;33mskipped=30[0m)

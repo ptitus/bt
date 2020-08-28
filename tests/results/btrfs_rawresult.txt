@@ -1,0 +1,81 @@
+Bringing machine 'generator_lnx' up with 'virtualbox' provider...
+==> generator_lnx: Clearing any previously set forwarded ports...
+==> generator_lnx: Fixed port collision for 22 => 2222. Now on port 2201.
+==> generator_lnx: Clearing any previously set network interfaces...
+==> generator_lnx: Preparing network interfaces based on configuration...
+    generator_lnx: Adapter 1: nat
+==> generator_lnx: Forwarding ports...
+    generator_lnx: 22 (guest) => 2255 (host) (adapter 1)
+    generator_lnx: 22 (guest) => 2201 (host) (adapter 1)
+==> generator_lnx: Running 'pre-boot' VM customizations...
+==> generator_lnx: Booting VM...
+==> generator_lnx: Waiting for machine to boot. This may take a few minutes...
+    generator_lnx: SSH address: 127.0.0.1:2201
+    generator_lnx: SSH username: vagrant
+    generator_lnx: SSH auth method: private key
+==> generator_lnx: Machine booted and ready!
+==> generator_lnx: Checking for guest additions in VM...
+==> generator_lnx: Setting hostname...
+==> generator_lnx: Mounting shared folders...
+    generator_lnx: /data => /home/peter/projects/bt/data
+    generator_lnx: /vagrant => /home/peter/projects/bt/vagrant/ubuntu-18-04_mate-desktop
+==> generator_lnx: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> generator_lnx: flag to force provisioning. Provisioners marked to run always will still run.
+Started on generator-lnx...
+Finished on generator-lnx:
+Successful on 1 target: generator-lnx
+Ran on 1 target in 1 min, 45 sec
+==> generator_lnx: Attempting graceful shutdown of VM...
+Started on sleuthkit-fkiecad...
+Finished on sleuthkit-fkiecad:
+Successful on 1 target: sleuthkit-fkiecad
+Ran on 1 target in 17.09 sec
+testFILESYSTEM-TYPE
+[1;31mASSERT:[0mTSK File  empty fs.type
+[1;31mASSERT:[0mType of filesystem does not match expected:<btrfs> but was:<>
+testFILE-ZEROLENGTH
+[1;31mASSERT:[0mTSK File file.0 empty filepath
+[1;31mASSERT:[0mPath of file.0 does not match expected:</file.0> but was:<>
+[1;31mASSERT:[0mTSK File file.0 empty mode
+[1;31mASSERT:[0mMode of file.0 does not match expected:<rrw-r--r--> but was:<>
+[1;31mASSERT:[0mTSK File file.0 empty changed
+[1;31mASSERT:[0mChange Timestamp of file.0 does not match expected:<1598648190> but was:<>
+[1;31mASSERT:[0mCreation Timestamp of file.0 does not match expected:<0> but was:<1598648190>
+testFILE-BINARY
+[1;31mASSERT:[0mTSK File file.binary empty filepath
+[1;31mASSERT:[0mPath of file.binary does not match expected:</file.binary> but was:<>
+[1;31mASSERT:[0mTSK File file.binary empty mode
+[1;31mASSERT:[0mMode of file.binary does not match expected:<rrw-r--r--> but was:<>
+[1;31mASSERT:[0mTSK File file.binary empty changed
+[1;31mASSERT:[0mChange Timestamp of file.binary does not match expected:<1598648190> but was:<>
+[1;31mASSERT:[0mCreation Timestamp of file.binary does not match expected:<0> but was:<1598648190>
+testFILE-TEXT
+[1;31mASSERT:[0mTSK File file.txt empty filepath
+[1;31mASSERT:[0mPath of file.txt does not match expected:</file.txt> but was:<>
+[1;31mASSERT:[0mTSK File file.txt empty mode
+[1;31mASSERT:[0mMode of file.txt does not match expected:<rrw-r--r--> but was:<>
+[1;31mASSERT:[0mTSK File file.txt empty changed
+[1;31mASSERT:[0mChange Timestamp of file.txt does not match expected:<1598648190> but was:<>
+[1;31mASSERT:[0mCreation Timestamp of file.txt does not match expected:<0> but was:<1598648190>
+testFILE-SUBDIR
+[1;31mASSERT:[0mTSK File subdir empty filepath
+[1;31mASSERT:[0mPath of subdir does not match expected:</subdir> but was:<>
+[1;31mASSERT:[0mTSK File subdir empty mode
+[1;31mASSERT:[0mMode of subdir does not match expected:<drwxr-xr-x> but was:<>
+[1;31mASSERT:[0mTSK File subdir empty changed
+[1;31mASSERT:[0mChange Timestamp of subdir does not match expected:<1598648190> but was:<>
+[1;31mASSERT:[0mCreation Timestamp of subdir does not match expected:<0> but was:<1598648190>
+testFILE-SUBFILE
+[1;31mASSERT:[0mTSK File file2.txt empty filepath
+[1;31mASSERT:[0mPath of file2.txt does not match expected:</subdir/file2.txt> but was:<>
+[1;31mASSERT:[0mTSK File file2.txt empty mode
+[1;31mASSERT:[0mMode of file2.txt does not match expected:<rrw-r--r--> but was:<>
+[1;31mASSERT:[0mTSK File file2.txt empty changed
+[1;31mASSERT:[0mChange Timestamp of file2.txt does not match expected:<1598648190> but was:<>
+[1;31mASSERT:[0mCreation Timestamp of file2.txt does not match expected:<0> but was:<1598648190>
+testFILE-DELETED
+[1;31mASSERT:[0mTSK File delfile.txt not found
+
+Ran [1;36m7[0m tests.
+
+[1;31mFAILED[0m ([1;31mfailures=39[0m,[1;33mskipped=30[0m)
